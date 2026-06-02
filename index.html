@@ -108,7 +108,7 @@
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan-400); margin-bottom: 16px; }
     .section-title { font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin-bottom: 16px; }
-    .section-subtitle { font-size: 1.05rem; color: var(--gray-400); max-width: 520px; line-height: 1.7; }
+    .section-subtitle { font-size: 1rem; color: var(--gray-400); max-width: 700px; line-height: 1.8; margin-top: 10px; }
 
     /* ── Scroll Reveal ── */
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s var(--ease-out),transform .7s var(--ease-out); }
@@ -120,7 +120,7 @@
 
     /* ── Services ── */
     #services { background: var(--navy-900); }
-    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; flex-wrap: wrap; gap: 24px; }
+    .services-header { margin-bottom: 52px; }
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 20px; }
     .service-card { background: var(--navy-700); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 32px 28px; position: relative; overflow: hidden; cursor: default; transition: transform .3s var(--ease-out),border-color .3s,box-shadow .3s; }
     .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--cyan-400),var(--blue-400)); transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease-out); }
@@ -155,7 +155,7 @@
 
     /* ── Before & After ── */
     #before-after { background: var(--navy-900); }
-    .ba-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 24px; }
+    .ba-header { margin-bottom: 40px; }
     .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     @media (max-width: 900px) { .ba-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 560px) { .ba-grid { grid-template-columns: 1fr; } }
@@ -167,7 +167,7 @@
 
     /* ── Portfolio ── */
     #portfolio { background: var(--navy-800); }
-    .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 24px; }
+    .portfolio-header { margin-bottom: 40px; }
     .portfolio-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
     @media (max-width: 640px) { .portfolio-grid { grid-template-columns: 1fr; } }
     .portfolio-item { position: relative; border-radius: 16px; overflow: hidden; background: var(--navy-700); transition: transform .35s var(--ease-out),box-shadow .35s; }
@@ -330,7 +330,6 @@
     <li><a href="products.html">商品</a></li>
     <li><a href="#reviews">客戶好評</a></li>
     <li><a href="#pricing">收費標準</a></li>
-    <li><a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="nav-line">LINE 諮詢</a></li>
     <li><a href="#cta" class="nav-cta">立即估價</a></li>
   </ul>
 </nav>
