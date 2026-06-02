@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工程實績 | 懋洲冷氣工程 MZAC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-900: #050e1a; --navy-800: #0a1628; --navy-700: #0d2137;
+      --navy-600: #112d4a; --navy-500: #1a3a5c;
+      --blue-400: #2563a8; --blue-300: #3b82c4;
+      --cyan-400: #22a6c8; --cyan-300: #38bdf8;
+      --gold: #c9a84c; --gold-light: #e8c96a;
+      --white: #ffffff; --gray-300: #cbd5e1; --gray-400: #94a3b8; --gray-600: #475569;
+      --line-green: #06C755;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--navy-800); color: var(--white); overflow-x: hidden; line-height: 1.6; }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--navy-900); } ::-webkit-scrollbar-thumb { background: var(--blue-400); border-radius: 3px; }
+
+    /* ── Nav ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5vw; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(5,14,26,.94); backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { width: 42px; height: 42px; flex-shrink: 0; }
+    .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .nav-logo-text { font-size: 17px; font-weight: 700; color: var(--white); letter-spacing: .04em; }
+    .nav-logo-text span { color: var(--cyan-300); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--gray-300); text-decoration: none; font-size: 14px; letter-spacing: .08em; position: relative; transition: color .25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--cyan-400); transition: width .3s var(--ease-out); border-radius: 1px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-line { display: inline-flex !important; align-items: center; gap: 6px; padding: 7px 14px; background: var(--line-green) !important; color: #fff !important; border-radius: 6px; font-weight: 700; font-size: 13px !important; transition: transform .2s, box-shadow .2s !important; }
+    .nav-line::after { display: none !important; }
+    .nav-line:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6,199,85,.4); }
+    .nav-cta { padding: 8px 20px; background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); color: #fff !important; border-radius: 6px; font-weight: 600; font-size: 14px !important; transition: transform .2s, box-shadow .2s !important; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,166,200,.4); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      padding: 130px 5vw 70px;
+      background: var(--navy-900);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(34,166,200,.05) 1px,transparent 1px), linear-gradient(90deg,rgba(34,166,200,.05) 1px,transparent 1px);
+      background-size: 60px 60px;
+    }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-hero-tag { font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan-400); display: block; margin-bottom: 14px; }
+    .page-hero-title { font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; margin-bottom: 16px; }
+    .page-hero-title span { background: linear-gradient(135deg,var(--cyan-300),var(--blue-300)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-hero-sub { font-size: 1rem; color: var(--gray-400); max-width: 480px; }
+
+    /* ── Filter ── */
+    .filter-bar { background: var(--navy-800); border-bottom: 1px solid rgba(255,255,255,.06); padding: 0 5vw; position: sticky; top: 68px; z-index: 90; }
+    .filter-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 4px; padding: 14px 0; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,.1);
+      background: transparent; color: var(--gray-400); font-size: 13px; font-weight: 600;
+      letter-spacing: .06em; cursor: pointer; transition: all .25s var(--ease-out);
+    }
+    .filter-btn:hover { border-color: rgba(34,166,200,.4); color: var(--white); background: rgba(34,166,200,.08); }
+    .filter-btn.active { background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); border-color: transparent; color: #fff; }
+
+    /* ── Grid ── */
+    .portfolio-section { padding: 60px 5vw 100px; }
+    .portfolio-section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .portfolio-count { font-size: 13px; color: var(--gray-600); margin-bottom: 28px; letter-spacing: .06em; }
+    .portfolio-count span { color: var(--cyan-300); font-weight: 700; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .portfolio-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 520px)  { .portfolio-grid { grid-template-columns: 1fr; } }
+
+    .p-card {
+      position: relative; border-radius: 14px; overflow: hidden;
+      background: var(--navy-700); border: 1px solid rgba(255,255,255,.07);
+      cursor: pointer;
+      transition: transform .35s var(--ease-out), box-shadow .35s, border-color .35s, opacity .3s;
+    }
+    .p-card.hidden { display: none; }
+    .p-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(5,14,26,.7); border-color: rgba(34,166,200,.3); }
+    .p-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; filter: brightness(.88) saturate(.9); transition: transform .5s var(--ease-out), filter .35s; }
+    .p-card:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.05); }
+
+    .p-card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 48px 16px 16px;
+      background: linear-gradient(to top, rgba(5,14,26,.92) 0%, transparent 100%);
+    }
+    .p-card-cat {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--cyan-300); border: 1px solid rgba(34,166,200,.4);
+      border-radius: 12px; padding: 2px 10px; margin-bottom: 6px;
+    }
+    .p-card-title { font-size: 13px; font-weight: 700; line-height: 1.4; }
+
+    /* empty state */
+    .empty-state { text-align: center; padding: 80px 20px; color: var(--gray-600); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; opacity: .4; }
+    .empty-state p { font-size: 14px; }
+
+    /* ── CTA strip ── */
+    .cta-strip { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.06); padding: 60px 5vw; text-align: center; }
+    .cta-strip h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+    .cta-strip p { color: var(--gray-400); font-size: 14px; margin-bottom: 28px; }
+    .cta-strip-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: .06em; transition: transform .25s var(--ease-out), box-shadow .25s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(34,166,200,.45); }
+    .btn-line { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--line-green); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform .25s var(--ease-out), box-shadow .25s; }
+    .btn-line:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(6,199,85,.4); }
+
+    /* ── Footer ── */
+    footer { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.06); padding: 40px 5vw 28px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 13px; color: var(--gray-600); }
+    .footer-line { font-size: 13px; color: #4ade80; }
+
+    /* ── Floating LINE ── */
+    .line-float { position: fixed; bottom: 32px; right: 28px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: var(--line-green); display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 6px 24px rgba(6,199,85,.5); transition: transform .3s var(--ease-out), box-shadow .3s; }
+    .line-float:hover { transform: scale(1.12) translateY(-3px); box-shadow: 0 12px 36px rgba(6,199,85,.6); }
+    .line-float svg { width: 28px; height: 28px; fill: #fff; }
+    .line-float-ring { position: fixed; bottom: 32px; right: 28px; z-index: 199; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--line-green); animation: lineRing 2.5s ease-out infinite; pointer-events: none; }
+    @keyframes lineRing { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(2.2);opacity:0} }
+
+    /* reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
+    <span class="nav-logo-text">懋洲<span>冷氣工程</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">服務項目</a></li>
+    <li><a href="index.html#before-after">清洗對比</a></li>
+    <li><a href="portfolio.html" class="active">工程實績</a></li>
+    <li><a href="products.html">商品</a></li>
+    <li><a href="index.html#reviews">客戶好評</a></li>
+    <li><a href="index.html#pricing">收費標準</a></li>
+    <li><a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="nav-line">LINE 諮詢</a></li>
+    <li><a href="index.html#cta" class="nav-cta">立即估價</a></li>
+  </ul>
+</nav>
+
+<!-- ── Page Hero ── -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <span class="page-hero-tag">Portfolio</span>
+    <h1 class="page-hero-title">工程實績<br><span>真實案例紀錄</span></h1>
+    <p class="page-hero-sub">每一件工程都是我們認真付出的成果。安裝、清洗、維修，一件一件累積的信任。</p>
+  </div>
+</div>
+
+<!-- ── Filter ── -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="install">安裝工程</button>
+    <button class="filter-btn" data-filter="cleaning">清洗保養</button>
+    <button class="filter-btn" data-filter="repair">維修移機</button>
+  </div>
+</div>
+
+<!-- ── Portfolio Grid ── -->
+<div class="portfolio-section">
+  <div class="portfolio-section-inner">
+    <div class="portfolio-count">共顯示 <span id="count">12</span> 件工程案例</div>
+
+    <div class="portfolio-grid" id="portfolio-grid">
+
+      <!-- 安裝工程 -->
+      <div class="p-card reveal" data-category="install">
+        <img src="images/work2.jpg" alt="室內分離式冷氣安裝" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">安裝工程</div>
+          <div class="p-card-title">室內分離式冷氣配管施工</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="install">
+        <img src="images/work1.jpg" alt="室外機安裝配管" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">安裝工程</div>
+          <div class="p-card-title">室外機安裝與管線配置</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="install">
+        <img src="images/install2.jpg" alt="安裝保養維修案例" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">安裝工程</div>
+          <div class="p-card-title">住宅冷氣安裝 · 保養 · 維修</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="install">
+        <img src="images/install3.jpg" alt="完整安裝工程" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">安裝工程</div>
+          <div class="p-card-title">室外機 · 配管 · 室內機一條龍</div>
+        </div>
+      </div>
+
+      <!-- 清洗保養 -->
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba4.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">濾網深層清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba5.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">蒸發器清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba3.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">翅片積垢清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba6.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">冷凝器深層清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba7.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">風扇葉輪清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba8.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">窗型冷氣清洗 Before &amp; After</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba1.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">分離式冷氣深層清洗</div>
+        </div>
+      </div>
+
+      <div class="p-card reveal" data-category="cleaning">
+        <img src="images/ba2.jpg" alt="清洗前後對比" />
+        <div class="p-card-overlay">
+          <div class="p-card-cat">清洗保養</div>
+          <div class="p-card-title">商用冷氣清洗保養案例</div>
+        </div>
+      </div>
+
+    </div><!-- /portfolio-grid -->
+
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <div class="icon">📂</div>
+      <p>此分類尚無案例，更多實績持續更新中</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CTA Strip ── -->
+<div class="cta-strip">
+  <h3>想讓您的冷氣也煥然一新？</h3>
+  <p>免費到府勘查估價，透明報價，技師親自說明施工方案。</p>
+  <div class="cta-strip-btns">
+    <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-line">LINE：@559tescn</a>
+    <a href="index.html#cta" class="btn-primary">免費估價諮詢</a>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 懋洲冷氣工程 MZAC 版權所有</div>
+      <div class="footer-line">LINE：@559tescn</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Floating LINE ── -->
+<div class="line-float-ring"></div>
+<a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="line-float" title="LINE 加好友">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.952 12.137C19.952 7.596 15.483 3.9 10 3.9S.048 7.596.048 12.137c0 4.1 3.637 7.532 8.549 8.183.333.072.786.22.9.505.103.26.068.666.033.928l-.146.876c-.045.26-.205 1.018.892.555 1.097-.463 5.92-3.485 8.077-5.967 1.49-1.635 2.599-3.625 2.599-6.08z"/>
+  </svg>
+</a>
+
+<script>
+  /* ── Filter ── */
+  const btns  = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.p-card');
+  const countEl = document.getElementById('count');
+  const emptyEl  = document.getElementById('empty-state');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      countEl.textContent = visible;
+      emptyEl.style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
