@@ -117,11 +117,6 @@
         linear-gradient(165deg, var(--bg-deep) 0%, var(--bg-surface) 100%);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    .page-hero-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(56,189,248,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
     .page-hero-glow {
       position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
       width: 560px; height: 480px; border-radius: 50%;
@@ -304,7 +299,7 @@
     .line-float:hover { transform: scale(1.06) translateY(-3px); box-shadow: 0 0 0 1px rgba(6,199,85,.5), 0 12px 36px rgba(6,199,85,.55); }
 
     /* ── Reveal — initial state; GSAP animates via ScrollTrigger.batch ── */
-    .reveal { opacity: 0; transform: translateY(28px); filter: blur(4px); will-change: transform, opacity; }
+    .reveal { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
   </style>
 </head>
 <body>
@@ -337,7 +332,6 @@
 
 <!-- ── Page Hero ── -->
 <div class="page-hero">
-  <div class="page-hero-grid"></div>
   <div class="page-hero-glow"></div>
   <div class="page-hero-inner">
     <div>
@@ -801,9 +795,9 @@
   ScrollTrigger.batch('.reveal', {
     onEnter: (batch) => {
       gsap.to(batch, {
-        opacity: 1, y: 0, filter: 'blur(0px)',
+        opacity: 1, y: 0,
         duration: 0.9, stagger: 0.1, ease: 'power2.out',
-        overwrite: true, clearProps: 'filter',
+        overwrite: true,
       });
     },
     start: 'top 90%',
