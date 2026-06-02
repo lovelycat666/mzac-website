@@ -12,7 +12,8 @@
       --blue-400: #2563a8; --blue-300: #3b82c4;
       --cyan-400: #22a6c8; --cyan-300: #38bdf8;
       --gold: #c9a84c; --gold-light: #e8c96a;
-      --white: #ffffff; --gray-300: #cbd5e1; --gray-400: #94a3b8; --gray-600: #475569;
+      --white: #ffffff; --gray-100: #f0f4f8; --gray-300: #cbd5e1;
+      --gray-400: #94a3b8; --gray-600: #475569;
       --line-green: #06C755;
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -32,97 +33,151 @@
     .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--cyan-400); transition: width .3s var(--ease-out); border-radius: 1px; }
     .nav-links a:hover, .nav-links a.active { color: var(--white); }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-line { display: inline-flex !important; align-items: center; gap: 6px; padding: 7px 14px; background: var(--line-green) !important; color: #fff !important; border-radius: 6px; font-weight: 700; font-size: 13px !important; transition: transform .2s, box-shadow .2s !important; }
-    .nav-line::after { display: none !important; }
-    .nav-line:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6,199,85,.4); }
     .nav-cta { padding: 8px 20px; background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); color: #fff !important; border-radius: 6px; font-weight: 600; font-size: 14px !important; transition: transform .2s, box-shadow .2s !important; }
     .nav-cta::after { display: none !important; }
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,166,200,.4); }
     @media (max-width: 640px) { .nav-links { display: none; } }
 
     /* ── Page Hero ── */
-    .page-hero {
-      padding: 130px 5vw 70px;
-      background: var(--navy-900);
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .page-hero-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(34,166,200,.05) 1px,transparent 1px), linear-gradient(90deg,rgba(34,166,200,.05) 1px,transparent 1px);
-      background-size: 60px 60px;
-    }
+    .page-hero { padding: 130px 5vw 70px; background: var(--navy-900); position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .page-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(34,166,200,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(34,166,200,.05) 1px,transparent 1px); background-size: 60px 60px; }
     .page-hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
     .page-hero-tag { font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan-400); display: block; margin-bottom: 14px; }
-    .page-hero-title { font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; margin-bottom: 16px; }
+    .page-hero-title { font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; margin-bottom: 12px; }
     .page-hero-title span { background: linear-gradient(135deg,var(--cyan-300),var(--blue-300)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .page-hero-sub { font-size: 1rem; color: var(--gray-400); max-width: 480px; }
+    .page-hero-sub { font-size: 1rem; color: var(--gray-400); max-width: 500px; line-height: 1.7; }
 
     /* ── Filter ── */
     .filter-bar { background: var(--navy-800); border-bottom: 1px solid rgba(255,255,255,.06); padding: 0 5vw; position: sticky; top: 68px; z-index: 90; }
     .filter-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 4px; padding: 14px 0; flex-wrap: wrap; }
-    .filter-btn {
-      padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,.1);
-      background: transparent; color: var(--gray-400); font-size: 13px; font-weight: 600;
-      letter-spacing: .06em; cursor: pointer; transition: all .25s var(--ease-out);
-    }
+    .filter-btn { padding: 8px 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,.1); background: transparent; color: var(--gray-400); font-size: 13px; font-weight: 600; letter-spacing: .06em; cursor: pointer; transition: all .25s var(--ease-out); }
     .filter-btn:hover { border-color: rgba(34,166,200,.4); color: var(--white); background: rgba(34,166,200,.08); }
     .filter-btn.active { background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); border-color: transparent; color: #fff; }
 
     /* ── Grid ── */
     .portfolio-section { padding: 60px 5vw 100px; }
     .portfolio-section-inner { max-width: 1100px; margin: 0 auto; }
-
     .portfolio-count { font-size: 13px; color: var(--gray-600); margin-bottom: 28px; letter-spacing: .06em; }
     .portfolio-count span { color: var(--cyan-300); font-weight: 700; }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     @media (max-width: 900px) { .portfolio-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 520px)  { .portfolio-grid { grid-template-columns: 1fr; } }
 
     .p-card {
-      position: relative; border-radius: 14px; overflow: hidden;
+      position: relative; border-radius: 16px; overflow: hidden;
       background: var(--navy-700); border: 1px solid rgba(255,255,255,.07);
-      cursor: pointer;
-      transition: transform .35s var(--ease-out), box-shadow .35s, border-color .35s, opacity .3s;
+      cursor: pointer; transition: transform .35s var(--ease-out), box-shadow .35s, border-color .35s;
     }
     .p-card.hidden { display: none; }
-    .p-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(5,14,26,.7); border-color: rgba(34,166,200,.3); }
-    .p-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; filter: brightness(.88) saturate(.9); transition: transform .5s var(--ease-out), filter .35s; }
-    .p-card:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.05); }
+    .p-card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(5,14,26,.75); border-color: rgba(34,166,200,.3); }
+    .p-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; filter: brightness(.85) saturate(.9); transition: transform .5s var(--ease-out), filter .35s; }
+    .p-card:hover img { transform: scale(1.07); filter: brightness(1) saturate(1.05); }
 
     .p-card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 48px 16px 16px;
-      background: linear-gradient(to top, rgba(5,14,26,.92) 0%, transparent 100%);
+      padding: 56px 18px 18px;
+      background: linear-gradient(to top,rgba(5,14,26,.95) 0%,transparent 100%);
+      transition: padding .3s var(--ease-out);
     }
-    .p-card-cat {
-      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--cyan-300); border: 1px solid rgba(34,166,200,.4);
-      border-radius: 12px; padding: 2px 10px; margin-bottom: 6px;
-    }
-    .p-card-title { font-size: 13px; font-weight: 700; line-height: 1.4; }
+    .p-card:hover .p-card-overlay { padding-bottom: 22px; }
+    .p-card-cat { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan-300); border: 1px solid rgba(34,166,200,.4); border-radius: 12px; padding: 2px 10px; margin-bottom: 7px; }
+    .p-card-title { font-size: 14px; font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
+    .p-card-hint { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 5px; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+    .p-card:hover .p-card-hint { opacity: 1; transform: translateY(0); }
+    .p-card-hint svg { width: 13px; height: 13px; fill: var(--cyan-400); flex-shrink: 0; }
 
-    /* empty state */
-    .empty-state { text-align: center; padding: 80px 20px; color: var(--gray-600); }
-    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; opacity: .4; }
-    .empty-state p { font-size: 14px; }
+    /* ── Project Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(5,14,26,.88);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      width: 100%; max-width: 880px;
+      max-height: 90vh; overflow-y: auto;
+      background: var(--navy-700);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+      position: relative;
+      transform: translateY(24px) scale(.97);
+      transition: transform .4s var(--ease-out);
+      scrollbar-width: thin;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: sticky; top: 0; left: 0; right: 0;
+      display: flex; justify-content: flex-end;
+      padding: 14px 16px 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .modal-close-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(5,14,26,.7); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; pointer-events: all;
+      transition: background .2s, transform .2s;
+      color: var(--gray-300); font-size: 18px; line-height: 1;
+    }
+    .modal-close-btn:hover { background: rgba(34,166,200,.2); transform: scale(1.1); color: var(--white); }
+
+    .modal-hero { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; margin-top: -50px; }
+
+    .modal-body { padding: 28px 36px 36px; }
+    @media (max-width: 600px) { .modal-body { padding: 20px 20px 28px; } }
+
+    .modal-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .modal-cat-badge { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan-300); background: rgba(34,166,200,.12); border: 1px solid rgba(34,166,200,.3); border-radius: 12px; padding: 3px 12px; }
+    .modal-location { font-size: 12px; color: var(--gray-600); display: flex; align-items: center; gap: 4px; }
+
+    .modal-title { font-size: clamp(1.4rem,3vw,2rem); font-weight: 800; line-height: 1.2; letter-spacing: -.02em; margin-bottom: 14px; }
+    .modal-desc { font-size: 14px; color: var(--gray-400); line-height: 1.8; margin-bottom: 28px; max-width: 680px; }
+
+    .modal-divider { height: 1px; background: rgba(255,255,255,.07); margin: 24px 0; }
+
+    .modal-section-title { font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--cyan-400); margin-bottom: 14px; }
+
+    .modal-scope { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+    .modal-scope li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--gray-300); line-height: 1.5; }
+    .modal-scope li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan-400); flex-shrink: 0; margin-top: 7px; }
+
+    .modal-highlights { display: flex; flex-wrap: wrap; gap: 8px; }
+    .modal-highlight-tag {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--white);
+      background: rgba(34,166,200,.1); border: 1px solid rgba(34,166,200,.25);
+      border-radius: 20px; padding: 5px 14px;
+    }
+    .modal-highlight-tag span { color: var(--cyan-400); font-size: 14px; }
+
+    .modal-cta {
+      margin-top: 32px; padding: 24px 28px;
+      background: rgba(5,14,26,.5); border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.07);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .modal-cta-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .modal-cta-text p  { font-size: 13px; color: var(--gray-400); }
+    .modal-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform .25s var(--ease-out), box-shadow .25s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(34,166,200,.4); }
+    .btn-line { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; background: var(--line-green); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform .25s var(--ease-out), box-shadow .25s; }
+    .btn-line:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(6,199,85,.4); }
 
     /* ── CTA strip ── */
     .cta-strip { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.06); padding: 60px 5vw; text-align: center; }
     .cta-strip h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
     .cta-strip p { color: var(--gray-400); font-size: 14px; margin-bottom: 28px; }
     .cta-strip-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: linear-gradient(135deg,var(--cyan-400),var(--blue-400)); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: .06em; transition: transform .25s var(--ease-out), box-shadow .25s; }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(34,166,200,.45); }
-    .btn-line { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--line-green); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform .25s var(--ease-out), box-shadow .25s; }
-    .btn-line:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(6,199,85,.4); }
 
     /* ── Footer ── */
     footer { background: var(--navy-900); border-top: 1px solid rgba(255,255,255,.06); padding: 40px 5vw 28px; }
@@ -131,14 +186,13 @@
     .footer-copy { font-size: 13px; color: var(--gray-600); }
     .footer-line { font-size: 13px; color: #4ade80; }
 
-    /* ── Floating LINE ── */
+    /* Floating LINE */
     .line-float { position: fixed; bottom: 32px; right: 28px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: var(--line-green); display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 6px 24px rgba(6,199,85,.5); transition: transform .3s var(--ease-out), box-shadow .3s; }
     .line-float:hover { transform: scale(1.12) translateY(-3px); box-shadow: 0 12px 36px rgba(6,199,85,.6); }
     .line-float svg { width: 28px; height: 28px; fill: #fff; }
     .line-float-ring { position: fixed; bottom: 32px; right: 28px; z-index: 199; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--line-green); animation: lineRing 2.5s ease-out infinite; pointer-events: none; }
     @keyframes lineRing { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(2.2);opacity:0} }
 
-    /* reveal */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
@@ -168,7 +222,7 @@
   <div class="page-hero-inner">
     <span class="page-hero-tag">Portfolio</span>
     <h1 class="page-hero-title">工程實績<br><span>真實案例紀錄</span></h1>
-    <p class="page-hero-sub">每一件工程都是我們認真付出的成果。安裝、清洗、維修，一件一件累積的信任。</p>
+    <p class="page-hero-sub">每一件工程都是我們認真付出的成果。點擊任一案例，了解完整施工內容。</p>
   </div>
 </div>
 
@@ -186,114 +240,155 @@
 <div class="portfolio-section">
   <div class="portfolio-section-inner">
     <div class="portfolio-count">共顯示 <span id="count">12</span> 件工程案例</div>
-
     <div class="portfolio-grid" id="portfolio-grid">
 
-      <!-- 安裝工程 -->
-      <div class="p-card reveal" data-category="install">
-        <img src="images/work2.jpg" alt="室內分離式冷氣安裝" />
+      <div class="p-card reveal" data-category="install" data-project="0">
+        <img src="images/work2.jpg" alt="住宅冷氣安裝" />
         <div class="p-card-overlay">
           <div class="p-card-cat">安裝工程</div>
-          <div class="p-card-title">室內分離式冷氣配管施工</div>
+          <div class="p-card-title">住宅三房分離式冷氣全室安裝</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="install">
-        <img src="images/work1.jpg" alt="室外機安裝配管" />
+      <div class="p-card reveal" data-category="install" data-project="1">
+        <img src="images/work1.jpg" alt="室外機安裝" />
         <div class="p-card-overlay">
           <div class="p-card-cat">安裝工程</div>
-          <div class="p-card-title">室外機安裝與管線配置</div>
+          <div class="p-card-title">公寓室外機架設與配管工程</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="install">
-        <img src="images/install2.jpg" alt="安裝保養維修案例" />
+      <div class="p-card reveal" data-category="install" data-project="2">
+        <img src="images/install2.jpg" alt="安裝保養維修" />
         <div class="p-card-overlay">
           <div class="p-card-cat">安裝工程</div>
-          <div class="p-card-title">住宅冷氣安裝 · 保養 · 維修</div>
+          <div class="p-card-title">住宅冷氣安裝保養維修一條龍</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="install">
+      <div class="p-card reveal" data-category="install" data-project="3">
         <img src="images/install3.jpg" alt="完整安裝工程" />
         <div class="p-card-overlay">
           <div class="p-card-cat">安裝工程</div>
-          <div class="p-card-title">室外機 · 配管 · 室內機一條龍</div>
+          <div class="p-card-title">新裝修住宅冷氣系統完整建置</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <!-- 清洗保養 -->
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba4.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="4">
+        <img src="images/ba4.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">濾網深層清洗 Before &amp; After</div>
+          <div class="p-card-title">濾網嚴重積垢深層清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba5.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="5">
+        <img src="images/ba5.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">蒸發器清洗 Before &amp; After</div>
+          <div class="p-card-title">分離式冷氣蒸發器全面清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba3.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="6">
+        <img src="images/ba3.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">翅片積垢清洗 Before &amp; After</div>
+          <div class="p-card-title">翅片高壓水柱深層清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba6.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="7">
+        <img src="images/ba6.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">冷凝器深層清洗 Before &amp; After</div>
+          <div class="p-card-title">商用冷凝器黑垢全面清除</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba7.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="8">
+        <img src="images/ba7.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">風扇葉輪清洗 Before &amp; After</div>
+          <div class="p-card-title">風扇葉輪拆卸式深度清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba8.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="9">
+        <img src="images/ba8.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">窗型冷氣清洗 Before &amp; After</div>
+          <div class="p-card-title">窗型冷氣全機拆解清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba1.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="10">
+        <img src="images/ba1.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">分離式冷氣深層清洗</div>
+          <div class="p-card-title">吊隱式冷氣防水套包覆清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-      <div class="p-card reveal" data-category="cleaning">
-        <img src="images/ba2.jpg" alt="清洗前後對比" />
+      <div class="p-card reveal" data-category="cleaning" data-project="11">
+        <img src="images/ba2.jpg" alt="清洗對比" />
         <div class="p-card-overlay">
           <div class="p-card-cat">清洗保養</div>
-          <div class="p-card-title">商用冷氣清洗保養案例</div>
+          <div class="p-card-title">分離式壁掛冷氣年度保養清洗</div>
+          <div class="p-card-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>點擊查看完整專案</div>
         </div>
       </div>
 
-    </div><!-- /portfolio-grid -->
-
-    <div class="empty-state" id="empty-state" style="display:none;">
-      <div class="icon">📂</div>
-      <p>此分類尚無案例，更多實績持續更新中</p>
     </div>
+    <div class="empty-state" id="empty-state" style="display:none;text-align:center;padding:80px 20px;color:var(--gray-600);">
+      <div style="font-size:3rem;opacity:.4;margin-bottom:16px;">📂</div>
+      <p style="font-size:14px;">此分類尚無案例，更多實績持續更新中</p>
+    </div>
+  </div>
+</div>
 
+<!-- ── Project Modal ── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-close">
+      <button class="modal-close-btn" id="modal-close-btn">✕</button>
+    </div>
+    <img class="modal-hero" id="modal-img" src="" alt="" />
+    <div class="modal-body">
+      <div class="modal-meta">
+        <span class="modal-cat-badge" id="modal-cat"></span>
+        <span class="modal-location" id="modal-location"></span>
+      </div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-divider"></div>
+      <div class="modal-section-title">施工項目</div>
+      <ul class="modal-scope" id="modal-scope"></ul>
+      <div class="modal-divider"></div>
+      <div class="modal-section-title">施工亮點</div>
+      <div class="modal-highlights" id="modal-highlights"></div>
+      <div class="modal-cta">
+        <div class="modal-cta-text">
+          <h4>想要相同的服務？</h4>
+          <p>免費到府估價，透明報價，當日或預約施工。</p>
+        </div>
+        <div class="modal-cta-btns">
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-line">LINE 詢問</a>
+          <a href="index.html#cta" class="btn-primary">免費估價</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -317,42 +412,177 @@
   </div>
 </footer>
 
-<!-- ── Floating LINE ── -->
 <div class="line-float-ring"></div>
-<a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="line-float" title="LINE 加好友">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M19.952 12.137C19.952 7.596 15.483 3.9 10 3.9S.048 7.596.048 12.137c0 4.1 3.637 7.532 8.549 8.183.333.072.786.22.9.505.103.26.068.666.033.928l-.146.876c-.045.26-.205 1.018.892.555 1.097-.463 5.92-3.485 8.077-5.967 1.49-1.635 2.599-3.625 2.599-6.08z"/>
-  </svg>
+<a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="line-float">
+  <svg viewBox="0 0 24 24"><path d="M19.952 12.137C19.952 7.596 15.483 3.9 10 3.9S.048 7.596.048 12.137c0 4.1 3.637 7.532 8.549 8.183.333.072.786.22.9.505.103.26.068.666.033.928l-.146.876c-.045.26-.205 1.018.892.555 1.097-.463 5.92-3.485 8.077-5.967 1.49-1.635 2.599-3.625 2.599-6.08z"/></svg>
 </a>
 
 <script>
+  /* ── Project Data ── */
+  const projects = [
+    {
+      cat: '安裝工程', img: 'images/work2.jpg',
+      location: '📍 住宅案例',
+      title: '住宅三房分離式冷氣全室安裝',
+      desc: '客戶新居入住前進行全室冷氣規劃，由我們工程師到府勘查後，依空間格局建議各房最佳安裝位置，管線沿天花板與牆面走線，做到整齊不突兀。施工當日完成，完工後進行全系統試運轉及驗收。',
+      scope: ['三台分離式冷氣位置規劃與安裝', '銅管配線沿牆隱藏走線，美觀整齊', '室外機架設及防震固定', '配電迴路確認，安全保護設施安裝', '系統試運轉、冷房效果測試', '完工清潔，交屋前驗收說明'],
+      highlights: ['🏠 住宅案例', '✅ 走線整齊美觀', '⚡ 當日完工', '🛡️ 一年施工保固']
+    },
+    {
+      cat: '安裝工程', img: 'images/work1.jpg',
+      location: '📍 公寓大樓',
+      title: '公寓室外機架設與高空配管工程',
+      desc: '本案位於公寓高樓層，室外機需安裝於外牆架設位置，施工難度較高。技師全程配戴安全裝備，採用豪華型白鐵安裝架，確保長期穩固不生鏽。配管完整包覆保溫材，避免結露與耗損。',
+      scope: ['外牆高空室外機架設，安全裝備全程配戴', '白鐵豪華安裝架，耐重耐候設計', '銅管配管及保溫材包覆', '排水管路規劃，避免積水問題', '電氣配線及斷路器確認', '完工後清潔環境'],
+      highlights: ['🏗️ 高難度施工', '🔩 白鐵豪華架', '🌧️ 防鏽耐候', '✅ 安全第一']
+    },
+    {
+      cat: '安裝工程', img: 'images/install2.jpg',
+      location: '📍 住宅複合案例',
+      title: '住宅冷氣安裝、保養、維修一條龍服務',
+      desc: '本案客戶委託我們進行舊機保養及新機安裝，由同一組技師處理，省去分次預約的麻煩。舊機完成深層清洗保養後，確認機況良好；同步安裝新台分離式，整合配管讓整體配置更完善。',
+      scope: ['舊有冷氣深層清洗保養', '新機安裝位置規劃及施工', '新舊機組配管整合走線', '舊機效能評估與優化建議', '新機試運轉及冷暖測試', '一次完工，客戶無需多次預約'],
+      highlights: ['🔄 新舊整合施工', '💡 一次完工', '🧹 清洗保養同步', '📋 透明報價']
+    },
+    {
+      cat: '安裝工程', img: 'images/install3.jpg',
+      location: '📍 新裝修住宅',
+      title: '新裝修住宅冷氣系統完整建置',
+      desc: '裝修工程尾聲，配合室內設計師規劃冷氣位置及管線走向，確保出風口、管線不影響整體室內設計。室外機選擇最佳通風位置架設，室內機安裝高度及角度依客戶習慣調整，完工驗收一次到位。',
+      scope: ['配合裝修設計規劃冷氣配置', '管線走向與天花板裝修整合', '室外機最佳通風位置評估', '室內機安裝高度及角度微調', '冷媒充填量確認及壓力測試', '完整書面驗收保固說明'],
+      highlights: ['🎨 配合設計施工', '📐 精確丈量規劃', '✅ 壓力測試', '🛡️ 一年保固']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba4.jpg',
+      location: '📍 住宅清洗案例',
+      title: '濾網嚴重積垢深層清洗 | Before & After',
+      desc: '客戶反映冷氣使用多年從未清洗，冷房效果明顯變差且出現異味。到府檢查後發現濾網已嚴重積垢堵塞，蒸發器也佈滿黴菌。經過深層高壓清洗後，制冷效果立即恢復，電費也跟著降低。',
+      scope: ['濾網拆卸清洗及晾乾', '蒸發器高壓水柱深層清洗', '排水盤黴菌全面清除', '防水套包覆，保護室內環境', '冷凝水管疏通確認', '清洗後效能測試，確認恢復正常'],
+      highlights: ['💧 高壓深層清洗', '🦠 黴菌完全清除', '❄️ 冷房效果恢復', '🏠 全程防水保護']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba5.jpg',
+      location: '📍 住宅清洗案例',
+      title: '分離式冷氣蒸發器積垢清洗 | Before & After',
+      desc: '本案冷氣使用約 3 年未保養，蒸發器翅片間積滿灰垢與油污，嚴重影響散熱效率。技師以專業清潔劑靜置滲透後，再用高壓清洗槍沖洗，翅片乾淨如新，客戶表示清洗後冷氣比新買還涼。',
+      scope: ['機體外殼拆卸清洗', '蒸發器翅片高壓清洗', '專業清潔劑去除油脂污垢', '全程防水套包覆保護牆面', '冷凝水盤積水清除', '重組測試，確認無異音'],
+      highlights: ['🔬 專業清潔劑', '💦 高壓沖洗', '✨ 翅片如新', '🌡️ 效能顯著提升']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba3.jpg',
+      location: '📍 住宅清洗案例',
+      title: '吊隱式冷氣翅片積垢高壓清洗 | Before & After',
+      desc: '吊隱式冷氣由於安裝於天花板內，清洗難度較高，一般客戶容易忽略保養。本案積垢已造成冷房效率下降約 30%，且有黴菌孳生的異味問題。專業清洗後效能完全恢復，異味消除。',
+      scope: ['天花板吊隱式機體拆除作業', '翅片及蒸發器深層清洗', '出風口及風道清潔', '排水盤積水及黴菌處理', '冷媒壓力確認', '重新組裝測試，氣流正常'],
+      highlights: ['🔧 吊隱專業施工', '💨 氣流恢復正常', '🚫 異味消除', '🔄 定期保養建議']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba6.jpg',
+      location: '📍 商業空間',
+      title: '商用冷凝器黑垢嚴重積累清洗 | Before & After',
+      desc: '本案為商業空間的商用冷氣，因長年未保養，冷凝器已佈滿黑色油垢及污泥，導致機組長時間高溫運轉，能耗增加且有壓縮機過載風險。經深度清洗後，機組回到正常運轉溫度，延長使用壽命。',
+      scope: ['冷凝器整體拆卸作業', '黑垢及油污高壓沖洗', '散熱片疏通，恢復散熱效率', '機組運轉溫度前後對比確認', '零件磨損狀況評估建議', '重組測試，確認效能恢復'],
+      highlights: ['🏢 商業案例', '🌡️ 溫度恢復正常', '⚡ 節能降耗', '🔧 延長機組壽命']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba7.jpg',
+      location: '📍 住宅清洗案例',
+      title: '風扇葉輪拆卸式徹底深度清洗 | Before & After',
+      desc: '一般清洗只處理外層，葉輪卻是藏污納垢的主要部位。本案客戶長期感覺風量不足，到府檢查後發現葉輪已嚴重積垢，幾乎每片葉片都附著厚實污泥。技師拆卸葉輪徹底清洗，風量立即恢復如新。',
+      scope: ['葉輪完整拆卸作業', '每片葉片逐一清洗', '葉輪及馬達周邊污垢清除', '蒸發器及濾網同步清洗', '重新組裝動平衡確認', '風量測試，確認恢復正常'],
+      highlights: ['🔩 拆卸式深度清洗', '💨 風量完全恢復', '🦠 黴菌孢子清除', '✨ 葉片潔淨如新']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba8.jpg',
+      location: '📍 住宅清洗案例',
+      title: '窗型冷氣全機拆解清洗 | Before & After',
+      desc: '窗型冷氣因結構特殊，全機清洗需要一定技術。本案機型使用超過 5 年，內外均佈滿污垢及黴菌，冷房效果大幅降低。技師拆卸外殼進行全機清洗，還原機組效能，客戶表示有換新機的感覺。',
+      scope: ['外殼拆卸，全機暴露清洗', '蒸發器及冷凝器雙面清洗', '風扇及葉輪清洗', '排水底盤積垢清除', '內外所有零件清潔組裝', '清洗後測試，確認冷房效能'],
+      highlights: ['🪟 窗型專業清洗', '🔄 全機拆解', '❄️ 效能還原', '💡 省電省錢']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba1.jpg',
+      location: '📍 住宅清洗案例',
+      title: '吊隱式冷氣防水套包覆深層清洗 | Before & After',
+      desc: '吊隱式清洗最大的挑戰是避免污水滴落到室內裝潢。懋洲技師全程使用專業防水套包覆機體，將清洗污水完全導引到指定位置排放，完工後室內環境與清洗前一樣乾淨，客戶非常滿意。',
+      scope: ['全程專業防水套包覆作業', '吊隱機體拆蓋清洗', '蒸發器高壓清洗', '排水管路疏通及確認', '冷媒量確認及補充評估', '完工清潔，不留任何污漬'],
+      highlights: ['🛡️ 全程防水保護', '🏠 不弄髒環境', '💧 污水完全導引', '✅ 完工清潔還原']
+    },
+    {
+      cat: '清洗保養', img: 'images/ba2.jpg',
+      location: '📍 住宅年度保養',
+      title: '分離式壁掛冷氣年度定期保養清洗 | Before & After',
+      desc: '建議冷氣每年至少保養一次，避免灰塵與黴菌大量累積。本案客戶已建立定期保養習慣，每年夏季前預約懋洲進行全機保養，確保整個夏天冷氣效能最佳、使用最省電。',
+      scope: ['濾網清洗及晾乾', '蒸發器定期保養清洗', '出風口及遮板清潔', '排水盤及冷凝水管確認', '冷媒壓力年度檢測', '機體外殼擦拭清潔'],
+      highlights: ['📅 年度定期保養', '⚡ 省電效益顯著', '🏥 改善空氣品質', '🔄 預防性維護']
+    }
+  ];
+
+  /* ── Modal Logic ── */
+  const overlay   = document.getElementById('modal-overlay');
+  const closeBtn  = document.getElementById('modal-close-btn');
+  const modalImg  = document.getElementById('modal-img');
+  const modalCat  = document.getElementById('modal-cat');
+  const modalLoc  = document.getElementById('modal-location');
+  const modalTitle= document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalScope= document.getElementById('modal-scope');
+  const modalHL   = document.getElementById('modal-highlights');
+
+  function openModal(idx) {
+    const p = projects[idx];
+    modalImg.src       = p.img;
+    modalImg.alt       = p.title;
+    modalCat.textContent  = p.cat;
+    modalLoc.textContent  = p.location;
+    modalTitle.textContent= p.title;
+    modalDesc.textContent = p.desc;
+    modalScope.innerHTML  = p.scope.map(s => `<li>${s}</li>`).join('');
+    modalHL.innerHTML     = p.highlights.map(h => `<div class="modal-highlight-tag">${h}</div>`).join('');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal-box').scrollTop = 0;
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.p-card').forEach(card => {
+    card.addEventListener('click', () => openModal(+card.dataset.project));
+  });
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
   /* ── Filter ── */
-  const btns  = document.querySelectorAll('.filter-btn');
+  const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.p-card');
   const countEl = document.getElementById('count');
-  const emptyEl  = document.getElementById('empty-state');
+  const emptyEl = document.getElementById('empty-state');
 
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      let visible = 0;
-      cards.forEach(card => {
-        const match = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('hidden', !match);
-        if (match) visible++;
+      const f = btn.dataset.filter;
+      let n = 0;
+      cards.forEach(c => {
+        const show = f === 'all' || c.dataset.category === f;
+        c.classList.toggle('hidden', !show);
+        if (show) n++;
       });
-      countEl.textContent = visible;
-      emptyEl.style.display = visible === 0 ? 'block' : 'none';
+      countEl.textContent = n;
+      emptyEl.style.display = n === 0 ? 'block' : 'none';
     });
   });
 
   /* ── Scroll reveal ── */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
