@@ -1570,15 +1570,18 @@
     scrollTrigger: { start: 'top -10', end: 'top -160', scrub: 0.45 },
   });
 
-  /* ── Section dark → light transitions (alternating: stats-bar, why, portfolio, brands, faq) ── */
+  /* ── Section dark → light transitions (spotlight: light while in view, dark when scrolled past) ── */
   ['stats-bar', 'why', 'portfolio', 'brands', 'faq'].forEach(id => {
     const section = document.getElementById(id);
     if (!section) return;
     ScrollTrigger.create({
       trigger: section,
-      start: 'top 55%',
-      onEnter:     () => section.classList.remove('is-dark'),
-      onLeaveBack: () => section.classList.add('is-dark'),
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter:      () => section.classList.remove('is-dark'),
+      onLeaveBack:  () => section.classList.add('is-dark'),
+      onLeave:      () => section.classList.add('is-dark'),
+      onEnterBack:  () => section.classList.remove('is-dark'),
     });
   });
 
