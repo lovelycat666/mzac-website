@@ -94,12 +94,6 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.1);
-      transition: background .45s var(--ease-out), border-color .45s, box-shadow .45s;
-    }
-    nav.nav-scrolled {
-      background: rgba(20,26,38,.97);
-      border-bottom-color: rgba(255,255,255,.14);
-      box-shadow: 0 2px 28px rgba(0,0,0,.55);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -1559,19 +1553,7 @@
     }, 800);
   });
 
-  /* ── Nav — scroll background ── */
   const navbar = document.getElementById('navbar');
-  ScrollTrigger.create({
-    start: 'top -10',
-    onEnter: () => navbar.classList.add('nav-scrolled'),
-    onLeaveBack: () => navbar.classList.remove('nav-scrolled'),
-  });
-
-  /* ── Nav shrink — scrub height ── */
-  gsap.to(navbar, {
-    height: 56,
-    scrollTrigger: { start: 'top -10', end: 'top -160', scrub: 0.45 },
-  });
 
   /* ── Section dark → light transitions (spotlight: light while in view, dark when scrolled past) ── */
   ['why', 'portfolio', 'brands', 'faq'].forEach(id => {

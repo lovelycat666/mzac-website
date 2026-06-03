@@ -85,9 +85,7 @@
       background: rgba(15,18,24,.28);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.1);
-      transition: background .45s var(--ease-out), border-color .45s, box-shadow .45s;
     }
-    nav.nav-scrolled { background: rgba(20,26,38,.97); border-bottom-color: rgba(255,255,255,.14); box-shadow: 0 2px 28px rgba(0,0,0,.55); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; }
     .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .nav-logo-img { width: 30px; height: 30px; flex-shrink: 0; }
@@ -595,9 +593,6 @@
   const loader = document.getElementById('page-loader');
   window.addEventListener('load', () => { setTimeout(() => { loader.classList.add('hidden'); }, 800); });
 
-  /* ── Nav scroll ── */
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('nav-scrolled', window.scrollY > 40); }, { passive: true });
 
   /* ── Page hero entrance ── */
   gsap.timeline({ delay: 0.9 })
