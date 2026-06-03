@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lovelycat666.github.io/mzac-website/sitemap.xml

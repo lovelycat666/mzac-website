@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
   <title>懋洲冷氣工程 MZAC | 專業空調解決方案</title>
   <meta name="description" content="懋洲冷氣工程 MZAC — 台灣專業空調安裝、清洗、保養、維修與移機服務，20年業界經驗，認證技師，透明報價。" />
   <meta property="og:type" content="website" />
@@ -857,6 +858,18 @@
       .hero-right { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 10px; }
       .trust-pill { font-size: 13px; padding: 10px 16px; }
     }
+    /* ── Mobile service cards — always show content (no hover on touch) ── */
+    @media (max-width: 768px) {
+      .service-photo-card .service-photo-card-body { transform: translateY(0); }
+      .service-photo-card .service-photo-card-desc { max-height: 100px; opacity: 1; }
+      .service-photo-card .service-photo-card-icon { display: none; }
+      .service-photo-card .service-badge { display: none; }
+      .service-photo-card .service-photo-card-overlay {
+        background: linear-gradient(to top, rgba(13,15,18,.92) 0%, rgba(13,15,18,.4) 55%, rgba(13,15,18,.1) 80%);
+      }
+      .why-photo-wrap { aspect-ratio: 4/3; }
+    }
+
     @media (max-width: 640px) {
       .nav-center { display: none; }
       .nav-phone { display: none; }
@@ -876,9 +889,9 @@
       section { padding: 64px 5vw; }
       /* Services */
       .services-photo-grid { flex-direction: column; height: auto; }
-      .service-photo-card { min-height: 260px; flex: none; }
+      .service-photo-card { min-height: 280px; flex: none; }
       .services-photo-grid.has-hover .service-photo-card,
-      .service-photo-card.is-hovered { flex: none; }
+      .services-photo-grid.has-hover .service-photo-card.is-hovered { flex: none; }
       /* Why */
       .urgent-strip { flex-direction: column; gap: 12px; }
       /* Process */
@@ -886,6 +899,13 @@
       /* CTA */
       #cta { background-attachment: scroll; padding: 80px 5vw; }
       .cta-buttons { flex-direction: column; align-items: center; }
+      /* Footer */
+      .footer-top { gap: 32px; }
+      .footer-brand { max-width: 100%; width: 100%; }
+      .footer-links-group { flex: 1; min-width: 140px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+      /* Floating LINE */
+      .line-float { bottom: 20px; right: 16px; height: 44px; padding: 0 18px; font-size: 13px; }
     }
   </style>
 </head>
@@ -1420,7 +1440,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="#" class="footer-logo">
+        <a href="index.html" class="footer-logo">
           <div class="footer-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
           <span class="footer-logo-text">懋洲冷氣工程</span>
         </a>
@@ -1666,5 +1686,6 @@
 </script>
 </body>
 </html>
+
 
 
