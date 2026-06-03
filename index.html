@@ -1115,9 +1115,9 @@
           </div>
         </div>
       </div>
-      <!-- Right: card -->
-      <div class="reveal reveal-delay-1">
-        <div class="why-content-card">
+      <!-- Right: card (wrapper has no reveal — children each animate independently) -->
+      <div>
+        <div class="why-content-card reveal">
           <span class="section-tag">為何選擇我們</span>
           <h2 class="section-title">品質與信賴<br>是我們的承諾</h2>
           <ul class="why-feature-list">
@@ -1159,7 +1159,7 @@
             </li>
           </ul>
         </div>
-        <div class="urgent-strip">
+        <div class="urgent-strip reveal">
           <div>
             <div class="urgent-strip-title">需要緊急維修？</div>
             <div class="urgent-strip-sub">24小時待命，快速到府排除</div>
@@ -1539,27 +1539,25 @@
 
       ScrollTrigger.refresh();
 
-      /* ── Scroll reveal — set up AFTER layout is stable ── */
-      ScrollTrigger.batch('.reveal', {
-        onEnter: (batch) => {
-          gsap.to(batch, {
+      /* ── Scroll reveal — IntersectionObserver (reliable cross-device) ── */
+      const revealIO = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        visible.forEach((entry, i) => {
+          gsap.to(entry.target, {
             opacity: 1, y: 0,
-            duration: 0.9, stagger: 0.08, ease: 'power2.out',
-            overwrite: true,
+            duration: 0.9, delay: i * 0.08,
+            ease: 'power2.out', overwrite: true,
           });
-        },
-        start: 'top 92%',
-        once: true,
-      });
+          revealIO.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -50px 0px', threshold: 0 });
 
-      /* Re-refresh whenever a lazy image finishes loading (fixes mobile position drift) */
-      let lazyRefreshTimer;
-      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        if (!img.complete) {
-          img.addEventListener('load', () => {
-            clearTimeout(lazyRefreshTimer);
-            lazyRefreshTimer = setTimeout(() => ScrollTrigger.refresh(), 120);
-          });
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().bottom < 0) {
+          gsap.set(el, { opacity: 1, y: 0 });
+        } else {
+          revealIO.observe(el);
         }
       });
     }, 800);
