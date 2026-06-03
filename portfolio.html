@@ -82,28 +82,26 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: 68px; display: flex; align-items: center;
       padding: 0 5vw;
-      background: rgba(255,255,255,.88);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(0,0,0,.08);
-      transition: background .4s var(--ease-out), box-shadow .4s;
+      background: transparent;
+      transition: background .5s var(--ease-out), box-shadow .5s;
     }
-    nav.nav-scrolled { background: rgba(255,255,255,.97); box-shadow: 0 2px 24px rgba(0,0,0,.09); }
+    nav.nav-scrolled { background: rgba(5,9,15,.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.07); box-shadow: 0 2px 24px rgba(0,0,0,.35); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; }
     .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .nav-logo-img { width: 30px; height: 30px; flex-shrink: 0; }
     .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
-    .nav-logo-text { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: #0D1520; letter-spacing: .03em; }
+    .nav-logo-text { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: #fff; letter-spacing: .03em; }
     .nav-center { display: flex; gap: 4px; list-style: none; align-items: center; }
-    .nav-center a { color: rgba(15,30,50,.58); text-decoration: none; font-size: 13px; letter-spacing: .04em; padding: 5px 14px; border: 1px solid transparent; border-radius: 100px; transition: color .25s, border-color .25s, background .25s; }
-    .nav-center a:hover { color: rgba(15,30,50,.95); background: rgba(0,0,0,.05); }
-    .nav-center a.active { color: rgba(15,30,50,.95); border-color: rgba(0,0,0,.18); background: rgba(0,0,0,.06); }
+    .nav-center a { color: rgba(255,255,255,.72); text-decoration: none; font-size: 13px; letter-spacing: .04em; padding: 5px 14px; border: 1px solid transparent; border-radius: 100px; transition: color .25s, border-color .25s, background .25s; }
+    .nav-center a:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-center a.active { color: #fff; border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.1); }
     .nav-right { display: flex; align-items: center; gap: 10px; }
-    .nav-phone { font-size: 13px; color: rgba(15,30,50,.5); text-decoration: none; letter-spacing: .03em; transition: color .25s; }
-    .nav-phone:hover { color: rgba(15,30,50,.9); }
-    .nav-cta { padding: 8px 18px; background: #0D1520; color: #fff; border-radius: 100px; font-weight: 600; font-size: 13px; text-decoration: none; letter-spacing: .03em; transition: opacity .2s, transform .2s; }
-    .nav-cta:hover { opacity: .8; transform: translateY(-1px); }
+    .nav-phone { font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; letter-spacing: .03em; transition: color .25s; }
+    .nav-phone:hover { color: #fff; }
+    .nav-cta { padding: 8px 18px; background: var(--ice-400); color: #fff; border-radius: 100px; font-weight: 600; font-size: 13px; text-decoration: none; letter-spacing: .03em; transition: opacity .2s, transform .2s; }
+    .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px 4px; background: none; border: none; position: relative; z-index: 101; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #1A2030; border-radius: 2px; transition: transform .35s var(--ease-premium), opacity .25s; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform .35s var(--ease-premium), opacity .25s; }
     .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
