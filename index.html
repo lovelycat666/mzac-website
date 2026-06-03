@@ -332,7 +332,7 @@
     .reveal { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
 
     /* ── Permanently dark sections ── */
-    #services, #before-after, #portfolio, #process, #pricing { background: var(--color-bg); }
+    #services, #before-after, #process, #pricing { background: var(--color-bg); }
 
     /* ── Services — tall photo cards ── */
     .services-header {
@@ -1574,7 +1574,7 @@
   });
 
   /* ── Section dark → light transitions (spotlight: light while in view, dark when scrolled past) ── */
-  ['stats-bar', 'why', 'portfolio', 'brands', 'faq'].forEach(id => {
+  ['why', 'portfolio', 'brands', 'faq'].forEach(id => {
     const section = document.getElementById(id);
     if (!section) return;
     ScrollTrigger.create({
