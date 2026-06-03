@@ -88,10 +88,6 @@
     @keyframes loaderFill { from{width:0} to{width:100%} }
 
     /* ── Custom Cursor ── */
-    @media (pointer: fine) {
-      html, * { cursor: none !important; }
-      .cursor-dot, .cursor-ring { display: block; }
-    }
     .cursor-dot {
       display: none; position: fixed; top: 0; left: 0;
       width: 6px; height: 6px; border-radius: 50%;
@@ -114,14 +110,9 @@
     .cursor-dot.is-hovering { width: 3px; height: 3px; background: #fff; box-shadow: 0 0 6px rgba(255,255,255,.6); }
     .cursor-ring.is-hovering { width: 46px; height: 46px; border-color: rgba(79,195,247,.7); }
     .cursor-dot.is-hidden, .cursor-ring.is-hidden { opacity: 0; }
-
-    /* ── Scroll Progress Bar ── */
-    #scroll-progress {
-      position: fixed; top: 68px; left: 0;
-      width: 0%; height: 2px;
-      background: linear-gradient(90deg, var(--ice-600), var(--ice-400), var(--ice-300));
-      box-shadow: 0 0 8px rgba(79,195,247,.45);
-      z-index: 101; pointer-events: none;
+    @media (pointer: fine) {
+      html, * { cursor: none !important; }
+      .cursor-dot, .cursor-ring { display: block; }
     }
 
     /* ── Navigation ── */
@@ -1173,7 +1164,6 @@
     </div>
   </div>
 </nav>
-<div id="scroll-progress"></div>
 
 <div class="nav-mobile-menu" id="mobileMenu">
   <ul class="mobile-nav-links">
@@ -1948,16 +1938,7 @@
     }
   }
 
-  /* ── Scroll Progress ── */
-  const progressBar = document.getElementById('scroll-progress');
-  if (progressBar) {
-    window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-      progressBar.style.width = Math.min(pct, 100) + '%';
-    }, { passive: true });
-  }
-
-  /* ── Magnetic Buttons ── */
+/* ── Magnetic Buttons ── */
   document.querySelectorAll('.btn-volt-line, .btn-volt-primary').forEach(btn => {
     btn.addEventListener('mousemove', e => {
       btn.style.transition = 'box-shadow .3s, opacity .3s';
