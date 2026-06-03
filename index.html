@@ -87,32 +87,34 @@
     @keyframes loaderPulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.06)} }
     @keyframes loaderFill { from{width:0} to{width:100%} }
 
-    /* ── Custom Cursor ── */
-    .cursor-dot {
+    /* ── Ambient Glow Cursor ── */
+    .cursor-glow {
       display: none; position: fixed; top: 0; left: 0;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--ice-400);
-      box-shadow: 0 0 10px rgba(79,195,247,.7);
-      pointer-events: none; z-index: 999999;
-      transform: translate(-50%,-50%);
-      transition: width .2s var(--ease-premium), height .2s var(--ease-premium), background .2s, opacity .15s;
-      will-change: left, top;
-    }
-    .cursor-ring {
-      display: none; position: fixed; top: 0; left: 0;
-      width: 30px; height: 30px; border-radius: 50%;
-      border: 1px solid rgba(79,195,247,.4);
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,195,247,.14) 0%, rgba(79,195,247,.06) 42%, transparent 72%);
       pointer-events: none; z-index: 999998;
       transform: translate(-50%,-50%);
-      transition: width .25s var(--ease-premium), height .25s var(--ease-premium), border-color .25s, opacity .2s;
+      transition: width .55s var(--ease-premium), height .55s var(--ease-premium),
+                  background .4s var(--ease-premium), opacity .3s;
       will-change: left, top;
     }
-    .cursor-dot.is-hovering { width: 3px; height: 3px; background: #fff; box-shadow: 0 0 6px rgba(255,255,255,.6); }
-    .cursor-ring.is-hovering { width: 46px; height: 46px; border-color: rgba(79,195,247,.7); }
-    .cursor-dot.is-hidden, .cursor-ring.is-hidden { opacity: 0; }
+    .cursor-glow.is-hovering {
+      width: 140px; height: 140px;
+      background: radial-gradient(circle, rgba(79,195,247,.28) 0%, rgba(79,195,247,.1) 40%, transparent 72%);
+    }
+    .cursor-precise {
+      display: none; position: fixed; top: 0; left: 0;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      pointer-events: none; z-index: 999999;
+      transform: translate(-50%,-50%);
+      transition: transform .2s var(--ease-premium), opacity .15s;
+    }
+    .cursor-precise.is-hovering { transform: translate(-50%,-50%) scale(0); }
+    .cursor-glow.is-hidden, .cursor-precise.is-hidden { opacity: 0; }
     @media (pointer: fine) {
       html, * { cursor: none !important; }
-      .cursor-dot, .cursor-ring { display: block; }
+      .cursor-glow, .cursor-precise { display: block; }
     }
 
     /* ── Navigation ── */
@@ -1130,8 +1132,8 @@
   </style>
 </head>
 <body>
-<div class="cursor-dot" id="cursor-dot"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+<div id="cursor-glow"></div>
+<div id="cursor-precise"></div>
 
 <!-- ── Page Loader ── -->
 <div id="page-loader">
@@ -1914,26 +1916,27 @@
     });
   });
 
-  /* ── Custom Cursor ── */
+  /* ── Ambient Glow Cursor ── */
   if (window.matchMedia('(pointer: fine)').matches) {
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-    if (cursorDot && cursorRing) {
-      let mx = 0, my = 0, rx = 0, ry = 0;
+    const glowEl = document.getElementById('cursor-glow');
+    const preciseEl = document.getElementById('cursor-precise');
+    if (glowEl && preciseEl) {
+      let mx = 0, my = 0, gx = 0, gy = 0;
       document.addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
-        cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px';
+        preciseEl.style.left = mx + 'px'; preciseEl.style.top = my + 'px';
       });
-      document.addEventListener('mouseleave', () => { cursorDot.classList.add('is-hidden'); cursorRing.classList.add('is-hidden'); });
-      document.addEventListener('mouseenter', () => { cursorDot.classList.remove('is-hidden'); cursorRing.classList.remove('is-hidden'); });
+      document.addEventListener('mouseleave', () => { glowEl.classList.add('is-hidden'); preciseEl.classList.add('is-hidden'); });
+      document.addEventListener('mouseenter', () => { glowEl.classList.remove('is-hidden'); preciseEl.classList.remove('is-hidden'); });
       (function tick() {
-        rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-        cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
+        gx += (mx - gx) * 0.07; gy += (my - gy) * 0.07;
+        glowEl.style.left = gx + 'px'; glowEl.style.top = gy + 'px';
         requestAnimationFrame(tick);
       })();
-      document.querySelectorAll('a, button, .service-photo-card, .brand-pill, .process-tab, .ba-card, .portfolio-item, .pricing-img-card, .review-card').forEach(el => {
-        el.addEventListener('mouseenter', () => { cursorDot.classList.add('is-hovering'); cursorRing.classList.add('is-hovering'); });
-        el.addEventListener('mouseleave', () => { cursorDot.classList.remove('is-hovering'); cursorRing.classList.remove('is-hovering'); });
+      const targets = 'a, button, .service-photo-card, .brand-pill, .ba-card, .portfolio-item, .pricing-img-card, .review-card, .faq-item, .process-tab';
+      document.querySelectorAll(targets).forEach(el => {
+        el.addEventListener('mouseenter', () => { glowEl.classList.add('is-hovering'); preciseEl.classList.add('is-hovering'); });
+        el.addEventListener('mouseleave', () => { glowEl.classList.remove('is-hovering'); preciseEl.classList.remove('is-hovering'); });
       });
     }
   }
