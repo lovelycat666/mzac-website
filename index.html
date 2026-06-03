@@ -94,6 +94,13 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.1);
+      transition: background .4s var(--ease-out), border-color .4s;
+    }
+    nav.nav-scrolled {
+      background: rgba(13,15,18,.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: rgba(255,255,255,.07);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -1554,6 +1561,7 @@
   });
 
   const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { navbar.classList.toggle('nav-scrolled', window.scrollY > 60); }, { passive: true });
 
   /* ── Section dark → light transitions (spotlight: light while in view, dark when scrolled past) ── */
   ['why', 'portfolio', 'brands', 'faq'].forEach(id => {
