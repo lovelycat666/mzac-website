@@ -423,12 +423,13 @@
     /* ── Why Us ── */
     .why-features-col { display: flex; flex-direction: column; justify-content: center; }
     .why-features-col .why-feature-list { margin-top: 24px; }
-    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: stretch; }
     @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; gap: 44px; } }
+    .why-grid > .reveal:first-child { display: flex; }
 
     .why-photo-wrap {
       position: relative; border-radius: 20px; overflow: hidden;
-      aspect-ratio: 3/4;
+      width: 100%; min-height: 380px; flex: 1;
       box-shadow: 0 24px 64px rgba(0,0,0,.22);
     }
     .why-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -863,7 +864,7 @@
       .service-photo-card .service-photo-card-overlay {
         background: linear-gradient(to top, rgba(13,15,18,.92) 0%, rgba(13,15,18,.4) 55%, rgba(13,15,18,.1) 80%);
       }
-      .why-photo-wrap { aspect-ratio: 4/3; }
+      .why-photo-wrap { min-height: 260px; flex: none; aspect-ratio: 4/3; }
     }
 
     @media (max-width: 640px) {
