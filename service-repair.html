@@ -1,10 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>維修移機服務 | 懋洲冷氣工程 MZAC</title>
   <meta name="description" content="懋洲冷氣工程 MZAC 24小時緊急維修 — 故障診斷、冷媒補充、電路維修、冷氣移機搬遷，快速到府處理。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="維修移機服務 | 懋洲冷氣工程 MZAC" />
+  <meta property="og:description" content="24小時緊急維修，故障診斷、冷媒補充、電路維修、冷氣移機搬遷，快速到府處理。" />
+  <meta property="og:url" content="https://lovelycat666.github.io/mzac-website/service-repair.html" />
+  <meta property="og:image" content="https://lovelycat666.github.io/mzac-website/images/tech1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" />
@@ -32,7 +38,7 @@
     .nav-center { display:flex; gap:24px; list-style:none; align-items:center; }
     .nav-center a { color:rgba(226,232,240,.65); text-decoration:none; font-size:13px; letter-spacing:.04em; position:relative; transition:color .25s; }
     .nav-center a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--ice-400); transition:width .3s var(--ease-out); }
-    .nav-center a:hover { color:var(--silver); } .nav-center a:hover::after { width:100%; }
+    .nav-center a:hover, .nav-center a.active { color:var(--silver); } .nav-center a:hover::after, .nav-center a.active::after { width:100%; }
     .nav-right { display:flex; align-items:center; gap:10px; }
     .nav-phone { font-size:13px; color:var(--silver-dim); text-decoration:none; letter-spacing:.03em; transition:color .25s; }
     .nav-phone:hover { color:var(--silver); }
@@ -174,7 +180,7 @@
       <span class="nav-logo-text">懋洲冷氣工程</span>
     </a>
     <ul class="nav-center">
-      <li><a href="index.html#services">服務項目</a></li>
+      <li><a href="index.html#services" class="active">服務項目</a></li>
       <li><a href="index.html#before-after">清洗對比</a></li>
       <li><a href="portfolio.html">工程實績</a></li>
       <li><a href="products.html">商品</a></li>
@@ -281,7 +287,7 @@
         </a>
       </div>
       <div class="svc-sidebar-photo reveal">
-        <img src="images/tech1.jpg" alt="冷氣維修技師" />
+        <img loading="lazy" src="images/tech1.jpg" alt="冷氣維修技師" />
       </div>
     </div>
   </div>
@@ -442,3 +448,4 @@
 </script>
 </body>
 </html>
+
