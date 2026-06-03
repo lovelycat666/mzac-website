@@ -259,39 +259,6 @@
     }
     @keyframes marqueeLeft { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── Hero scroll indicator ── */
-    .hero-scroll-hint {
-      position: absolute; bottom: 58px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
-      opacity: 0;
-      animation: scrollHintAppear .8s 2.2s ease-out forwards;
-    }
-    @keyframes scrollHintAppear {
-      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-    .hero-scroll-label {
-      font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700;
-      letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.32);
-    }
-    .hero-scroll-line {
-      width: 1px; height: 38px; position: relative; overflow: hidden;
-    }
-    .hero-scroll-line::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 100%;
-      background: linear-gradient(to bottom, rgba(79,195,247,.6), transparent);
-      animation: scrollDrop 2s ease-in-out infinite;
-    }
-    @keyframes scrollDrop {
-      0%   { transform: translateY(-100%); opacity: 0; }
-      15%  { opacity: 1; }
-      85%  { opacity: 0.9; }
-      100% { transform: translateY(100%); opacity: 0; }
-    }
-    @media (max-width: 640px) { .hero-scroll-hint { display: none; } }
-
     /* ── Buttons — VoltFlow bolt style ── */
     .btn-volt-line {
       display: inline-flex; align-items: center; gap: 0;
@@ -1177,11 +1144,6 @@
       <div class="trust-pill"><span class="pill-icon">$</span> 透明報價無隱費</div>
       <div class="trust-pill"><span class="pill-icon">★</span> 工程保固一年</div>
     </div>
-  </div>
-  <!-- Scroll indicator -->
-  <div class="hero-scroll-hint">
-    <span class="hero-scroll-label">探索</span>
-    <div class="hero-scroll-line"></div>
   </div>
   <!-- Marquee strip -->
   <div class="hero-marquee-strip">
