@@ -80,40 +80,44 @@
     /* ── Navigation ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: center;
-      padding: 16px 5vw 0; pointer-events: none;
+      height: 68px; display: flex; align-items: center;
+      padding: 0 5vw;
+      background: rgba(5,9,15,.72);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: background .4s var(--ease-out), border-color .4s;
     }
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; max-width: 1100px;
-      padding: 0 6px 0 20px; height: 52px;
-      background: rgba(7,16,30,.55);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,.1); border-radius: 100px;
-      pointer-events: all;
-      transition: background .5s var(--ease-out), border-color .5s, box-shadow .5s;
-    }
-    .nav-inner.scrolled {
-      background: rgba(5,9,15,.94); border-color: rgba(255,255,255,.07);
-      box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04);
-    }
+    nav.nav-scrolled { background: rgba(5,9,15,.95); border-bottom-color: rgba(255,255,255,.1); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1200px; margin: 0 auto; }
     .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .nav-logo-img { width: 30px; height: 30px; flex-shrink: 0; }
     .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
     .nav-logo-text { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: var(--silver); letter-spacing: .03em; }
-    .nav-logo-text span { color: var(--silver); }
-    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
-    .nav-links a { color: rgba(226,232,240,.65); text-decoration: none; font-size: 13px; letter-spacing: .04em; position: relative; transition: color .25s; }
-    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--ice-400); transition: width .3s var(--ease-out); }
-    .nav-links a:hover, .nav-links a.active { color: var(--silver); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-line { display: inline-flex !important; align-items: center; gap: 5px; padding: 6px 14px; background: var(--line-green) !important; color: #fff !important; border-radius: 100px; font-weight: 600; font-size: 12.5px !important; transition: opacity .2s, transform .2s !important; }
-    .nav-line::after { display: none !important; }
-    .nav-line:hover { opacity: .88; transform: translateY(-1px); }
-    .nav-cta { padding: 7px 16px; background: var(--ice-400); color: #fff !important; border-radius: 100px; font-weight: 600; font-size: 12.5px !important; transition: opacity .2s, transform .2s !important; }
-    .nav-cta::after { display: none !important; }
+    .nav-center { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-center a { color: rgba(226,232,240,.65); text-decoration: none; font-size: 13px; letter-spacing: .04em; position: relative; transition: color .25s; }
+    .nav-center a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--ice-400); transition: width .3s var(--ease-out); }
+    .nav-center a:hover, .nav-center a.active { color: var(--silver); }
+    .nav-center a:hover::after, .nav-center a.active::after { width: 100%; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-phone { font-size: 13px; color: var(--silver-dim); text-decoration: none; letter-spacing: .03em; transition: color .25s; }
+    .nav-phone:hover { color: var(--silver); }
+    .nav-cta { padding: 8px 18px; background: var(--ice-400); color: #fff; border-radius: 100px; font-weight: 600; font-size: 13px; text-decoration: none; letter-spacing: .03em; transition: opacity .2s, transform .2s; }
     .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
-    @media (max-width: 640px) { .nav-links { display: none; } }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px 4px; background: none; border: none; position: relative; z-index: 101; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--silver); border-radius: 2px; transition: transform .35s var(--ease-premium), opacity .25s; }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile-menu { position: fixed; inset: 0; z-index: 99; background: rgba(5,9,15,.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); display: flex; flex-direction: column; padding: 96px 7vw 48px; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .3s var(--ease-out), transform .35s var(--ease-premium); }
+    .nav-mobile-menu.is-open { opacity: 1; transform: translateY(0); pointer-events: all; }
+    .mobile-nav-links { list-style: none; display: flex; flex-direction: column; }
+    .mobile-nav-links li { border-bottom: 1px solid rgba(255,255,255,.08); }
+    .mobile-nav-links a { display: block; padding: 18px 0; font-family: 'Noto Serif TC', serif; font-size: 1.35rem; font-weight: 700; color: var(--silver-dim); text-decoration: none; transition: color .2s, padding-left .3s var(--ease-premium); }
+    .mobile-nav-links a:hover { color: var(--silver); padding-left: 6px; }
+    .mobile-nav-phone { display: block; margin-top: 36px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--ice-400); text-decoration: none; letter-spacing: .03em; }
+    .mobile-nav-cta { display: inline-block; margin-top: 20px; padding: 14px 28px; background: var(--line-green); color: #fff; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: .04em; box-shadow: 0 0 0 1px rgba(6,199,85,.3), 0 6px 24px rgba(6,199,85,.25); transition: opacity .2s, transform .2s; }
+    .mobile-nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+    @media (max-width: 640px) { .nav-center { display: none; } .nav-phone { display: none; } .nav-hamburger { display: flex; } }
 
     /* ── Page Hero ── */
     .page-hero {
@@ -321,22 +325,41 @@
 
 <!-- ── Nav ── -->
 <nav id="navbar">
-  <div class="nav-inner" id="nav-inner">
+  <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <div class="nav-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
-      <span class="nav-logo-text">懋洲<span>冷氣工程</span></span>
+      <span class="nav-logo-text">懋洲冷氣工程</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-center">
       <li><a href="index.html#services">服務項目</a></li>
       <li><a href="index.html#before-after">清洗對比</a></li>
       <li><a href="portfolio.html">工程實績</a></li>
       <li><a href="products.html" class="active">商品</a></li>
       <li><a href="index.html#reviews">客戶好評</a></li>
       <li><a href="index.html#pricing">收費標準</a></li>
-      <li><a href="index.html#cta" class="nav-cta">立即估價</a></li>
     </ul>
+    <div class="nav-right">
+      <a href="tel:+886912345678" class="nav-phone">0912-345-678</a>
+      <a href="index.html#cta" class="nav-cta">立即估價</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html#services">服務項目</a></li>
+    <li><a href="index.html#before-after">清洗對比</a></li>
+    <li><a href="portfolio.html">工程實績</a></li>
+    <li><a href="products.html">商品</a></li>
+    <li><a href="index.html#reviews">客戶好評</a></li>
+    <li><a href="index.html#pricing">收費標準</a></li>
+  </ul>
+  <a href="tel:+886912345678" class="mobile-nav-phone">☎ 0912-345-678</a>
+  <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="mobile-nav-cta">LINE 立即詢問</a>
+</div>
 
 <!-- ── Page Hero ── -->
 <div class="page-hero">
@@ -765,13 +788,9 @@
   const loader = document.getElementById('page-loader');
   window.addEventListener('load', () => { setTimeout(() => { loader.classList.add('hidden'); }, 800); });
 
-  /* ── Nav scroll + shrink ── */
-  const navInner = document.getElementById('nav-inner');
-  window.addEventListener('scroll', () => { navInner.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
-  gsap.to('#nav-inner', {
-    height: 44,
-    scrollTrigger: { start: 'top -10', end: 'top -160', scrub: 0.45 },
-  });
+  /* ── Nav scroll ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { navbar.classList.toggle('nav-scrolled', window.scrollY > 40); }, { passive: true });
 
   /* ── Page hero entrance ── */
   gsap.timeline({ delay: 0.9 })
@@ -811,6 +830,28 @@
     start: 'top 90%',
     once: true,
   });
+
+  /* ── Mobile nav ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open');
+      const isOpen = mobileMenu.classList.contains('is-open');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        document.body.style.overflow = '';
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 </script>
 </body>
 </html>

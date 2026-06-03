@@ -325,6 +325,7 @@
     }
     .section-subtitle {
       font-size: .975rem; max-width: 680px; line-height: 1.85; margin-top: 8px; text-wrap: pretty;
+      margin-left: auto; margin-right: auto;
       transition: color .6s;
     }
 
@@ -336,10 +337,9 @@
 
     /* ── Services — tall photo cards ── */
     .services-header {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+      text-align: center;
       margin-bottom: 56px;
     }
-    @media (max-width: 768px) { .services-header { grid-template-columns: 1fr; gap: 24px; } }
     .services-header-title {
       font-family: 'Noto Serif TC', serif;
       font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900;
@@ -350,6 +350,7 @@
     .section-light.is-dark .services-header-title { color: var(--silver); }
     .services-header-body {
       font-size: 1rem; line-height: 1.85; text-wrap: pretty;
+      max-width: 680px; margin: 12px auto 0;
       transition: color .6s;
     }
     .section-light .services-header-body { color: #4A5568; }
@@ -515,7 +516,7 @@
     }
 
     /* ── Portfolio ── */
-    .portfolio-header { margin-bottom: 40px; }
+    .portfolio-header { margin-bottom: 40px; text-align: center; }
     .portfolio-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
     @media (max-width: 640px) { .portfolio-grid { grid-template-columns: 1fr; } }
     .portfolio-item {
@@ -1175,7 +1176,7 @@
   <div class="section-inner">
     <div class="ba-header">
       <span class="section-tag reveal">清洗實績</span>
-      <h2 class="section-title reveal reveal-delay-1">真實清洗成果<br>一目了然</h2>
+      <h2 class="section-title reveal reveal-delay-1">真實清洗成果</h2>
       <p class="section-subtitle reveal reveal-delay-2">冷氣長期不清洗，黴菌與灰塵堆積嚴重影響效能及健康。定期深層清洗才是正確保養之道。</p>
     </div>
     <div class="ba-grid">
