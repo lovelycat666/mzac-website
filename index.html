@@ -421,6 +421,8 @@
     }
 
     /* ── Why Us ── */
+    .why-features-col { display: flex; flex-direction: column; justify-content: center; }
+    .why-features-col .why-feature-list { margin-top: 24px; }
     .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; gap: 44px; } }
 
@@ -1106,61 +1108,60 @@
           </div>
         </div>
       </div>
-      <!-- Right: card (wrapper has no reveal — children each animate independently) -->
-      <div>
-        <div class="why-content-card reveal">
-          <span class="section-tag">為何選擇我們</span>
-          <h2 class="section-title">品質與信賴<br>是我們的承諾</h2>
-          <ul class="why-feature-list">
-            <li class="why-feature">
-              <div class="why-feature-icon">
-                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-              </div>
-              <div>
-                <div class="why-feature-title">認證合格技師</div>
-                <div class="why-feature-desc">持有冷凍空調技術士執照，定期接受原廠培訓，施工技術有保障。</div>
-              </div>
-            </li>
-            <li class="why-feature">
-              <div class="why-feature-icon">
-                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
-              </div>
-              <div>
-                <div class="why-feature-title">透明報價無隱費</div>
-                <div class="why-feature-desc">施工前詳細書面報價，材料工資一覽無遺，完工後不追加費用。</div>
-              </div>
-            </li>
-            <li class="why-feature">
-              <div class="why-feature-icon">
-                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-              </div>
-              <div>
-                <div class="why-feature-title">全程包覆不弄髒</div>
-                <div class="why-feature-desc">清洗作業自備防水套件，施工完成後整理環境，家裡乾淨如初。</div>
-              </div>
-            </li>
-            <li class="why-feature">
-              <div class="why-feature-icon">
-                <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div>
-                <div class="why-feature-title">工程保固一年</div>
-                <div class="why-feature-desc">安裝工程提供一年施工保固，有問題免費到府處理，安心使用。</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="urgent-strip reveal">
-          <div>
-            <div class="urgent-strip-title">需要緊急維修？</div>
-            <div class="urgent-strip-sub">24小時待命，快速到府排除</div>
-          </div>
-          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
-            <span class="btn-text">LINE 立即聯絡</span>
-            <span class="btn-circle">↗</span>
-          </a>
-        </div>
+      <!-- Right: features directly on section bg (no card wrapper) -->
+      <div class="why-features-col reveal">
+        <span class="section-tag">為何選擇我們</span>
+        <h2 class="section-title">品質與信賴<br>是我們的承諾</h2>
+        <ul class="why-feature-list">
+          <li class="why-feature">
+            <div class="why-feature-icon">
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+            </div>
+            <div>
+              <div class="why-feature-title">認證合格技師</div>
+              <div class="why-feature-desc">持有冷凍空調技術士執照，定期接受原廠培訓，施工技術有保障。</div>
+            </div>
+          </li>
+          <li class="why-feature">
+            <div class="why-feature-icon">
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+            </div>
+            <div>
+              <div class="why-feature-title">透明報價無隱費</div>
+              <div class="why-feature-desc">施工前詳細書面報價，材料工資一覽無遺，完工後不追加費用。</div>
+            </div>
+          </li>
+          <li class="why-feature">
+            <div class="why-feature-icon">
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div>
+              <div class="why-feature-title">全程包覆不弄髒</div>
+              <div class="why-feature-desc">清洗作業自備防水套件，施工完成後整理環境，家裡乾淨如初。</div>
+            </div>
+          </li>
+          <li class="why-feature">
+            <div class="why-feature-icon">
+              <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="why-feature-title">工程保固一年</div>
+              <div class="why-feature-desc">安裝工程提供一年施工保固，有問題免費到府處理，安心使用。</div>
+            </div>
+          </li>
+        </ul>
       </div>
+    </div>
+    <!-- Urgent strip full-width below both columns -->
+    <div class="urgent-strip reveal">
+      <div>
+        <div class="urgent-strip-title">需要緊急維修？</div>
+        <div class="urgent-strip-sub">24小時待命，快速到府排除</div>
+      </div>
+      <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+        <span class="btn-text">LINE 立即聯絡</span>
+        <span class="btn-circle">↗</span>
+      </a>
     </div>
   </div>
 </section>
