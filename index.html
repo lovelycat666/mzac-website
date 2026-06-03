@@ -562,6 +562,7 @@
       letter-spacing: .04em; cursor: pointer; border: none; background: transparent;
       border-bottom: 2px solid transparent; margin-bottom: -2px;
       transition: color .3s, border-color .3s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
     }
     .section-light .process-tab { color: #4A5568; }
     .section-light.is-dark .process-tab { color: var(--silver-dim); }
@@ -812,6 +813,7 @@
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; padding: 6px 4px; background: none; border: none;
       position: relative; z-index: 101;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
     }
     .nav-hamburger span {
       display: block; width: 22px; height: 2px;
@@ -1157,7 +1159,7 @@
             </li>
           </ul>
         </div>
-        <div class="urgent-strip reveal reveal-delay-2">
+        <div class="urgent-strip">
           <div>
             <div class="urgent-strip-title">需要緊急維修？</div>
             <div class="urgent-strip-sub">24小時待命，快速到府排除</div>
@@ -1223,7 +1225,7 @@
       <h2 class="section-title reveal reveal-delay-1">四步驟輕鬆搞定</h2>
       <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">從洽詢到完工，流程簡單透明，讓您省心又放心。</p>
     </div>
-    <div class="process-tabs reveal">
+    <div class="process-tabs">
       <button class="process-tab is-active" data-tab="0">[01] LINE洽詢</button>
       <button class="process-tab" data-tab="1">[02] 現場勘查</button>
       <button class="process-tab" data-tab="2">[03] 確認施工</button>
@@ -1371,7 +1373,7 @@
     </div>
     <div class="pricing-grid reveal">
       <div class="pricing-img-card"><img loading="lazy" src="images/pricing1.jpg" alt="特殊安裝施工收費表 1" /></div>
-      <div class="pricing-img-card reveal reveal-delay-1"><img loading="lazy" src="images/pricing2.jpg" alt="特殊安裝施工收費表 2" /></div>
+      <div class="pricing-img-card"><img loading="lazy" src="images/pricing2.jpg" alt="特殊安裝施工收費表 2" /></div>
     </div>
     <div class="pricing-cta-note reveal">
       <p>收費細節依現場施工難度評估，歡迎免費到府勘查，詳細說明給您聽。</p>
@@ -1537,6 +1539,19 @@
 
       ScrollTrigger.refresh();
 
+      /* ── Scroll reveal — set up AFTER layout is stable ── */
+      ScrollTrigger.batch('.reveal', {
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1, y: 0,
+            duration: 0.9, stagger: 0.08, ease: 'power2.out',
+            overwrite: true,
+          });
+        },
+        start: 'top 92%',
+        once: true,
+      });
+
       /* Re-refresh whenever a lazy image finishes loading (fixes mobile position drift) */
       let lazyRefreshTimer;
       document.querySelectorAll('img[loading="lazy"]').forEach(img => {
@@ -1572,19 +1587,6 @@
       onEnter: () => section.classList.add('is-dark'),
       onLeaveBack: () => section.classList.remove('is-dark'),
     });
-  });
-
-  /* ── Scroll reveal — stagger via ScrollTrigger.batch ── */
-  ScrollTrigger.batch('.reveal', {
-    onEnter: (batch) => {
-      gsap.to(batch, {
-        opacity: 1, y: 0,
-        duration: 0.9, stagger: 0.1, ease: 'power2.out',
-        overwrite: true,
-      });
-    },
-    start: 'top 90%',
-    once: true,
   });
 
   /* ── Smooth scroll ── */
