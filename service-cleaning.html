@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>清洗保養服務 | 懋洲冷氣工程 MZAC</title>
+  <meta name="description" content="懋洲冷氣工程 MZAC 專業冷氣清洗 — 深層蒸發器清洗、消毒除菌、全機保養，恢復最佳效能，改善室內空氣品質。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-bg: #0D0F12; --color-bg-secondary: #141820; --color-bg-elevated: #1A2030;
+      --color-text: #F5F7FA; --color-text-muted: #8B95A3; --color-border: #1E2530;
+      --line-green: #06C755; --ice-400: #4FC3F7; --ice-300: #7DD6FA; --ice-600: #29ABE2;
+      --silver: #F5F7FA; --silver-dim: #8B95A3; --steel: #8B95A3;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1); --ease-premium: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit','Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background: var(--color-bg); color: var(--color-text); overflow-x: hidden; line-height: 1.6; }
+    body::after { content:''; position:fixed; inset:0; z-index:9000; pointer-events:none; opacity:.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E"); background-repeat:repeat; background-size:256px 256px; }
+    ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:var(--color-bg); } ::-webkit-scrollbar-thumb { background:var(--ice-600); border-radius:2px; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; height:68px; display:flex; align-items:center; padding:0 5vw; background:rgba(13,15,18,.72); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.08); transition:background .4s var(--ease-out),border-color .4s; }
+    nav.nav-scrolled { background:rgba(13,15,18,.95); border-bottom-color:var(--color-border); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:1200px; margin:0 auto; }
+    .nav-logo { display:flex; align-items:center; gap:9px; text-decoration:none; }
+    .nav-logo-img { width:30px; height:30px; flex-shrink:0; }
+    .nav-logo-img img { width:100%; height:100%; object-fit:contain; }
+    .nav-logo-text { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; color:var(--silver); letter-spacing:.03em; }
+    .nav-center { display:flex; gap:24px; list-style:none; align-items:center; }
+    .nav-center a { color:rgba(226,232,240,.65); text-decoration:none; font-size:13px; letter-spacing:.04em; position:relative; transition:color .25s; }
+    .nav-center a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--ice-400); transition:width .3s var(--ease-out); }
+    .nav-center a:hover { color:var(--silver); } .nav-center a:hover::after { width:100%; }
+    .nav-right { display:flex; align-items:center; gap:10px; }
+    .nav-phone { font-size:13px; color:var(--silver-dim); text-decoration:none; letter-spacing:.03em; transition:color .25s; }
+    .nav-phone:hover { color:var(--silver); }
+    .nav-cta { padding:8px 18px; background:var(--ice-400); color:#fff; border-radius:100px; font-weight:600; font-size:13px; text-decoration:none; letter-spacing:.03em; transition:opacity .2s,transform .2s; }
+    .nav-cta:hover { opacity:.85; transform:translateY(-1px); }
+
+    .btn-volt-line { display:inline-flex; align-items:center; gap:0; background:var(--line-green); border-radius:100px; font-size:14px; font-weight:700; color:#fff; text-decoration:none; letter-spacing:.04em; overflow:hidden; box-shadow:0 0 0 1px rgba(6,199,85,.3),0 6px 24px rgba(6,199,85,.25); transition:transform .3s var(--ease-premium),box-shadow .3s,opacity .3s; }
+    .btn-volt-line:hover { transform:translateY(-2px); box-shadow:0 0 0 1px rgba(6,199,85,.4),0 10px 32px rgba(6,199,85,.35); opacity:.93; }
+    .btn-volt-line .btn-text { padding:13px 20px 13px 26px; }
+    .btn-volt-line .btn-circle { width:42px; height:42px; border-radius:50%; margin:3px; background:rgba(255,255,255,.25); display:grid; place-items:center; font-size:15px; flex-shrink:0; }
+    .btn-secondary { display:inline-flex; align-items:center; gap:8px; padding:13px 28px; background:rgba(255,255,255,.07); color:rgba(226,232,240,.85); border:1px solid rgba(255,255,255,.15); border-radius:100px; font-size:14px; font-weight:600; text-decoration:none; letter-spacing:.04em; transition:color .25s,border-color .25s,transform .3s var(--ease-premium),background .25s; }
+    .btn-secondary:hover { color:var(--silver); border-color:rgba(79,195,247,.3); background:rgba(79,195,247,.07); transform:translateY(-2px); }
+
+    .svc-hero { position:relative; height:65vh; min-height:440px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .svc-hero-bg { position:absolute; inset:0; background-image:url('images/ba5.jpg'); background-size:cover; background-position:center; }
+    .svc-hero-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(13,15,18,.52) 0%,rgba(13,15,18,.78) 100%); }
+    .svc-hero-content { position:relative; z-index:2; text-align:center; padding:0 5vw; max-width:800px; }
+    .svc-hero-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(79,195,247,.12); border:1px solid rgba(79,195,247,.28); border-radius:100px; padding:5px 16px; font-size:11px; font-weight:600; color:var(--ice-400); letter-spacing:.18em; text-transform:uppercase; margin-bottom:20px; text-decoration:none; transition:background .25s; }
+    .svc-hero-tag:hover { background:rgba(79,195,247,.2); }
+    .svc-hero-title { font-family:'Noto Serif TC',serif; font-size:clamp(2.6rem,5.5vw,4.8rem); font-weight:900; color:#fff; line-height:1.1; letter-spacing:.02em; margin-bottom:16px; }
+    .svc-hero-sub { font-size:clamp(.9rem,1.5vw,1.1rem); color:rgba(245,247,250,.75); max-width:480px; margin:0 auto; line-height:1.75; }
+
+    .svc-main { padding:80px 5vw; }
+    .svc-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 340px; gap:64px; align-items:start; }
+    @media (max-width:940px) { .svc-grid { grid-template-columns:1fr; } }
+
+    .svc-sidebar { position:sticky; top:88px; }
+    .svc-cta-card { background:var(--color-bg-elevated); border:1px solid var(--color-border); border-radius:20px; padding:32px 28px; margin-bottom:18px; box-shadow:0 8px 48px rgba(0,0,0,.45); }
+    .svc-cta-card-label { font-family:'Outfit',sans-serif; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ice-400); margin-bottom:14px; }
+    .svc-cta-card-title { font-family:'Noto Serif TC',serif; font-size:1.4rem; font-weight:900; color:var(--silver); line-height:1.3; margin-bottom:12px; }
+    .svc-cta-card-body { font-size:13.5px; color:var(--silver-dim); line-height:1.75; margin-bottom:24px; }
+    .svc-sidebar-photo { border-radius:16px; overflow:hidden; aspect-ratio:4/3; }
+    .svc-sidebar-photo img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease-premium); }
+    .svc-sidebar-photo:hover img { transform:scale(1.04); }
+
+    .svc-section-tag { font-family:'Outfit',sans-serif; font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--ice-400); margin-bottom:10px; }
+    .svc-section-title { font-family:'Noto Serif TC',serif; font-size:clamp(1.6rem,2.8vw,2.2rem); font-weight:900; color:var(--silver); line-height:1.25; margin-bottom:14px; }
+    .svc-body { font-size:.975rem; color:var(--silver-dim); line-height:1.85; margin-bottom:44px; }
+    .svc-items-heading { font-family:'Noto Serif TC',serif; font-size:1.25rem; font-weight:900; color:var(--silver); margin-bottom:16px; padding-top:28px; border-top:1px solid var(--color-border); }
+    .svc-items { display:flex; flex-direction:column; gap:10px; }
+    .svc-item { display:flex; align-items:flex-start; gap:16px; padding:18px 20px; background:var(--color-bg-secondary); border:1px solid var(--color-border); border-radius:14px; transition:border-color .3s,background .3s,transform .4s var(--ease-premium); }
+    .svc-item:hover { border-color:rgba(79,195,247,.22); background:var(--color-bg-elevated); transform:translateX(5px); }
+    .svc-item-icon { width:42px; height:42px; flex-shrink:0; border-radius:11px; background:rgba(79,195,247,.1); color:var(--ice-400); display:grid; place-items:center; }
+    .svc-item-name { font-size:14.5px; font-weight:700; color:var(--silver); margin-bottom:4px; }
+    .svc-item-desc { font-size:13px; color:var(--silver-dim); line-height:1.6; }
+
+    .svc-pricing { padding:0 5vw 80px; }
+    .svc-pricing-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 340px; gap:64px; align-items:start; }
+    @media (max-width:940px) { .svc-pricing-grid { grid-template-columns:1fr; } }
+    .svc-price-list { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+    .svc-price-item { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; background:var(--color-bg-secondary); border:1px solid var(--color-border); border-radius:14px; transition:border-color .3s; }
+    .svc-price-item:hover { border-color:rgba(79,195,247,.22); }
+    .svc-price-name { font-size:14.5px; font-weight:700; color:var(--silver); margin-bottom:3px; }
+    .svc-price-note { font-size:12.5px; color:var(--silver-dim); }
+    .svc-price-val { font-family:'Outfit',sans-serif; font-size:15px; font-weight:800; color:var(--ice-400); white-space:nowrap; flex-shrink:0; }
+    .svc-problems { margin-top:40px; }
+    .svc-problems-title { font-family:'Noto Serif TC',serif; font-size:1.25rem; font-weight:900; color:var(--silver); margin-bottom:16px; padding-top:28px; border-top:1px solid var(--color-border); }
+    .svc-problems-list { display:flex; flex-direction:column; gap:8px; }
+    .svc-problems-item { display:flex; align-items:center; gap:12px; padding:12px 18px; background:var(--color-bg-secondary); border:1px solid var(--color-border); border-radius:12px; font-size:14px; color:var(--silver-dim); transition:border-color .25s,color .25s; }
+    .svc-problems-item:hover { border-color:rgba(79,195,247,.2); color:var(--silver); }
+    .svc-problems-dot { width:6px; height:6px; border-radius:50%; background:var(--ice-400); flex-shrink:0; }
+    .svc-pricing-note { margin-top:32px; padding:20px 24px; background:rgba(79,195,247,.06); border:1px solid rgba(79,195,247,.16); border-radius:14px; font-size:13px; color:var(--silver-dim); line-height:1.7; }
+    .svc-pricing-note strong { color:var(--ice-300); display:block; margin-bottom:4px; font-size:14px; }
+
+    .svc-cta-bottom { padding:110px 5vw; position:relative; overflow:hidden; background-image:url('images/work1.jpg'); background-size:cover; background-position:center; }
+    .svc-cta-bottom::before { content:''; position:absolute; inset:0; background:rgba(13,15,18,.68); }
+    .svc-cta-bottom-inner { position:relative; z-index:1; max-width:680px; margin:0 auto; text-align:center; }
+    .svc-cta-eyebrow { display:inline-block; padding:5px 16px; background:rgba(255,255,255,.1); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.2); border-radius:100px; font-size:11px; font-weight:600; color:rgba(255,255,255,.8); letter-spacing:.16em; text-transform:uppercase; margin-bottom:24px; }
+    .svc-cta-title { font-family:'Noto Serif TC',serif; font-size:clamp(1.8rem,3.5vw,3rem); font-weight:900; color:#fff; line-height:1.25; margin-bottom:16px; letter-spacing:.02em; }
+    .svc-cta-sub { font-size:1rem; color:rgba(255,255,255,.65); margin-bottom:40px; line-height:1.75; }
+    .svc-cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+    footer { background:var(--color-bg); border-top:1px solid var(--color-border); padding:56px 5vw 40px; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:48px; margin-bottom:48px; }
+    .footer-brand { max-width:280px; }
+    .footer-logo { display:flex; align-items:center; gap:9px; text-decoration:none; margin-bottom:14px; }
+    .footer-logo-img { width:30px; height:30px; } .footer-logo-img img { width:100%; height:100%; object-fit:contain; }
+    .footer-logo-text { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; color:var(--silver); letter-spacing:.03em; }
+    .footer-tagline { font-size:13px; color:var(--silver-dim); line-height:1.7; }
+    .footer-line-id { display:inline-flex; align-items:center; gap:7px; background:rgba(6,199,85,.07); border:1px solid rgba(6,199,85,.18); border-radius:100px; padding:5px 14px; font-size:13px; color:#4ade80; font-weight:600; margin-top:12px; }
+    .footer-links-group h4 { font-family:'Outfit',sans-serif; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); margin-bottom:14px; }
+    .footer-links-group ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .footer-links-group a { font-size:13.5px; color:var(--silver-dim); text-decoration:none; transition:color .2s; }
+    .footer-links-group a:hover { color:var(--ice-300); }
+    .footer-bottom { border-top:1px solid var(--color-border); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .footer-copy { font-size:12.5px; color:var(--steel); }
+    .footer-cert { display:flex; gap:10px; flex-wrap:wrap; }
+    .cert-badge { font-family:'Outfit',sans-serif; font-size:10.5px; color:var(--color-text-muted); border:1px solid var(--color-border); border-radius:100px; padding:3px 10px; letter-spacing:.07em; }
+    .line-float { position:fixed; bottom:32px; right:28px; z-index:200; height:48px; padding:0 22px; border-radius:100px; background:var(--line-green); display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-family:'Outfit',sans-serif; font-size:15px; font-weight:800; letter-spacing:.06em; box-shadow:0 0 0 1px rgba(6,199,85,.4),0 6px 24px rgba(6,199,85,.45); transition:transform .4s var(--ease-premium),box-shadow .4s; }
+    .line-float:hover { transform:scale(1.06) translateY(-3px); box-shadow:0 0 0 1px rgba(6,199,85,.5),0 12px 36px rgba(6,199,85,.55); }
+    .reveal { opacity:0; transform:translateY(28px); will-change:transform,opacity; }
+    @media (max-width:640px) { .nav-center { display:none; } .nav-phone { display:none; } }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
+      <span class="nav-logo-text">懋洲冷氣工程</span>
+    </a>
+    <ul class="nav-center">
+      <li><a href="index.html#services">服務項目</a></li>
+      <li><a href="index.html#before-after">清洗對比</a></li>
+      <li><a href="portfolio.html">工程實績</a></li>
+      <li><a href="products.html">商品</a></li>
+      <li><a href="index.html#reviews">客戶好評</a></li>
+      <li><a href="index.html#pricing">收費標準</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+886912345678" class="nav-phone">0912-345-678</a>
+      <a href="index.html#cta" class="nav-cta">立即估價</a>
+    </div>
+  </div>
+</nav>
+
+<div class="svc-hero">
+  <div class="svc-hero-bg"></div>
+  <div class="svc-hero-content">
+    <a href="index.html#services" class="svc-hero-tag">← 所有服務項目</a>
+    <h1 class="svc-hero-title">清洗保養服務</h1>
+    <p class="svc-hero-sub">深層清洗，去除黴菌積垢，恢復冷氣清新高效的最佳狀態</p>
+  </div>
+</div>
+
+<div class="svc-main">
+  <div class="svc-grid">
+    <div>
+      <div class="svc-section-tag reveal">清洗服務</div>
+      <h2 class="svc-section-title reveal">專業深層清洗，<br>空氣更清新健康</h2>
+      <p class="svc-body reveal">長期使用的冷氣累積黴菌、灰塵與油垢，嚴重影響冷房效能及室內空氣品質。定期深層清洗是維持冷氣高效運作的唯一正確方式。<br><br>我們使用專業清洗設備，全程防水套包覆室內機，確保現場無水漬、無汙染。每次清洗完成後，冷氣效能明顯提升，冷氣吹出的空氣清新舒適，讓您和家人放心呼吸。</p>
+
+      <h3 class="svc-items-heading reveal">我們提供的服務</h3>
+      <div class="svc-items">
+        <div class="svc-item reveal">
+          <div class="svc-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </div>
+          <div>
+            <div class="svc-item-name">蒸發器深層清洗</div>
+            <div class="svc-item-desc">高壓水柱徹底清除蒸發器翅片的黴菌、積塵與油垢，有效恢復冷房效能、降低耗電。</div>
+          </div>
+        </div>
+        <div class="svc-item reveal">
+          <div class="svc-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div>
+            <div class="svc-item-name">冷凝器清洗</div>
+            <div class="svc-item-desc">清洗室外機冷凝器翅片，去除灰塵雜物，提升散熱效率，延長壓縮機壽命，節省電費。</div>
+          </div>
+        </div>
+        <div class="svc-item reveal">
+          <div class="svc-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          </div>
+          <div>
+            <div class="svc-item-name">濾網清洗更換</div>
+            <div class="svc-item-desc">深層清洗過濾網，去除過敏源灰塵；老化或破損的濾網直接更換新品，恢復最佳過濾效果。</div>
+          </div>
+        </div>
+        <div class="svc-item reveal">
+          <div class="svc-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <div class="svc-item-name">消毒除菌處理</div>
+            <div class="svc-item-desc">噴灑專業抗菌藥劑，徹底消滅黴菌孢子與細菌，有效消除異味，改善室內空氣品質。</div>
+          </div>
+        </div>
+        <div class="svc-item reveal">
+          <div class="svc-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 0 0 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138z"/></svg>
+          </div>
+          <div>
+            <div class="svc-item-name">全機保養檢查</div>
+            <div class="svc-item-desc">清洗後全面檢查各零件運作狀態，提前發現潛在問題，預防性維護，有效延長機器壽命。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-sidebar">
+      <div class="svc-cta-card reveal">
+        <div class="svc-cta-card-label">立即預約清洗</div>
+        <div class="svc-cta-card-title">到府清洗<br>全程防水包覆</div>
+        <div class="svc-cta-card-body">技師自備完整防水套件，清洗過程中確保地板、家具無任何水漬，完工後整理現場，乾淨如初。</div>
+        <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line" style="width:100%;justify-content:space-between;">
+          <span class="btn-text">LINE 立即預約</span>
+          <span class="btn-circle">↗</span>
+        </a>
+      </div>
+      <div class="svc-sidebar-photo reveal">
+        <img src="images/ba4.jpg" alt="冷氣清洗保養現場" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="svc-pricing">
+  <div class="svc-pricing-grid">
+    <div>
+      <div class="svc-section-tag reveal">收費標準</div>
+      <h2 class="svc-section-title reveal">清洗費用<br>透明公開</h2>
+      <div class="svc-price-list">
+        <div class="svc-price-item reveal">
+          <div class="svc-price-left">
+            <div class="svc-price-name">壁掛式深層清洗</div>
+            <div class="svc-price-note">分離式室內機，蒸發器高壓水洗</div>
+          </div>
+          <div class="svc-price-val">起價 NT$800 / 台</div>
+        </div>
+        <div class="svc-price-item reveal">
+          <div class="svc-price-left">
+            <div class="svc-price-name">吊隱式深層清洗</div>
+            <div class="svc-price-note">嵌入式空調全機拆洗清潔</div>
+          </div>
+          <div class="svc-price-val">起價 NT$2,500 / 台</div>
+        </div>
+        <div class="svc-price-item reveal">
+          <div class="svc-price-left">
+            <div class="svc-price-name">商用箱型機清洗</div>
+            <div class="svc-price-note">大型商用冷氣專業清洗</div>
+          </div>
+          <div class="svc-price-val">起價 NT$1,500 / 台</div>
+        </div>
+        <div class="svc-price-item reveal">
+          <div class="svc-price-left">
+            <div class="svc-price-name">消毒除菌加購</div>
+            <div class="svc-price-note">抗菌藥劑噴灑處理，清洗時加購</div>
+          </div>
+          <div class="svc-price-val">NT$300 / 台</div>
+        </div>
+      </div>
+      <div class="svc-pricing-note reveal">
+        <strong>建議清洗頻率</strong>
+        一般建議每半年清洗一次。家中有毛小孩、過敏體質成員，或使用頻率較高者，建議每3～4個月清洗一次，以確保空氣品質與冷氣效能。
+      </div>
+
+      <div class="svc-problems">
+        <h3 class="svc-problems-title reveal">這些症狀代表該清洗了</h3>
+        <div class="svc-problems-list">
+          <div class="svc-problems-item reveal"><span class="svc-problems-dot"></span>冷氣運轉時散發霉味或異味</div>
+          <div class="svc-problems-item reveal"><span class="svc-problems-dot"></span>冷房效果明顯下降，電費卻增加</div>
+          <div class="svc-problems-item reveal"><span class="svc-problems-dot"></span>出風口可見黑色汙跡或灰塵堆積</div>
+          <div class="svc-problems-item reveal"><span class="svc-problems-dot"></span>室內機出現滴水或漏水情況</div>
+          <div class="svc-problems-item reveal"><span class="svc-problems-dot"></span>家中成員有過敏體質或毛小孩</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-sidebar" style="position:sticky;top:88px;">
+      <div class="svc-cta-card reveal">
+        <div class="svc-cta-card-label">24H 緊急服務</div>
+        <div class="svc-cta-card-title">假日也可預約<br>彈性時段安排</div>
+        <div class="svc-cta-card-body">週一至週六均可預約清洗服務，彈性安排時間，技師準時到府，不讓您久等。</div>
+        <a href="tel:+886912345678" class="btn-secondary" style="width:100%;justify-content:center;">&#128222; 0912-345-678</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="svc-cta-bottom">
+  <div class="svc-cta-bottom-inner">
+    <div class="svc-cta-eyebrow reveal">立即預約</div>
+    <h2 class="svc-cta-title reveal">讓冷氣重拾<br>清新與涼爽。</h2>
+    <p class="svc-cta-sub reveal">定期清洗是保護家人健康的最佳投資，立即預約，技師到府專業服務。</p>
+    <div class="svc-cta-btns reveal">
+      <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+        <span class="btn-text">LINE：@559tescn</span>
+        <span class="btn-circle">↗</span>
+      </a>
+      <a href="tel:+886912345678" class="btn-secondary">&#128222; 0912-345-678</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <div class="footer-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
+          <span class="footer-logo-text">懋洲冷氣工程</span>
+        </a>
+        <p class="footer-tagline">專業技師團隊，為住宅與商業空間打造最舒適的恆溫環境。安裝｜清洗｜保養｜維修｜移機，一站式服務。</p>
+        <div class="footer-line-id">&#9679; LINE：@559tescn</div>
+      </div>
+      <div class="footer-links-group">
+        <h4>服務項目</h4>
+        <ul>
+          <li><a href="service-installation.html">冷氣安裝工程</a></li>
+          <li><a href="service-cleaning.html">清洗保養服務</a></li>
+          <li><a href="service-repair.html">維修移機服務</a></li>
+          <li><a href="index.html#pricing">收費標準</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-group">
+        <h4>快速導覽</h4>
+        <ul>
+          <li><a href="https://line.me/R/ti/p/@559tescn" target="_blank">LINE：@559tescn</a></li>
+          <li><a href="index.html#before-after">清洗前後對比</a></li>
+          <li><a href="portfolio.html">工程實績</a></li>
+          <li><a href="index.html#reviews">客戶好評</a></li>
+          <li><a href="index.html#faq">常見問題</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 懋洲冷氣工程 MZAC 版權所有</div>
+      <div class="footer-cert">
+        <span class="cert-badge">冷凍技士認證</span>
+        <span class="cert-badge">甲級工程承包</span>
+        <span class="cert-badge">一年保固</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="line-float" title="LINE 加好友諮詢">LINE</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const navbar = document.getElementById('navbar');
+  ScrollTrigger.create({ start:'top -10', onEnter:()=>navbar.classList.add('nav-scrolled'), onLeaveBack:()=>navbar.classList.remove('nav-scrolled') });
+  gsap.to(navbar, { height:56, scrollTrigger:{ start:'top -10', end:'top -160', scrub:0.45 } });
+  gsap.set(['.svc-hero-tag','.svc-hero-title','.svc-hero-sub'], { opacity:0, y:32, filter:'blur(6px)' });
+  window.addEventListener('load', () => {
+    gsap.to(['.svc-hero-tag','.svc-hero-title','.svc-hero-sub'], { opacity:1, y:0, filter:'blur(0px)', duration:1, stagger:0.12, ease:'power3.out', clearProps:'filter', delay:0.1 });
+  });
+  ScrollTrigger.batch('.reveal', { onEnter:batch=>gsap.to(batch,{opacity:1,y:0,duration:0.9,stagger:0.08,ease:'power2.out',overwrite:true}), start:'top 90%', once:true });
+</script>
+</body>
+</html>

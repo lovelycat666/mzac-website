@@ -12,7 +12,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* ── New colour system ── */
       --color-bg:              #0D0F12;
       --color-bg-secondary:    #141820;
       --color-bg-elevated:     #1A2030;
@@ -21,7 +20,8 @@
       --color-text:            #F5F7FA;
       --color-text-muted:      #8B95A3;
       --color-border:          #1E2530;
-      /* ── Legacy aliases → new values (keeps existing CSS working) ── */
+      --line-green:            #06C755;
+      /* Legacy aliases */
       --bg-deep:    #0D0F12;
       --bg-base:    #141820;
       --bg-surface: #1A2030;
@@ -34,7 +34,6 @@
       --steel:      #8B95A3;
       --gold:       #E8EDF2;
       --gold-light: #E8EDF2;
-      --line-green: #06C755;
       --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
       --ease-premium: cubic-bezier(0.32, 0.72, 0, 1);
     }
@@ -43,224 +42,205 @@
 
     body {
       font-family: 'Outfit', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-      background: var(--bg-base);
-      color: var(--silver);
+      background: var(--color-bg);
+      color: var(--color-text);
       overflow-x: hidden;
       line-height: 1.6;
-    }
-
-    /* Dot grid */
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(79,195,247,.18) 1px, transparent 1px);
-      background-size: 44px 44px;
-      opacity: 0.07;
     }
 
     /* Grain overlay */
     body::after {
       content: ''; position: fixed; inset: 0; z-index: 9000;
-      pointer-events: none; opacity: 0.028;
+      pointer-events: none; opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat: repeat; background-size: 256px 256px;
     }
 
     ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
     ::-webkit-scrollbar-thumb { background: var(--ice-600); border-radius: 2px; }
 
     /* ── Page Loader ── */
     #page-loader {
       position: fixed; inset: 0; z-index: 9999;
-      background: var(--bg-deep);
+      background: var(--color-bg);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       transition: opacity .5s var(--ease-out), visibility .5s;
     }
     #page-loader.hidden { opacity: 0; visibility: hidden; }
     .loader-logo { width: 64px; height: 64px; margin-bottom: 20px; animation: loaderPulse 1.4s ease-in-out infinite; }
     .loader-logo img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 16px rgba(79,195,247,.5)); }
-    .loader-brand {
-      font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700;
-      color: var(--silver); letter-spacing: .06em; margin-bottom: 28px;
-    }
+    .loader-brand { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--silver); letter-spacing: .06em; margin-bottom: 28px; }
     .loader-bar-track { width: 160px; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
     .loader-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ice-600), var(--ice-400)); border-radius: 2px; animation: loaderFill 1s var(--ease-out) forwards; }
     @keyframes loaderPulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.06)} }
     @keyframes loaderFill { from{width:0} to{width:100%} }
 
-    /* ── Navigation ── */
+    /* ── Navigation — VoltFlow style full-width bar ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: center;
-      padding: 16px 5vw 0;
-      pointer-events: none;
+      height: 68px;
+      display: flex; align-items: center;
+      padding: 0 5vw;
+      background: rgba(13,15,18,.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: background .4s var(--ease-out), border-color .4s;
+    }
+    nav.nav-scrolled {
+      background: rgba(13,15,18,.95);
+      border-bottom-color: var(--color-border);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
-      width: 100%; max-width: 1100px;
-      padding: 0 6px 0 20px; height: 52px;
-      background: rgba(13,15,18,.65);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--color-border);
-      border-radius: 100px;
-      pointer-events: all;
-      transition: background .5s var(--ease-out), border-color .5s, box-shadow .5s;
-    }
-    .nav-inner.scrolled {
-      background: rgba(13,15,18,.94);
-      border-color: rgba(255,255,255,.07);
-      box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04);
+      width: 100%; max-width: 1200px; margin: 0 auto;
     }
     .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .nav-logo-img { width: 30px; height: 30px; flex-shrink: 0; }
     .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
-    .nav-logo-text {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 15px; font-weight: 700; color: var(--silver); letter-spacing: .03em;
-    }
-    .nav-logo-text span { color: var(--silver); }
-
-    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
-    .nav-links a {
+    .nav-logo-text { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: var(--silver); letter-spacing: .03em; }
+    .nav-center { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-center a {
       color: rgba(226,232,240,.65); text-decoration: none;
       font-size: 13px; letter-spacing: .04em; position: relative; transition: color .25s;
     }
-    .nav-links a::after {
+    .nav-center a::after {
       content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
       background: var(--ice-400); transition: width .3s var(--ease-out);
     }
-    .nav-links a:hover { color: var(--silver); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-line {
-      display: inline-flex !important; align-items: center; gap: 5px;
-      padding: 6px 14px; background: var(--line-green) !important;
-      color: #fff !important; border-radius: 100px; font-weight: 600; font-size: 12.5px !important;
-      transition: opacity .2s, transform .2s !important;
+    .nav-center a:hover { color: var(--silver); }
+    .nav-center a:hover::after { width: 100%; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-phone {
+      font-size: 13px; color: var(--silver-dim); text-decoration: none;
+      letter-spacing: .03em; transition: color .25s;
     }
-    .nav-line::after { display: none !important; }
-    .nav-line:hover { opacity: .88; transform: translateY(-1px); }
+    .nav-phone:hover { color: var(--silver); }
     .nav-cta {
-      padding: 7px 16px; background: var(--ice-400);
-      color: #fff !important; border-radius: 100px;
-      font-weight: 600; font-size: 12.5px !important;
-      transition: opacity .2s, transform .2s !important;
+      padding: 8px 18px; background: var(--ice-400);
+      color: #fff; border-radius: 100px;
+      font-weight: 600; font-size: 13px;
+      text-decoration: none; letter-spacing: .03em;
+      transition: opacity .2s, transform .2s;
     }
-    .nav-cta::after { display: none !important; }
     .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
 
-    /* ── Hero ── */
+    /* ── Hero — full-bleed photo ── */
     #hero {
       position: relative; min-height: 100dvh;
       display: flex; align-items: center;
       overflow: hidden; padding: 96px 5vw 0;
-    }
-    .hero-bg-gradient {
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 70% at 0% 50%, rgba(79,195,247,.07) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 100% 20%, rgba(79,195,247,.05) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 40% at 50% 100%, rgba(79,195,247,.04) 0%, transparent 55%),
-        linear-gradient(165deg, var(--bg-deep) 0%, var(--bg-base) 60%, var(--bg-surface) 100%);
+      background-image: linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)), url('images/tech1.jpg');
+      background-size: cover; background-position: center; background-repeat: no-repeat;
     }
     .hero-inner {
       position: relative; z-index: 2;
-      max-width: 1100px; margin: 0 auto; width: 100%;
+      max-width: 1200px; margin: 0 auto; width: 100%;
       display: grid; grid-template-columns: 55fr 45fr; gap: 64px; align-items: center;
     }
     @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 48px; } }
 
-    /* Left column */
     .hero-left { display: flex; flex-direction: column; align-items: flex-start; }
     .hero-badge {
       display: inline-block;
-      background: rgba(79,195,247,.1); border: 1px solid rgba(79,195,247,.22); border-radius: 100px;
+      background: rgba(79,195,247,.12); border: 1px solid rgba(79,195,247,.28); border-radius: 100px;
       padding: 5px 16px; font-family: 'Outfit', sans-serif;
       font-size: 10.5px; font-weight: 600; color: var(--ice-400);
       letter-spacing: .2em; text-transform: uppercase; margin-bottom: 26px;
     }
     .hero-title {
       font-family: 'Outfit', 'Noto Sans TC', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 900;
-      line-height: 1.08; letter-spacing: -.025em; margin-bottom: 22px;
+      font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 900;
+      line-height: 1.06; letter-spacing: -.025em; margin-bottom: 22px; color: #fff;
     }
     .hero-title .brand-name {
       font-family: 'Noto Serif TC', serif; font-weight: 900; letter-spacing: .04em; display: block;
-      background: linear-gradient(135deg, var(--gold-light) 20%, var(--gold));
+      background: linear-gradient(135deg, #fff 20%, rgba(255,255,255,.8));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      filter: drop-shadow(0 0 24px rgba(79,195,247,.25));
     }
     .hero-title .tagline {
       display: block; font-family: 'Noto Sans TC', sans-serif;
-      font-size: .58em; font-weight: 700; letter-spacing: .06em; margin-top: 4px;
+      font-size: .52em; font-weight: 700; letter-spacing: .06em; margin-top: 8px;
       color: var(--ice-400); -webkit-text-fill-color: var(--ice-400);
       background: none;
     }
     .hero-subtitle {
-      font-size: clamp(.9rem, 1.6vw, 1.05rem); color: var(--silver-dim);
+      font-size: clamp(.9rem, 1.6vw, 1.05rem); color: rgba(245,247,250,.8);
       max-width: 460px; margin-bottom: 40px; line-height: 1.8; text-wrap: pretty;
     }
-    .hero-divider {
-      width: 36px; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(79,195,247,.5), transparent);
-      margin-bottom: 36px;
-    }
-    .hero-buttons {
-      display: flex; gap: 12px; flex-wrap: wrap;
-    }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* Right column - photo frame */
-    .hero-right {
-      position: relative;
+    /* Right pills column */
+    .hero-right { display: flex; flex-direction: column; gap: 14px; align-items: flex-end; }
+    .trust-pill {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 100px;
+      background: rgba(255,255,255,.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.2);
+      font-size: 14px; font-weight: 600; color: #fff;
+      letter-spacing: .02em; white-space: nowrap;
+      box-shadow: 0 4px 24px rgba(0,0,0,.25);
     }
-    .hero-photo-frame {
-      position: relative; border-radius: 16px; overflow: hidden;
-      aspect-ratio: 4/3;
-      border: 1px solid var(--color-border);
-      box-shadow: 0 0 0 1px rgba(79,195,247,.04), 0 32px 80px rgba(0,0,0,.5);
-    }
-    .hero-photo-frame img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(.85) saturate(.9);
-    }
-    /* Corner brackets */
-    .hero-photo-frame::before,
-    .hero-photo-frame::after,
-    .corner-tl, .corner-br { position: absolute; width: 12px; height: 12px; z-index: 3; }
-    .corner-tl { top: 8px; left: 8px; border-top: 2px solid var(--ice-400); border-left: 2px solid var(--ice-400); }
-    .corner-tr { position: absolute; top: 8px; right: 8px; width: 12px; height: 12px; z-index: 3; border-top: 2px solid var(--ice-400); border-right: 2px solid var(--ice-400); }
-    .corner-bl { position: absolute; bottom: 8px; left: 8px; width: 12px; height: 12px; z-index: 3; border-bottom: 2px solid var(--ice-400); border-left: 2px solid var(--ice-400); }
-    .corner-br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--ice-400); border-right: 2px solid var(--ice-400); }
-    /* Scan line */
-    .hero-scan {
-      position: absolute; left: 0; right: 0; height: 2px; z-index: 4;
-      background: linear-gradient(90deg, transparent 0%, rgba(79,195,247,.6) 40%, rgba(125,211,252,.9) 50%, rgba(79,195,247,.6) 60%, transparent 100%);
-      box-shadow: 0 0 12px rgba(79,195,247,.4);
-      animation: scanLine 4s linear infinite;
-      top: 0;
-    }
-    @keyframes scanLine { 0%{top:0;opacity:.9} 95%{top:100%;opacity:.4} 100%{top:100%;opacity:0} }
-    .hero-photo-overlay {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 50%, rgba(20,24,32,.35) 100%);
-      z-index: 2;
-    }
+    .trust-pill .pill-icon { font-size: 16px; }
 
-    /* ── Buttons ── */
-    .btn-line-hero {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 28px; background: var(--line-green);
-      color: #fff; border-radius: 100px; font-size: 14px; font-weight: 700;
-      text-decoration: none; letter-spacing: .04em;
+    /* Hero marquee strip */
+    .hero-marquee-strip {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+      padding: 14px 0; overflow: hidden;
+    }
+    .hero-marquee-track {
+      display: flex; gap: 0; width: max-content;
+      animation: marqueeLeft 20s linear infinite;
+    }
+    .hero-marquee-item {
+      font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--ice-400);
+      padding: 0 48px; white-space: nowrap;
+    }
+    @keyframes marqueeLeft { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── Buttons — VoltFlow bolt style ── */
+    .btn-volt-line {
+      display: inline-flex; align-items: center; gap: 0;
+      background: var(--line-green); border-radius: 100px;
+      font-size: 14px; font-weight: 700; color: #fff;
+      text-decoration: none; letter-spacing: .04em; overflow: hidden;
       box-shadow: 0 0 0 1px rgba(6,199,85,.3), 0 6px 24px rgba(6,199,85,.25);
       transition: transform .3s var(--ease-premium), box-shadow .3s, opacity .3s;
     }
-    .btn-line-hero:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(6,199,85,.4), 0 10px 32px rgba(6,199,85,.35); opacity: .92; }
-    .btn-line-hero:active { transform: translateY(0) scale(.97); }
+    .btn-volt-line:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(6,199,85,.4), 0 10px 32px rgba(6,199,85,.35); opacity: .93; }
+    .btn-volt-line:active { transform: translateY(0) scale(.97); }
+    .btn-volt-line .btn-text { padding: 13px 20px 13px 26px; }
+    .btn-volt-line .btn-circle {
+      width: 42px; height: 42px; border-radius: 50%; margin: 3px;
+      background: rgba(255,255,255,.25); display: grid; place-items: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+
+    .btn-volt-primary {
+      display: inline-flex; align-items: center; gap: 0;
+      background: var(--ice-400); border-radius: 100px;
+      font-size: 14px; font-weight: 700; color: #fff;
+      text-decoration: none; letter-spacing: .04em; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(79,195,247,.3), 0 6px 24px rgba(79,195,247,.2);
+      transition: transform .3s var(--ease-premium), box-shadow .3s, opacity .3s;
+    }
+    .btn-volt-primary:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(79,195,247,.4), 0 10px 32px rgba(79,195,247,.3); opacity: .93; }
+    .btn-volt-primary:active { transform: translateY(0) scale(.97); }
+    .btn-volt-primary .btn-text { padding: 13px 20px 13px 26px; }
+    .btn-volt-primary .btn-circle {
+      width: 42px; height: 42px; border-radius: 50%; margin: 3px;
+      background: rgba(0,0,0,.18); display: grid; place-items: center;
+      font-size: 15px; flex-shrink: 0;
+    }
 
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 28px; background: rgba(255,255,255,.05);
-      color: rgba(226,232,240,.8); border: 1px solid rgba(255,255,255,.1);
+      padding: 13px 28px; background: rgba(255,255,255,.07);
+      color: rgba(226,232,240,.85); border: 1px solid rgba(255,255,255,.15);
       border-radius: 100px; font-size: 14px; font-weight: 600;
       text-decoration: none; letter-spacing: .04em;
       transition: color .25s, border-color .25s, transform .3s var(--ease-premium), background .25s;
@@ -268,144 +248,250 @@
     .btn-secondary:hover { color: var(--silver); border-color: rgba(79,195,247,.3); background: rgba(79,195,247,.07); transform: translateY(-2px); }
     .btn-secondary:active { transform: translateY(0) scale(.97); }
 
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 26px; background: var(--ice-400);
-      color: #fff; border-radius: 100px; font-size: 14px; font-weight: 600;
-      text-decoration: none; letter-spacing: .04em;
-      box-shadow: 0 0 0 1px rgba(79,195,247,.3), 0 4px 20px rgba(79,195,247,.2);
-      transition: transform .3s var(--ease-premium), box-shadow .3s, opacity .3s;
+    /* ── Section Light — scroll-driven light→dark ── */
+    .section-light {
+      background: #F0F5FA;
+      color: #1A2030;
+      transition: background .6s var(--ease-out), color .6s var(--ease-out);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(79,195,247,.4), 0 8px 32px rgba(79,195,247,.3); opacity: .92; }
-    .btn-primary:active { transform: translateY(0) scale(.97); }
+    .section-light .section-tag { color: #0077A8; }
+    .section-light .section-title { color: #0D1520; }
+    .section-light .section-subtitle { color: #4A5568; }
+    .section-light .stat-number { color: #0077A8; }
+    .section-light .stat-label { color: #4A5568; }
+    .section-light .stats-bar-inner { border-color: rgba(0,0,0,.1); }
+
+    .section-light.is-dark {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+    .section-light.is-dark .section-tag { color: var(--ice-400); }
+    .section-light.is-dark .section-title { color: var(--silver); }
+    .section-light.is-dark .section-subtitle { color: var(--silver-dim); }
+    .section-light.is-dark .stat-number { color: var(--ice-400); }
+    .section-light.is-dark .stat-label { color: var(--silver-dim); }
 
     /* ── Stats Bar ── */
     .stats-bar {
       position: relative; z-index: 1;
-      background: var(--color-bg-secondary);
       border-top: 1px solid var(--color-border);
       border-bottom: 1px solid var(--color-border);
-      padding: 36px 5vw;
+      padding: 40px 5vw;
     }
     .stats-inner {
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto;
       display: flex; justify-content: space-around; align-items: center;
       flex-wrap: wrap; gap: 0;
     }
     .stat-item {
       text-align: center; padding: 0 48px;
-      border-right: 1px solid var(--color-border);
+      border-right: 1px solid rgba(0,0,0,.1);
+      transition: border-color .6s;
     }
     .stat-item:last-child { border-right: none; }
+    .section-light.is-dark .stat-item { border-right-color: var(--color-border); }
+    .section-light.is-dark .stat-item:last-child { border-right: none; }
     .stat-number {
       font-family: 'Outfit', sans-serif;
-      font-size: 3rem; font-weight: 900; color: var(--ice-400);
+      font-size: 3.2rem; font-weight: 900;
       font-variant-numeric: tabular-nums; line-height: 1;
       margin-bottom: 8px; letter-spacing: -.02em;
+      transition: color .6s;
     }
-    .stat-label { font-size: 11.5px; color: var(--silver-dim); letter-spacing: .1em; text-transform: uppercase; }
+    .stat-label { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; transition: color .6s; }
 
     /* ── Section Base ── */
     section { padding: 112px 5vw; position: relative; z-index: 1; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
     .section-tag {
       display: inline-block; font-family: 'Outfit', sans-serif;
       font-size: 11px; font-weight: 600; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--ice-400); margin-bottom: 14px;
+      text-transform: uppercase; margin-bottom: 14px;
+      transition: color .6s;
     }
     .section-title {
       font-family: 'Noto Serif TC', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900;
-      line-height: 1.2; letter-spacing: .01em; margin-bottom: 14px; color: var(--silver);
+      line-height: 1.2; letter-spacing: .01em; margin-bottom: 14px;
+      transition: color .6s;
     }
     .section-subtitle {
-      font-size: .975rem; color: var(--silver-dim);
-      max-width: 680px; line-height: 1.85; margin-top: 8px; text-wrap: pretty;
+      font-size: .975rem; max-width: 680px; line-height: 1.85; margin-top: 8px; text-wrap: pretty;
+      transition: color .6s;
     }
 
-    /* ── Scroll Reveal — initial state; GSAP animates in via ScrollTrigger.batch ── */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      will-change: transform, opacity;
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
+
+    /* ── Services — tall photo cards ── */
+    #services { background: inherit; }
+    .services-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+      margin-bottom: 56px;
+    }
+    @media (max-width: 768px) { .services-header { grid-template-columns: 1fr; gap: 24px; } }
+    .services-header-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900;
+      line-height: 1.15; letter-spacing: .01em;
+      transition: color .6s;
+    }
+    .section-light .services-header-title { color: #0D1520; }
+    .section-light.is-dark .services-header-title { color: var(--silver); }
+    .services-header-body {
+      font-size: 1rem; line-height: 1.85; max-width: 420px;
+      transition: color .6s;
+    }
+    .section-light .services-header-body { color: #4A5568; }
+    .section-light.is-dark .services-header-body { color: var(--silver-dim); }
+
+    .services-photo-grid { display: flex; gap: 20px; height: 540px; }
+    @media (max-width: 768px) { .services-photo-grid { flex-direction: column; height: auto; } }
+
+    .service-photo-card {
+      position: relative; flex: 1; min-width: 0; border-radius: 20px; overflow: hidden;
+      cursor: pointer; display: block; text-decoration: none; color: inherit;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18);
+      transition: flex .55s var(--ease-premium), box-shadow .45s, transform .3s var(--ease-premium);
+    }
+    @media (max-width: 768px) { .service-photo-card { aspect-ratio: 16/9; flex: none; } }
+    .services-photo-grid.has-hover .service-photo-card { flex: 0.52; }
+    .service-photo-card.is-hovered { flex: 2.4; box-shadow: 0 24px 64px rgba(0,0,0,.38); }
+
+    .service-photo-card img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .6s var(--ease-premium);
+    }
+    .service-photo-card:hover img { transform: scale(1.05); }
+
+    .service-photo-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,15,18,.88) 0%, rgba(13,15,18,.3) 45%, transparent 70%);
+      transition: background .4s;
+    }
+    .service-photo-card:hover .service-photo-card-overlay {
+      background: linear-gradient(to top, rgba(13,15,18,.95) 0%, rgba(13,15,18,.5) 55%, rgba(13,15,18,.1) 80%);
     }
 
-    /* ── Services ── */
-    #services {
-      background: var(--color-bg-secondary);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
+    .service-photo-card-icon {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 52px; height: 52px; display: grid; place-items: center;
+      color: #fff; opacity: .7;
+      transition: opacity .4s, transform .4s var(--ease-premium);
     }
-    .services-header { margin-bottom: 52px; }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .service-card {
-      background: var(--color-bg);
-      border: 1px solid var(--color-border); border-radius: 16px; padding: 30px 26px;
-      position: relative; overflow: hidden; cursor: default;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.025), inset 0 1px 0 rgba(255,255,255,.07), 0 20px 48px rgba(13,15,18,.7);
-      transition: transform .4s var(--ease-premium), border-color .3s, box-shadow .4s;
+    .service-photo-card:hover .service-photo-card-icon { opacity: 0; transform: translate(-50%, -60%); }
+
+    .service-photo-card-body {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 24px;
+      transform: translateY(8px); transition: transform .4s var(--ease-premium);
     }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--ice-400), var(--ice-600), transparent);
-      transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-premium);
+    .service-photo-card:hover .service-photo-card-body { transform: translateY(0); }
+    .service-photo-card-title {
+      font-size: 18px; font-weight: 800; color: #fff;
+      letter-spacing: .02em; margin-bottom: 8px;
     }
-    .service-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% -20%, rgba(79,195,247,.06), transparent 60%);
-      opacity: 0; transition: opacity .4s;
+    .service-photo-card-desc {
+      font-size: 13px; color: rgba(245,247,250,.75); line-height: 1.65;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height .4s var(--ease-premium), opacity .4s;
     }
-    .service-card:hover { transform: translateY(-7px); border-color: rgba(79,195,247,.2); box-shadow: 0 0 0 4px rgba(79,195,247,.035), inset 0 1px 0 rgba(255,255,255,.1), 0 28px 64px rgba(13,15,18,.75); }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover::after { opacity: 1; }
-    .service-icon {
-      width: 48px; height: 48px; background: rgba(79,195,247,.1); border: 1px solid rgba(79,195,247,.18);
-      border-radius: 12px; display: grid; place-items: center; margin-bottom: 20px;
-      position: relative; z-index: 1; color: var(--ice-400);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
-      transition: background .3s, transform .4s var(--ease-premium), box-shadow .3s;
+    .service-photo-card:hover .service-photo-card-desc { max-height: 80px; opacity: 1; }
+
+    /* Spinning circular text badge */
+    .service-badge {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+      width: 112px; height: 112px; opacity: 0;
+      transition: opacity .35s, transform .35s var(--ease-premium);
+      pointer-events: none;
     }
-    .service-card:hover .service-icon { background: rgba(79,195,247,.16); transform: scale(1.08) translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 6px 20px rgba(79,195,247,.18); }
-    .service-title { font-size: .975rem; font-weight: 700; margin-bottom: 9px; position: relative; z-index: 1; color: var(--silver); }
-    .service-desc { font-size: 13px; color: var(--silver-dim); line-height: 1.75; position: relative; z-index: 1; }
+    .service-photo-card:hover .service-badge { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .service-badge svg { animation: spinBadge 8s linear infinite; }
+    @keyframes spinBadge { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .service-badge-center {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 36px; height: 36px; background: #fff; border-radius: 50%;
+      display: grid; place-items: center; color: var(--color-bg); font-size: 18px; font-weight: 900;
+    }
 
     /* ── Why Us ── */
-    #why {
-      background: var(--color-bg);
-    }
-    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    #why { background: inherit; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; gap: 44px; } }
-    .why-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .why-item {
-      display: flex; gap: 16px; align-items: flex-start;
-      padding: 15px 16px; border-radius: 12px; border: 1px solid transparent;
+
+    .why-photo-wrap {
+      position: relative; border-radius: 20px; overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: 0 24px 64px rgba(0,0,0,.22);
+    }
+    .why-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .why-stat-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      padding: 14px 20px;
+      background: rgba(13,15,18,.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(79,195,247,.25); border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    }
+    .why-stat-badge .badge-num {
+      font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 900;
+      color: var(--ice-400); line-height: 1; letter-spacing: -.02em;
+    }
+    .why-stat-badge .badge-label { font-size: 12px; color: rgba(245,247,250,.7); margin-top: 4px; letter-spacing: .04em; }
+
+    .why-content-card {
+      padding: 40px 36px; border-radius: 20px;
+      transition: background .6s, border-color .6s, box-shadow .6s;
+    }
+    .section-light .why-content-card { background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 8px 40px rgba(0,0,0,.07); }
+    .section-light.is-dark .why-content-card { background: var(--color-bg-secondary); border: 1px solid var(--color-border); box-shadow: 0 8px 40px rgba(0,0,0,.4); }
+
+    .why-feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 28px; }
+    .why-feature {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 16px; border-radius: 12px; border: 1px solid transparent;
       transition: border-color .3s, background .3s, transform .4s var(--ease-premium);
     }
-    .why-item:hover { border-color: rgba(79,195,247,.15); background: rgba(79,195,247,.035); transform: translateX(6px); }
-    .why-item-icon {
-      width: 38px; height: 38px; flex-shrink: 0;
-      background: rgba(79,195,247,.1); border-radius: 10px;
-      display: grid; place-items: center; color: var(--ice-400);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+    .section-light .why-feature:hover { border-color: rgba(0,119,168,.15); background: rgba(0,119,168,.04); transform: translateX(6px); }
+    .section-light.is-dark .why-feature:hover { border-color: rgba(79,195,247,.15); background: rgba(79,195,247,.035); transform: translateX(6px); }
+
+    .why-feature-icon {
+      width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px;
+      display: grid; place-items: center; transition: background .6s;
     }
-    .why-item-title { font-size: 14.5px; font-weight: 700; margin-bottom: 3px; color: var(--silver); }
-    .why-item-desc { font-size: 13px; color: var(--silver-dim); line-height: 1.65; }
+    .section-light .why-feature-icon { background: rgba(0,119,168,.1); color: #0077A8; }
+    .section-light.is-dark .why-feature-icon { background: rgba(79,195,247,.1); color: var(--ice-400); }
+    .why-feature-title { font-size: 14.5px; font-weight: 700; margin-bottom: 3px; transition: color .6s; }
+    .section-light .why-feature-title { color: #0D1520; }
+    .section-light.is-dark .why-feature-title { color: var(--silver); }
+    .why-feature-desc { font-size: 13px; line-height: 1.65; transition: color .6s; }
+    .section-light .why-feature-desc { color: #4A5568; }
+    .section-light.is-dark .why-feature-desc { color: var(--silver-dim); }
+
+    /* Urgent CTA strip */
+    .urgent-strip {
+      margin-top: 40px; padding: 24px 32px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      border-radius: 16px;
+      transition: background .6s, border-color .6s;
+    }
+    .section-light .urgent-strip { background: #0D1520; border: 1px solid rgba(255,255,255,.08); }
+    .section-light.is-dark .urgent-strip { background: var(--color-bg-elevated); border: 1px solid var(--color-border); }
+    .urgent-strip-title { font-size: 18px; font-weight: 800; color: #fff; }
+    .urgent-strip-sub { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 3px; }
 
     /* ── Before & After ── */
-    #before-after {
-      background: var(--color-bg-secondary);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
+    #before-after { background: inherit; }
     .ba-header { margin-bottom: 44px; }
     .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     @media (max-width: 900px) { .ba-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 560px) { .ba-grid { grid-template-columns: 1fr; } }
     .ba-card {
       border-radius: 14px; overflow: hidden; position: relative;
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.02), inset 0 1px 0 rgba(255,255,255,.05);
-      transition: transform .4s var(--ease-premium), box-shadow .4s, border-color .3s;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .4s var(--ease-premium), box-shadow .4s, border-color .3s, opacity .6s;
     }
+    .section-light.is-dark .ba-card { border-color: rgba(255,255,255,.07); box-shadow: 0 0 0 3px rgba(255,255,255,.02); }
     .ba-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 0 0 3px rgba(79,195,247,.05), 0 24px 56px rgba(13,15,18,.75); border-color: rgba(79,195,247,.18); }
     .ba-card img { width: 100%; display: block; filter: saturate(.88); transition: filter .4s; }
     .ba-card:hover img { filter: saturate(1.1); }
@@ -418,23 +504,22 @@
     }
 
     /* ── Portfolio ── */
-    #portfolio {
-      background: var(--color-bg);
-    }
+    #portfolio { background: inherit; }
     .portfolio-header { margin-bottom: 40px; }
     .portfolio-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
     @media (max-width: 640px) { .portfolio-grid { grid-template-columns: 1fr; } }
     .portfolio-item {
       position: relative; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.02);
-      transition: transform .4s var(--ease-premium), box-shadow .4s;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .4s var(--ease-premium), box-shadow .4s, border-color .3s;
     }
+    .section-light.is-dark .portfolio-item { border-color: rgba(255,255,255,.07); box-shadow: 0 0 0 3px rgba(255,255,255,.02); }
     .portfolio-item:hover { transform: scale(1.02); box-shadow: 0 0 0 3px rgba(79,195,247,.04), 0 24px 56px rgba(13,15,18,.75); }
     .portfolio-item img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: transform .6s var(--ease-premium), filter .4s;
-      filter: brightness(.83) saturate(.88); min-height: 260px;
+      filter: brightness(.85) saturate(.88); min-height: 260px;
     }
     .portfolio-item:hover img { transform: scale(1.06); filter: brightness(.98) saturate(1); }
     .portfolio-item--wide { grid-column: span 2; }
@@ -447,12 +532,75 @@
       font-size: 14px; font-weight: 700; letter-spacing: .04em; color: var(--silver);
     }
     .portfolio-item-label span {
-      font-family: 'Outfit', sans-serif;
-      font-size: 10px; font-weight: 500; color: var(--ice-300); display: block;
-      margin-bottom: 3px; letter-spacing: .14em; text-transform: uppercase;
+      font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 500; color: var(--ice-300);
+      display: block; margin-bottom: 3px; letter-spacing: .14em; text-transform: uppercase;
     }
 
-    /* ── Reviews ── */
+    /* Portfolio btn override */
+    .section-light .btn-volt-primary,
+    .section-light.is-dark .btn-volt-primary { /* inherits */ }
+
+    /* ── Process — tab style ── */
+    #process { background: inherit; }
+    .process-header { text-align: center; margin-bottom: 48px; }
+    .process-tabs {
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+      border-bottom: 2px solid transparent; margin-bottom: 48px; position: relative;
+    }
+    .section-light .process-tabs { border-bottom-color: rgba(0,0,0,.1); }
+    .section-light.is-dark .process-tabs { border-bottom-color: var(--color-border); }
+    .process-tab {
+      padding: 14px 28px; font-size: 14px; font-weight: 700;
+      letter-spacing: .04em; cursor: pointer; border: none; background: transparent;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: color .3s, border-color .3s;
+    }
+    .section-light .process-tab { color: #4A5568; }
+    .section-light.is-dark .process-tab { color: var(--silver-dim); }
+    .section-light .process-tab.is-active { color: #0D1520; border-bottom-color: var(--ice-400); }
+    .section-light.is-dark .process-tab.is-active { color: var(--silver); border-bottom-color: var(--ice-400); }
+
+    .process-panels { position: relative; }
+    .process-panel { display: none; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .process-panel.is-active { display: grid; }
+    @media (max-width: 768px) { .process-panel { grid-template-columns: 1fr; } }
+
+    .process-content-card {
+      padding: 40px 36px; border-radius: 20px;
+      transition: background .6s, border-color .6s;
+    }
+    .section-light .process-content-card { background: #fff; border: 1px solid rgba(0,0,0,.08); }
+    .section-light.is-dark .process-content-card { background: var(--color-bg-secondary); border: 1px solid var(--color-border); }
+
+    .process-step-num {
+      font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px;
+      transition: color .6s;
+    }
+    .section-light .process-step-num { color: #0077A8; }
+    .section-light.is-dark .process-step-num { color: var(--ice-400); }
+
+    .process-step-title {
+      font-family: 'Noto Serif TC', serif; font-size: 1.6rem; font-weight: 900;
+      line-height: 1.3; margin-bottom: 16px; transition: color .6s;
+    }
+    .section-light .process-step-title { color: #0D1520; }
+    .section-light.is-dark .process-step-title { color: var(--silver); }
+
+    .process-step-desc {
+      font-size: 15px; line-height: 1.8; margin-bottom: 28px; transition: color .6s;
+    }
+    .section-light .process-step-desc { color: #4A5568; }
+    .section-light.is-dark .process-step-desc { color: var(--silver-dim); }
+
+    .process-photo {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 16px 48px rgba(0,0,0,.18);
+    }
+    .process-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── Reviews — always dark ── */
     #reviews {
       background: var(--color-bg-secondary);
       border-top: 1px solid var(--color-border);
@@ -466,7 +614,6 @@
     .marquee-track { display: flex; gap: 14px; width: max-content; animation: marqueeLeft 28s linear infinite; }
     .marquee-track.reverse { animation: marqueeRight 32s linear infinite; margin-top: 14px; }
     .marquee-wrapper:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marqueeLeft  { from{transform:translateX(0)} to{transform:translateX(-50%)} }
     @keyframes marqueeRight { from{transform:translateX(-50%)} to{transform:translateX(0)} }
     .review-card {
       flex-shrink: 0; width: 252px; border-radius: 14px; overflow: hidden;
@@ -478,119 +625,59 @@
     .review-card img { width: 100%; display: block; }
 
     /* ── Brands ── */
-    #brands {
-      background: var(--color-bg);
-    }
+    #brands { background: inherit; }
     .brands-header { text-align: center; margin-bottom: 48px; }
     .brands-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
     .brand-item {
-      padding: 13px 24px;
-      background: var(--color-bg-secondary);
-      border: 1px solid var(--color-border); border-radius: 12px;
-      font-size: 14.5px; font-weight: 700; color: var(--silver-dim); letter-spacing: .06em;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
-      transition: background .3s, border-color .3s, color .3s, transform .4s var(--ease-premium), box-shadow .3s;
-      cursor: default; text-align: center;
+      padding: 13px 24px; border-radius: 12px;
+      font-size: 14.5px; font-weight: 700; letter-spacing: .06em; text-align: center; cursor: default;
+      transition: background .3s, border-color .3s, color .3s, transform .4s var(--ease-premium), box-shadow .3s, color .6s, border-color .6s, background .6s;
     }
-    .brand-item:hover { background: rgba(79,195,247,.07); border-color: rgba(79,195,247,.25); color: var(--silver); transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 8px 24px rgba(13,15,18,.5); }
-    .brand-item .brand-en { font-family: 'Outfit', sans-serif; font-size: 10px; color: var(--steel); display: block; letter-spacing: .1em; margin-top: 2px; }
+    .section-light .brand-item { background: #fff; border: 1px solid rgba(0,0,0,.1); color: #2D3748; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+    .section-light.is-dark .brand-item { background: var(--color-bg-secondary); border: 1px solid var(--color-border); color: var(--silver-dim); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
+    .brand-item:hover { transform: translateY(-3px); }
+    .section-light .brand-item:hover { background: rgba(0,119,168,.07); border-color: rgba(0,119,168,.25); color: #0D1520; box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .section-light.is-dark .brand-item:hover { background: rgba(79,195,247,.07); border-color: rgba(79,195,247,.25); color: var(--silver); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 8px 24px rgba(13,15,18,.5); }
+    .brand-item .brand-en {
+      font-family: 'Outfit', sans-serif; font-size: 10px; display: block;
+      letter-spacing: .1em; margin-top: 2px; transition: color .6s;
+    }
+    .section-light .brand-item .brand-en { color: #718096; }
+    .section-light.is-dark .brand-item .brand-en { color: var(--steel); }
 
     /* ── Pricing ── */
-    #pricing {
-      background: var(--color-bg-secondary);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
+    #pricing { background: inherit; }
     .pricing-header { text-align: center; margin-bottom: 48px; }
     .pricing-note {
       max-width: 680px; margin: 0 auto 40px;
-      background: rgba(79,195,247,.06); border: 1px solid rgba(79,195,247,.16);
       border-radius: 14px; padding: 20px 28px; text-align: center;
-      box-shadow: inset 0 1px 0 rgba(79,195,247,.08);
+      transition: background .6s, border-color .6s;
     }
-    .pricing-note-title { font-size: 14.5px; font-weight: 700; color: var(--ice-300); margin-bottom: 6px; }
-    .pricing-note-text { font-size: 13px; color: var(--silver-dim); line-height: 1.65; }
+    .section-light .pricing-note { background: rgba(0,119,168,.06); border: 1px solid rgba(0,119,168,.16); }
+    .section-light.is-dark .pricing-note { background: rgba(79,195,247,.06); border: 1px solid rgba(79,195,247,.16); box-shadow: inset 0 1px 0 rgba(79,195,247,.08); }
+    .pricing-note-title { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; transition: color .6s; }
+    .section-light .pricing-note-title { color: #0077A8; }
+    .section-light.is-dark .pricing-note-title { color: var(--ice-300); }
+    .pricing-note-text { font-size: 13px; line-height: 1.65; transition: color .6s; }
+    .section-light .pricing-note-text { color: #4A5568; }
+    .section-light.is-dark .pricing-note-text { color: var(--silver-dim); }
     .pricing-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; max-width: 860px; margin: 0 auto 40px; }
     @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
     .pricing-img-card {
       border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.02), 0 8px 32px rgba(13,15,18,.6);
-      transition: transform .4s var(--ease-premium), box-shadow .4s;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+      transition: transform .4s var(--ease-premium), box-shadow .4s, border-color .6s;
     }
+    .section-light.is-dark .pricing-img-card { border-color: rgba(255,255,255,.07); box-shadow: 0 0 0 3px rgba(255,255,255,.02), 0 8px 32px rgba(13,15,18,.6); }
     .pricing-img-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 3px rgba(79,195,247,.04), 0 20px 48px rgba(13,15,18,.75); }
     .pricing-img-card img { width: 100%; display: block; }
     .pricing-cta-note { text-align: center; }
-    .pricing-cta-note p { font-size: 13.5px; color: var(--silver-dim); margin-bottom: 20px; }
+    .pricing-cta-note p { font-size: 13.5px; margin-bottom: 20px; transition: color .6s; }
+    .section-light .pricing-cta-note p { color: #4A5568; }
+    .section-light.is-dark .pricing-cta-note p { color: var(--silver-dim); }
 
-    /* ── Process ── */
-    #process {
-      background: var(--color-bg);
-    }
-    .process-steps {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0; position: relative; margin-top: 60px;
-    }
-    .process-steps::before {
-      content: ''; position: absolute; top: 24px; left: 12%; right: 12%; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(79,195,247,.3), transparent);
-    }
-    .process-step { text-align: center; padding: 0 20px; position: relative; transition: transform .4s var(--ease-premium); }
-    .process-step:hover { transform: translateY(-5px); }
-    .step-num {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--bg-base); border: 1.5px solid rgba(79,195,247,.25);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 900;
-      color: var(--ice-400); margin: 0 auto 20px;
-      box-shadow: 0 0 0 3px rgba(79,195,247,.04), inset 0 1px 0 rgba(255,255,255,.06);
-      transition: background .3s, border-color .3s, box-shadow .4s;
-    }
-    .process-step:hover .step-num { background: rgba(79,195,247,.09); border-color: var(--ice-400); box-shadow: 0 0 0 4px rgba(79,195,247,.07), 0 0 24px rgba(79,195,247,.2); }
-    .step-title { font-size: 14.5px; font-weight: 700; margin-bottom: 9px; color: var(--silver); }
-    .step-desc { font-size: 13px; color: var(--silver-dim); line-height: 1.65; }
-
-    /* ── CTA ── */
-    #cta {
-      padding: 112px 5vw; position: relative; overflow: hidden;
-      background: var(--color-bg-secondary);
-      border-top: 1px solid var(--color-border);
-    }
-    .cta-inner { max-width: 880px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
-    .cta-box {
-      position: relative;
-      background: var(--color-bg);
-      border: 1px solid rgba(79,195,247,.18); border-radius: 24px; padding: 64px 48px; overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(79,195,247,.04), 0 40px 80px rgba(0,0,0,.4);
-    }
-    .cta-box::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(79,195,247,.7), transparent);
-    }
-    .cta-box::after {
-      content: ''; position: absolute;
-      width: 500px; height: 400px; border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(79,195,247,.06), transparent 65%);
-      top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;
-    }
-    .cta-title {
-      font-family: 'Noto Serif TC', serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900;
-      line-height: 1.3; margin-bottom: 14px; letter-spacing: .02em;
-      position: relative; z-index: 1; color: var(--silver);
-    }
-    .cta-subtitle { font-size: .975rem; color: var(--silver-dim); margin-bottom: 40px; position: relative; z-index: 1; }
-    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-    .btn-phone {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 12px 22px; background: rgba(79,195,247,.09);
-      border: 1px solid rgba(79,195,247,.22); color: var(--ice-300);
-      border-radius: 100px; font-size: 14px; font-weight: 600;
-      text-decoration: none; letter-spacing: .04em;
-      transition: background .3s, transform .3s var(--ease-premium), box-shadow .3s;
-    }
-    .btn-phone:hover { background: rgba(79,195,247,.15); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,195,247,.15); }
-    .btn-phone:active { transform: translateY(0) scale(.97); }
+    /* Line button for light section */
     .btn-line-cta {
       display: inline-flex; align-items: center; gap: 9px;
       padding: 12px 22px; background: var(--line-green);
@@ -602,6 +689,74 @@
     .btn-line-cta:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(6,199,85,.4), 0 10px 32px rgba(6,199,85,.3); opacity: .92; }
     .btn-line-cta:active { transform: translateY(0) scale(.97); }
 
+    /* ── FAQ ── */
+    #faq { background: inherit; }
+    .faq-header { text-align: center; margin-bottom: 56px; }
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      border-radius: 16px; overflow: hidden;
+      transition: border-color .3s, background .6s, box-shadow .3s, border-color .6s;
+    }
+    .section-light .faq-item { background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+    .section-light.is-dark .faq-item { background: var(--color-bg-secondary); border: 1px solid var(--color-border); }
+    .section-light .faq-item.is-open { border-color: rgba(0,119,168,.2); }
+    .section-light.is-dark .faq-item.is-open { border-color: rgba(79,195,247,.2); }
+
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; cursor: pointer; gap: 16px;
+      font-size: 15px; font-weight: 700; line-height: 1.5;
+      background: transparent; border: none; width: 100%; text-align: left;
+      transition: color .6s;
+    }
+    .section-light .faq-question { color: #0D1520; }
+    .section-light.is-dark .faq-question { color: var(--silver); }
+
+    .faq-icon {
+      width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%;
+      display: grid; place-items: center; font-size: 18px; font-weight: 400;
+      transition: transform .35s var(--ease-premium), background .6s, color .6s;
+    }
+    .section-light .faq-icon { background: rgba(0,119,168,.1); color: #0077A8; }
+    .section-light.is-dark .faq-icon { background: rgba(79,195,247,.1); color: var(--ice-400); }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height .45s var(--ease-premium), padding .3s;
+      padding: 0 24px;
+    }
+    .faq-item.is-open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
+    .faq-answer p {
+      font-size: 14px; line-height: 1.8; transition: color .6s;
+    }
+    .section-light .faq-answer p { color: #4A5568; }
+    .section-light.is-dark .faq-answer p { color: var(--silver-dim); }
+
+    /* ── CTA — full-bleed photo ── */
+    #cta {
+      padding: 120px 5vw;
+      position: relative; overflow: hidden;
+      background-image: linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.58)), url('images/tech2.jpg');
+      background-size: cover; background-position: center; background-attachment: fixed;
+    }
+    .cta-inner { max-width: 760px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .cta-eyebrow {
+      display: inline-block; padding: 5px 16px;
+      background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2); border-radius: 100px;
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.8);
+      letter-spacing: .16em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .cta-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 900;
+      line-height: 1.25; margin-bottom: 16px; letter-spacing: .02em; color: #fff;
+    }
+    .cta-subtitle { font-size: 1rem; color: rgba(255,255,255,.65); margin-bottom: 40px; line-height: 1.75; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-service-note { margin-top: 28px; font-size: 13px; color: rgba(255,255,255,.45); }
+
     /* ── Footer ── */
     footer {
       position: relative; z-index: 1;
@@ -609,14 +764,18 @@
       border-top: 1px solid var(--color-border);
       padding: 56px 5vw 40px;
     }
-    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 48px; margin-bottom: 48px; }
     .footer-brand { max-width: 280px; }
-    .footer-tagline { font-size: 13px; color: var(--silver-dim); margin-top: 12px; line-height: 1.7; }
+    .footer-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; margin-bottom: 14px; }
+    .footer-logo-img { width: 30px; height: 30px; }
+    .footer-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .footer-logo-text { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: var(--silver); letter-spacing: .03em; }
+    .footer-tagline { font-size: 13px; color: var(--silver-dim); line-height: 1.7; }
     .footer-line-id {
       display: inline-flex; align-items: center; gap: 7px;
       background: rgba(6,199,85,.07); border: 1px solid rgba(6,199,85,.18);
-      border-radius: 100px; padding: 5px 14px; font-size: 13px; color: #4ade80; font-weight: 600; margin-top: 10px;
+      border-radius: 100px; padding: 5px 14px; font-size: 13px; color: #4ade80; font-weight: 600; margin-top: 12px;
     }
     .footer-links-group h4 { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--steel); margin-bottom: 14px; }
     .footer-links-group ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
@@ -640,34 +799,15 @@
     }
     .line-float:hover { transform: scale(1.06) translateY(-3px); box-shadow: 0 0 0 1px rgba(6,199,85,.5), 0 12px 36px rgba(6,199,85,.55); }
 
-    /* ── Credentials Card ── */
-    .cred-card {
-      background: var(--color-bg-secondary);
-      border: 1px solid var(--color-border); border-radius: 20px; padding: 36px 32px;
-      position: relative; overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(79,195,247,.03), 0 32px 64px rgba(0,0,0,.4);
-    }
-    .cred-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent); }
-    .cred-card::after { content: ''; position: absolute; bottom: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(79,195,247,.06), transparent 70%); pointer-events: none; }
-    .cred-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-    .cred-logo { width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; }
-    .cred-company { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 900; letter-spacing: .02em; color: var(--silver); }
-    .cred-en { font-family: 'Outfit', sans-serif; font-size: 9.5px; color: var(--steel); letter-spacing: .1em; margin-top: 3px; }
-    .cred-divider { height: 1px; background: rgba(255,255,255,.07); margin: 24px 0; }
-    .cred-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
-    .cred-stat-num { font-family: 'Outfit', sans-serif; font-size: 2.6rem; font-weight: 900; line-height: 1; color: var(--ice-300); margin-bottom: 5px; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
-    .cred-stat-num sup { font-size: 1.2rem; }
-    .cred-stat-label { font-size: 11.5px; color: var(--silver-dim); letter-spacing: .07em; }
-    .cred-badges { display: flex; flex-direction: column; gap: 9px; }
-    .cred-badge { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--silver-dim); background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 10px; padding: 11px 14px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); transition: background .3s, border-color .3s, transform .4s var(--ease-premium); }
-    .cred-badge:hover { background: rgba(79,195,247,.055); border-color: rgba(79,195,247,.18); transform: translateX(5px); }
-    .cred-badge-icon { flex-shrink: 0; color: var(--ice-400); display: flex; align-items: center; }
-
+    /* ── Responsive ── */
     @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .cta-box { padding: 40px 24px; }
-      .process-steps::before { display: none; }
-      .stat-item { border-right: none; padding: 16px 24px; }
+      .nav-center { display: none; }
+      .nav-phone { display: none; }
+      .stat-item { border-right: none !important; padding: 16px 24px; }
+      .services-photo-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .process-tab { padding: 10px 16px; font-size: 13px; }
+      #cta { background-attachment: scroll; }
     }
   </style>
 </head>
@@ -680,28 +820,30 @@
   <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
 </div>
 
-<!-- ── Navigation ── -->
+<!-- ── Navigation — VoltFlow full-width bar ── -->
 <nav id="navbar">
-  <div class="nav-inner" id="nav-inner">
+  <div class="nav-inner">
     <a href="#" class="nav-logo">
       <div class="nav-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
-      <span class="nav-logo-text">懋洲<span>冷氣工程</span></span>
+      <span class="nav-logo-text">懋洲冷氣工程</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-center">
       <li><a href="#services">服務項目</a></li>
       <li><a href="#before-after">清洗對比</a></li>
       <li><a href="portfolio.html">工程實績</a></li>
       <li><a href="products.html">商品</a></li>
       <li><a href="#reviews">客戶好評</a></li>
       <li><a href="#pricing">收費標準</a></li>
-      <li><a href="#cta" class="nav-cta">立即估價</a></li>
     </ul>
+    <div class="nav-right">
+      <a href="tel:+886912345678" class="nav-phone">0912-345-678</a>
+      <a href="#cta" class="nav-cta">立即估價</a>
+    </div>
   </div>
 </nav>
 
-<!-- ── Hero ── -->
+<!-- ── Hero — full-bleed photo ── -->
 <section id="hero">
-  <div class="hero-bg-gradient"></div>
   <div class="hero-inner">
     <!-- Left -->
     <div class="hero-left">
@@ -710,30 +852,36 @@
         <span class="brand-name">懋洲冷氣工程</span>
         <span class="tagline">您最信賴的空調夥伴</span>
       </h1>
-      <p class="hero-subtitle">安裝 · 清洗 · 保養 · 維修 · 移機，一站式服務<br>透明報價、認證技師，讓您冬暖夏涼無後顧之憂。</p>
-      <div class="hero-divider"></div>
+      <p class="hero-subtitle">安裝 · 清洗 · 保養 · 維修 · 移機，一站式服務。透明報價、認證技師，讓您冬暖夏涼無後顧之憂。</p>
       <div class="hero-buttons">
-        <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-line-hero">LINE 立即詢問</a>
+        <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+          <span class="btn-text">LINE 立即詢問</span>
+          <span class="btn-circle">↗</span>
+        </a>
         <a href="#services" class="btn-secondary">了解服務項目</a>
       </div>
     </div>
-    <!-- Right: photo frame -->
+    <!-- Right: trust pills -->
     <div class="hero-right">
-      <div class="hero-photo-frame">
-        <div class="corner-tl"></div>
-        <div class="corner-tr"></div>
-        <div class="corner-bl"></div>
-        <div class="corner-br"></div>
-        <div class="hero-scan"></div>
-        <div class="hero-photo-overlay"></div>
-        <img src="images/tech1.jpg" alt="專業空調技師施工" />
-      </div>
+      <div class="trust-pill"><span class="pill-icon">❄</span> 24H 緊急維修服務</div>
+      <div class="trust-pill"><span class="pill-icon">✓</span> 冷凍技士認證</div>
+      <div class="trust-pill"><span class="pill-icon">$</span> 透明報價無隱費</div>
+      <div class="trust-pill"><span class="pill-icon">★</span> 工程保固一年</div>
+    </div>
+  </div>
+  <!-- Marquee strip -->
+  <div class="hero-marquee-strip">
+    <div class="hero-marquee-track">
+      <span class="hero-marquee-item">冷氣安裝 · 清洗保養 · 故障維修 · 移機搬遷 · 系統規劃</span>
+      <span class="hero-marquee-item">冷氣安裝 · 清洗保養 · 故障維修 · 移機搬遷 · 系統規劃</span>
+      <span class="hero-marquee-item">冷氣安裝 · 清洗保養 · 故障維修 · 移機搬遷 · 系統規劃</span>
+      <span class="hero-marquee-item">冷氣安裝 · 清洗保養 · 故障維修 · 移機搬遷 · 系統規劃</span>
     </div>
   </div>
 </section>
 
 <!-- ── Stats Bar ── -->
-<div class="stats-bar">
+<div class="stats-bar section-light" id="stats-bar">
   <div class="stats-inner">
     <div class="stat-item reveal"><div class="stat-number" data-target="20" data-suffix="+">20+</div><div class="stat-label">年業界經驗</div></div>
     <div class="stat-item reveal reveal-delay-1"><div class="stat-number" data-target="3000" data-suffix="+">3,000+</div><div class="stat-label">完工工程案</div></div>
@@ -743,68 +891,160 @@
 </div>
 
 <!-- ── Services ── -->
-<section id="services">
+<section id="services" class="section-light">
   <div class="section-inner">
     <div class="services-header">
-      <span class="section-tag reveal">服務項目</span>
-      <h2 class="section-title reveal reveal-delay-1">全方位空調<br>工程服務</h2>
-      <p class="section-subtitle reveal reveal-delay-2">無論是家用分離式、商用中央空調或工業冷凍空調，我們都有完整解決方案。</p>
+      <h2 class="services-header-title reveal">全方位空調<br>工程服務</h2>
+      <p class="services-header-body reveal reveal-delay-1">無論是家用分離式、商用中央空調或工業冷凍空調，我們都有完整解決方案。專業技師團隊，從規劃到完工一手包辦，安心省事。</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card reveal"><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="9" rx="2"/><path d="M12 16v3M8 19h8M6 11h.01M10 11h.01M14 11h.01"/></svg></div><div class="service-title">冷氣安裝工程</div><div class="service-desc">住宅、商辦、廠房各類冷氣系統規劃安裝，管線走向整齊美觀，一年施工保固。</div></div>
-      <div class="service-card reveal reveal-delay-1"><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="service-title">保養維修服務</div><div class="service-desc">定期檢測保養延長機組壽命，24小時緊急故障維修，快速到府排除問題。</div></div>
-      <div class="service-card reveal reveal-delay-2"><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div class="service-title">冷氣清洗消毒</div><div class="service-desc">深層清洗蒸發器與冷凝器，全程防水套包覆，洗完乾淨超涼，完工後整理現場。</div></div>
-      <div class="service-card reveal reveal-delay-3"><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg></div><div class="service-title">冷氣移機搬遷</div><div class="service-desc">搬家裝修需要移機？提供專業拆裝搬遷，結合清洗保養一條龍，省時省力。</div></div>
-      <div class="service-card reveal reveal-delay-4"><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div><div class="service-title">系統規劃設計</div><div class="service-desc">專業工程師到場勘查，依空間坪數提供最優化空調配置方案及用電評估。</div></div>
+    <div class="services-photo-grid">
+      <!-- Card 1 -->
+      <a href="service-installation.html" class="service-photo-card reveal">
+        <img src="images/work2.jpg" alt="冷氣安裝工程" />
+        <div class="service-photo-card-overlay"></div>
+        <div class="service-photo-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="9" rx="2"/><path d="M12 16v3M8 19h8M6 11h.01M10 11h.01M14 11h.01"/></svg>
+        </div>
+        <div class="service-badge">
+          <svg viewBox="0 0 112 112" width="112" height="112">
+            <defs><path id="circle1" d="M56,56 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+            <text font-size="11" font-family="Outfit, sans-serif" font-weight="700" fill="white" letter-spacing="3">
+              <textPath href="#circle1">了解更多 · LEARN MORE · 了解更多 · LEARN MORE ·</textPath>
+            </text>
+          </svg>
+          <div class="service-badge-center">↗</div>
+        </div>
+        <div class="service-photo-card-body">
+          <div class="service-photo-card-title">冷氣安裝工程</div>
+          <div class="service-photo-card-desc">住宅、商辦、廠房各類冷氣系統規劃安裝，管線走向整齊美觀，一年施工保固。</div>
+        </div>
+      </a>
+      <!-- Card 2 -->
+      <a href="service-cleaning.html" class="service-photo-card reveal reveal-delay-1">
+        <img src="images/ba5.jpg" alt="清洗保養服務" />
+        <div class="service-photo-card-overlay"></div>
+        <div class="service-photo-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="service-badge">
+          <svg viewBox="0 0 112 112" width="112" height="112">
+            <defs><path id="circle2" d="M56,56 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+            <text font-size="11" font-family="Outfit, sans-serif" font-weight="700" fill="white" letter-spacing="3">
+              <textPath href="#circle2">了解更多 · LEARN MORE · 了解更多 · LEARN MORE ·</textPath>
+            </text>
+          </svg>
+          <div class="service-badge-center">↗</div>
+        </div>
+        <div class="service-photo-card-body">
+          <div class="service-photo-card-title">清洗保養服務</div>
+          <div class="service-photo-card-desc">深層清洗蒸發器與冷凝器，全程防水套包覆，洗完乾淨超涼，完工後整理現場。</div>
+        </div>
+      </a>
+      <!-- Card 3 -->
+      <a href="service-repair.html" class="service-photo-card reveal reveal-delay-2">
+        <img src="images/install2.jpg" alt="維修移機服務" />
+        <div class="service-photo-card-overlay"></div>
+        <div class="service-photo-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="service-badge">
+          <svg viewBox="0 0 112 112" width="112" height="112">
+            <defs><path id="circle3" d="M56,56 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+            <text font-size="11" font-family="Outfit, sans-serif" font-weight="700" fill="white" letter-spacing="3">
+              <textPath href="#circle3">了解更多 · LEARN MORE · 了解更多 · LEARN MORE ·</textPath>
+            </text>
+          </svg>
+          <div class="service-badge-center">↗</div>
+        </div>
+        <div class="service-photo-card-body">
+          <div class="service-photo-card-title">維修移機服務</div>
+          <div class="service-photo-card-desc">24小時緊急故障維修，搬家移機結合清洗保養一條龍，省時省力有保障。</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ── Why Us ── -->
-<section id="why">
+<section id="why" class="section-light">
   <div class="section-inner">
     <div class="why-grid">
-      <div class="why-visual reveal">
-        <div class="cred-card">
-          <div class="cred-header">
-            <img src="images/logo.png" alt="MZAC" class="cred-logo" />
-            <div><div class="cred-company">懋洲冷氣工程</div><div class="cred-en">MZAC AIR CONDITIONING ENGINEERING</div></div>
-          </div>
-          <div class="cred-divider"></div>
-          <div class="cred-stats">
-            <div><div class="cred-stat-num">20<sup>+</sup></div><div class="cred-stat-label">年業界經驗</div></div>
-            <div><div class="cred-stat-num">3K<sup>+</sup></div><div class="cred-stat-label">完工工程案</div></div>
-            <div><div class="cred-stat-num">98<sup>%</sup></div><div class="cred-stat-label">客戶滿意度</div></div>
-            <div><div class="cred-stat-num">24<sup>H</sup></div><div class="cred-stat-label">緊急維修服務</div></div>
-          </div>
-          <div class="cred-divider"></div>
-          <div class="cred-badges">
-            <div class="cred-badge"><span class="cred-badge-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span>冷凍空調技術士認證</div>
-            <div class="cred-badge"><span class="cred-badge-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>安裝工程一年保固</div>
-            <div class="cred-badge"><span class="cred-badge-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></span>書面報價透明無隱費</div>
+      <!-- Left: photo -->
+      <div class="reveal">
+        <div class="why-photo-wrap">
+          <img src="images/install3.jpg" alt="專業技師施工" />
+          <div class="why-stat-badge">
+            <div class="badge-num">20<sup style="font-size:.6em">+</sup></div>
+            <div class="badge-label">年業界經驗</div>
           </div>
         </div>
       </div>
-      <div>
-        <span class="section-tag reveal">為何選擇我們</span>
-        <h2 class="section-title reveal reveal-delay-1">品質與信賴<br>是我們的承諾</h2>
-        <ul class="why-list" style="margin-top:32px;">
-          <li class="why-item reveal reveal-delay-1"><div class="why-item-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div><div><div class="why-item-title">認證合格技師</div><div class="why-item-desc">持有冷凍空調技術士執照，定期接受原廠培訓，施工技術有保障。</div></div></li>
-          <li class="why-item reveal reveal-delay-2"><div class="why-item-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div><div><div class="why-item-title">透明報價無隱費</div><div class="why-item-desc">施工前詳細書面報價，材料工資一覽無遺，完工後不追加費用。</div></div></li>
-          <li class="why-item reveal reveal-delay-3"><div class="why-item-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div><div class="why-item-title">全程包覆不弄髒</div><div class="why-item-desc">清洗作業自備防水套件，施工完成後整理環境，家裡乾淨如初。</div></div></li>
-          <li class="why-item reveal reveal-delay-4"><div class="why-item-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="why-item-title">工程保固一年</div><div class="why-item-desc">安裝工程提供一年施工保固，有問題免費到府處理，安心使用。</div></div></li>
-        </ul>
+      <!-- Right: card -->
+      <div class="reveal reveal-delay-1">
+        <div class="why-content-card">
+          <span class="section-tag">為何選擇我們</span>
+          <h2 class="section-title">品質與信賴<br>是我們的承諾</h2>
+          <ul class="why-feature-list">
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+              </div>
+              <div>
+                <div class="why-feature-title">認證合格技師</div>
+                <div class="why-feature-desc">持有冷凍空調技術士執照，定期接受原廠培訓，施工技術有保障。</div>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+              </div>
+              <div>
+                <div class="why-feature-title">透明報價無隱費</div>
+                <div class="why-feature-desc">施工前詳細書面報價，材料工資一覽無遺，完工後不追加費用。</div>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <div>
+                <div class="why-feature-title">全程包覆不弄髒</div>
+                <div class="why-feature-desc">清洗作業自備防水套件，施工完成後整理環境，家裡乾淨如初。</div>
+              </div>
+            </li>
+            <li class="why-feature">
+              <div class="why-feature-icon">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div class="why-feature-title">工程保固一年</div>
+                <div class="why-feature-desc">安裝工程提供一年施工保固，有問題免費到府處理，安心使用。</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="urgent-strip reveal reveal-delay-2">
+          <div>
+            <div class="urgent-strip-title">需要緊急維修？</div>
+            <div class="urgent-strip-sub">24小時待命，快速到府排除</div>
+          </div>
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+            <span class="btn-text">LINE 立即聯絡</span>
+            <span class="btn-circle">↗</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ── Before & After ── -->
-<section id="before-after">
+<section id="before-after" class="section-light">
   <div class="section-inner">
     <div class="ba-header">
-      <h2 class="section-title reveal">真實清洗成果<br>一目了然</h2>
-      <p class="section-subtitle reveal reveal-delay-1">冷氣長期不清洗，黴菌與灰塵堆積嚴重影響效能及健康。定期深層清洗才是正確保養之道。</p>
+      <span class="section-tag reveal">清洗實績</span>
+      <h2 class="section-title reveal reveal-delay-1">真實清洗成果<br>一目了然</h2>
+      <p class="section-subtitle reveal reveal-delay-2">冷氣長期不清洗，黴菌與灰塵堆積嚴重影響效能及健康。定期深層清洗才是正確保養之道。</p>
     </div>
     <div class="ba-grid">
       <div class="ba-card reveal"><div class="ba-label">清洗對比</div><img src="images/ba4.jpg" alt="清洗前後對比" /></div>
@@ -818,11 +1058,12 @@
 </section>
 
 <!-- ── Portfolio ── -->
-<section id="portfolio">
+<section id="portfolio" class="section-light">
   <div class="section-inner">
     <div class="portfolio-header">
-      <h2 class="section-title reveal">真實施工<br>案例紀錄</h2>
-      <p class="section-subtitle reveal reveal-delay-1">每一件工程都是技師認真付出的成果，管線整齊、施工細緻是我們的基本要求。</p>
+      <span class="section-tag reveal">施工實績</span>
+      <h2 class="section-title reveal reveal-delay-1">真實施工<br>案例紀錄</h2>
+      <p class="section-subtitle reveal reveal-delay-2">每一件工程都是技師認真付出的成果，管線整齊、施工細緻是我們的基本要求。</p>
     </div>
     <div class="portfolio-grid">
       <div class="portfolio-item reveal"><img src="images/work2.jpg" alt="室內冷氣安裝工程" /><div class="portfolio-item-label"><span>安裝工程</span>室內分離式冷氣配管施工</div></div>
@@ -832,19 +1073,101 @@
       <div class="portfolio-item portfolio-item--wide reveal reveal-delay-2"><img src="images/tech2.jpg" alt="技師精密維修作業" /><div class="portfolio-item-label"><span>專業技術</span>精密零件拆裝與維修作業</div></div>
     </div>
     <div style="text-align:center;margin-top:44px;" class="reveal">
-      <a href="portfolio.html" class="btn-primary">查看全部工程實績 &nbsp;→</a>
+      <a href="portfolio.html" class="btn-volt-primary">
+        <span class="btn-text">查看全部工程實績</span>
+        <span class="btn-circle">↗</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ── Reviews ── -->
+<!-- ── Process — Tab switching ── -->
+<section id="process" class="section-light">
+  <div class="section-inner">
+    <div class="process-header">
+      <span class="section-tag reveal">服務流程</span>
+      <h2 class="section-title reveal reveal-delay-1">四步驟輕鬆搞定</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">從洽詢到完工，流程簡單透明，讓您省心又放心。</p>
+    </div>
+    <div class="process-tabs reveal">
+      <button class="process-tab is-active" data-tab="0">[01] LINE洽詢</button>
+      <button class="process-tab" data-tab="1">[02] 現場勘查</button>
+      <button class="process-tab" data-tab="2">[03] 確認施工</button>
+      <button class="process-tab" data-tab="3">[04] 驗收保固</button>
+    </div>
+    <div class="process-panels">
+      <!-- Panel 0 -->
+      <div class="process-panel is-active" data-panel="0">
+        <div class="process-content-card">
+          <div class="process-step-num">STEP 01</div>
+          <div class="process-step-title">LINE / 電話洽詢</div>
+          <div class="process-step-desc">透過 LINE 或電話說明您的需求，不論是安裝新機、清洗保養或緊急維修，我們的工程師會仔細確認詳細狀況，並提供初步建議，快速又方便。</div>
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+            <span class="btn-text">LINE：@559tescn</span>
+            <span class="btn-circle">↗</span>
+          </a>
+        </div>
+        <div class="process-photo">
+          <img src="images/work1.jpg" alt="LINE洽詢" />
+        </div>
+      </div>
+      <!-- Panel 1 -->
+      <div class="process-panel" data-panel="1">
+        <div class="process-content-card">
+          <div class="process-step-num">STEP 02</div>
+          <div class="process-step-title">現場免費勘查</div>
+          <div class="process-step-desc">專人到府評估空間格局、電力配置與管線走向，依實際環境提供最適合的空調配置建議，到府勘查完全免費，無任何費用。</div>
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+            <span class="btn-text">預約勘查</span>
+            <span class="btn-circle">↗</span>
+          </a>
+        </div>
+        <div class="process-photo">
+          <img src="images/install3.jpg" alt="現場勘查" />
+        </div>
+      </div>
+      <!-- Panel 2 -->
+      <div class="process-panel" data-panel="2">
+        <div class="process-content-card">
+          <div class="process-step-num">STEP 03</div>
+          <div class="process-step-title">確認報價施工</div>
+          <div class="process-step-desc">書面報價經您確認後安排施工日期，專業技師準時到府，全程細心施工，管線整齊、完工清潔，一切細節都不馬虎。</div>
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+            <span class="btn-text">取得報價</span>
+            <span class="btn-circle">↗</span>
+          </a>
+        </div>
+        <div class="process-photo">
+          <img src="images/work2.jpg" alt="確認施工" />
+        </div>
+      </div>
+      <!-- Panel 3 -->
+      <div class="process-panel" data-panel="3">
+        <div class="process-content-card">
+          <div class="process-step-num">STEP 04</div>
+          <div class="process-step-title">驗收保固完成</div>
+          <div class="process-step-desc">完工後與您一同測試驗收，確認冷氣運作正常，並簽署一年施工保固書。保固期內有任何問題，免費到府處理，讓您使用安心。</div>
+          <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+            <span class="btn-text">了解保固條款</span>
+            <span class="btn-circle">↗</span>
+          </a>
+        </div>
+        <div class="process-photo">
+          <img src="images/tech1.jpg" alt="驗收保固" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Reviews — always dark ── -->
 <section id="reviews">
   <div class="section-inner" style="max-width:100%;">
     <div class="reviews-header reveal">
-      <span class="section-tag">客戶真實好評</span>
-      <h2 class="section-title" style="margin:0 auto 8px;">客戶怎麼說</h2>
+      <span class="section-tag" style="color:var(--ice-400);">客戶真實好評</span>
+      <h2 class="section-title" style="color:var(--silver);margin:0 auto 8px;">客戶怎麼說</h2>
       <div class="stars-display"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="section-subtitle" style="margin:0 auto;">以下皆為真實客戶 LINE 回饋，未經修改，感謝每一位信任懋洲的客人。</p>
+      <p class="section-subtitle" style="color:var(--silver-dim);margin:0 auto;">以下皆為真實客戶 LINE 回饋，未經修改，感謝每一位信任懋洲的客人。</p>
     </div>
     <div class="marquee-wrapper">
       <div class="marquee-track">
@@ -880,11 +1203,12 @@
 </section>
 
 <!-- ── Brands ── -->
-<section id="brands">
+<section id="brands" class="section-light">
   <div class="section-inner">
     <div class="brands-header">
-      <h2 class="section-title reveal">各大品牌均可服務</h2>
-      <p class="section-subtitle reveal reveal-delay-1" style="margin:0 auto;">熟悉各主流品牌機型，提供安裝、維修與保養服務。</p>
+      <span class="section-tag reveal">合作品牌</span>
+      <h2 class="section-title reveal reveal-delay-1">各大品牌均可服務</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">熟悉各主流品牌機型，提供安裝、維修與保養服務。</p>
     </div>
     <div class="brands-grid">
       <div class="brand-item reveal">大金<span class="brand-en">DAIKIN</span></div>
@@ -900,11 +1224,12 @@
 </section>
 
 <!-- ── Pricing ── -->
-<section id="pricing">
+<section id="pricing" class="section-light">
   <div class="section-inner">
     <div class="pricing-header">
-      <h2 class="section-title reveal">透明定價<br>無隱藏費用</h2>
-      <p class="section-subtitle reveal reveal-delay-1" style="margin:0 auto;">以下為標準施工收費參考，實際費用依現場環境評估，建議免費到府勘查後確認。</p>
+      <span class="section-tag reveal">收費標準</span>
+      <h2 class="section-title reveal reveal-delay-1">透明定價<br>無隱藏費用</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">以下為標準施工收費參考，實際費用依現場環境評估，建議免費到府勘查後確認。</p>
     </div>
     <div class="pricing-note reveal">
       <div class="pricing-note-title">&#10003; 標準安裝包含</div>
@@ -916,39 +1241,83 @@
     </div>
     <div class="pricing-cta-note reveal">
       <p>收費細節依現場施工難度評估，歡迎免費到府勘查，詳細說明給您聽。</p>
-      <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-line-cta">LINE 詢問報價</a>
+      <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+        <span class="btn-text">LINE 詢問報價</span>
+        <span class="btn-circle">↗</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ── Process ── -->
-<section id="process">
+<!-- ── FAQ ── -->
+<section id="faq" class="section-light">
   <div class="section-inner">
-    <div style="text-align:center;margin-bottom:20px;">
-      <h2 class="section-title reveal">四步驟輕鬆搞定</h2>
-      <p class="section-subtitle reveal reveal-delay-1" style="margin:0 auto;">從洽詢到完工，流程簡單透明，讓您省心又放心。</p>
+    <div class="faq-header">
+      <span class="section-tag reveal">常見問題</span>
+      <h2 class="section-title reveal reveal-delay-1">您最常問的問題</h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin:0 auto;">找不到答案？歡迎直接 LINE 我們，立即為您解答。</p>
     </div>
-    <div class="process-steps">
-      <div class="process-step reveal"><div class="step-num">01</div><div class="step-title">LINE / 電話洽詢</div><div class="step-desc">說明需求，我們安排工程師確認詳細狀況。</div></div>
-      <div class="process-step reveal reveal-delay-1"><div class="step-num">02</div><div class="step-title">現場免費勘查</div><div class="step-desc">專人到府評估空間，提供最適合的配置建議。</div></div>
-      <div class="process-step reveal reveal-delay-2"><div class="step-num">03</div><div class="step-title">確認報價施工</div><div class="step-desc">書面報價確認後排程，專業技師準時到府施工。</div></div>
-      <div class="process-step reveal reveal-delay-3"><div class="step-num">04</div><div class="step-title">驗收保固完成</div><div class="step-desc">完工測試驗收，簽署保固書，售後服務有保障。</div></div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>冷氣安裝費用如何計算？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>安裝費用依機型大小（1~5噸）、冷媒管長度、是否需要開孔、以及施工難度而定。標準安裝包含銅管5米、信號線5米、電源線3米與水管5米。超出標準配置或特殊環境（如穿樓板、吊掛等）會另行計費，建議免費到府勘查後給予精準報價，絕不事後追加。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>冷氣多久需要清洗一次？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>一般建議每半年清洗一次，若家中有毛小孩、過敏體質者或使用頻率較高，則建議每3~4個月清洗一次。定期清洗可有效維持冷氣效能、降低電費支出，並避免黴菌孳生影響室內空氣品質。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>提供緊急維修服務嗎？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>是的，我們提供 24 小時緊急維修服務。夏日突然故障、冷媒洩漏或異音異味等緊急狀況，請透過 LINE 或電話聯繫我們，工程師會盡快安排到府處理，讓您不用在大熱天中等待太久。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>施工前需要準備什麼？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>清洗保養前，請確保室內機下方有足夠空間讓我們放置防水套件，並移開精密電器或貴重物品。安裝工程前，請確認室外機安裝位置（陽台、屋頂或室外牆面），以及電力迴路是否符合需求。我們的工程師在勘查時會一同確認，讓施工當天更順暢。</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>安裝工程保固範圍是什麼？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>我們提供一年施工保固，保固範圍涵蓋安裝工程本身的施工瑕疵，包括冷媒管接頭洩漏、配管滲水、電氣接線問題等。保固期內若因施工問題導致故障，免費到府維修處理。（機器本身的品牌保固依原廠規定辦理）</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>如何取得免費到府估價？</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>只需透過 LINE（@559tescn）加入好友，告知您的地址、冷氣台數與需求，我們會安排工程師在您方便的時間到府勘查評估，完全免費、不收任何費用，勘查後提供詳細書面報價供您參考。</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
+<!-- ── CTA — full-bleed photo ── -->
 <section id="cta">
   <div class="cta-inner">
-    <div class="cta-box reveal">
-      <h2 class="cta-title">現在聯絡，享有<br><span style="color:var(--ice-300);">免費到府估價服務</span></h2>
-      <p class="cta-subtitle">LINE 加好友、或直接來電，我們一個工作日內回覆。</p>
-      <div class="cta-buttons">
-        <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-line-cta">LINE：@559tescn</a>
-        <a href="tel:+886912345678" class="btn-primary">&#128222; 0912-345-678</a>
-      </div>
-      <p style="margin-top:24px;font-size:13px;color:var(--steel);position:relative;z-index:1;">服務時間：週一至週六 08:00 – 18:00 &nbsp;|&nbsp; 緊急維修 24小時</p>
+    <div class="cta-eyebrow reveal">免費到府估價</div>
+    <h2 class="cta-title reveal reveal-delay-1">現在聯絡，享有<br>免費到府估價</h2>
+    <p class="cta-subtitle reveal reveal-delay-2">LINE 加好友、或直接來電，我們一個工作日內回覆。</p>
+    <div class="cta-buttons reveal reveal-delay-3">
+      <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
+        <span class="btn-text">LINE：@559tescn</span>
+        <span class="btn-circle">↗</span>
+      </a>
+      <a href="tel:+886912345678" class="btn-secondary">&#128222; 0912-345-678</a>
     </div>
+    <p class="cta-service-note reveal reveal-delay-3">服務時間：週一至週六 08:00 – 18:00 &nbsp;|&nbsp; 緊急維修 24小時</p>
   </div>
 </section>
 
@@ -957,9 +1326,9 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="#" class="nav-logo">
-          <div class="nav-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
-          <span class="nav-logo-text">懋洲<span>冷氣工程</span></span>
+        <a href="#" class="footer-logo">
+          <div class="footer-logo-img"><img src="images/logo.png" alt="MZAC" /></div>
+          <span class="footer-logo-text">懋洲冷氣工程</span>
         </a>
         <p class="footer-tagline">專業技師團隊，為住宅與商業空間打造最舒適的恆溫環境。安裝｜清洗｜保養｜維修｜移機，一站式服務。</p>
         <div class="footer-line-id">&#9679; LINE：@559tescn</div>
@@ -983,6 +1352,7 @@
           <li><a href="products.html">商品</a></li>
           <li><a href="#reviews">客戶好評</a></li>
           <li><a href="#process">服務流程</a></li>
+          <li><a href="#faq">常見問題</a></li>
         </ul>
       </div>
     </div>
@@ -1009,16 +1379,15 @@
   const loader = document.getElementById('page-loader');
 
   /* ── Hero — set invisible before first paint ── */
-  gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-divider', '.hero-buttons'],
-    { opacity: 0, y: 36, filter: 'blur(6px)' });
+  gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-buttons'], { opacity: 0, y: 36, filter: 'blur(6px)' });
   gsap.set('.hero-right', { opacity: 0, x: 28, filter: 'blur(6px)' });
+  gsap.set('.hero-marquee-strip', { opacity: 0, y: 16 });
 
   window.addEventListener('load', () => {
     setTimeout(() => {
       loader.classList.add('hidden');
 
-      /* Hero entrance — stagger each element up from below */
-      gsap.to(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-divider', '.hero-buttons'], {
+      gsap.to(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-buttons'], {
         opacity: 1, y: 0, filter: 'blur(0px)',
         duration: 1.05, stagger: 0.1, ease: 'power3.out',
         clearProps: 'filter', delay: 0.1,
@@ -1026,21 +1395,36 @@
       gsap.to('.hero-right', {
         opacity: 1, x: 0, filter: 'blur(0px)',
         duration: 1.1, ease: 'power3.out',
-        clearProps: 'filter', delay: 0.18,
+        clearProps: 'filter', delay: 0.25,
+      });
+      gsap.to('.hero-marquee-strip', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5,
       });
     }, 800);
   });
 
-  /* ── Nav — scrolled class ── */
-  const navInner = document.getElementById('nav-inner');
-  window.addEventListener('scroll', () => {
-    navInner.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  /* ── Nav — scroll background ── */
+  const navbar = document.getElementById('navbar');
+  ScrollTrigger.create({
+    start: 'top -10',
+    onEnter: () => navbar.classList.add('nav-scrolled'),
+    onLeaveBack: () => navbar.classList.remove('nav-scrolled'),
+  });
 
-  /* ── Nav shrink — scrub height as user scrolls ── */
-  gsap.to('#nav-inner', {
-    height: 44,
+  /* ── Nav shrink — scrub height ── */
+  gsap.to(navbar, {
+    height: 56,
     scrollTrigger: { start: 'top -10', end: 'top -160', scrub: 0.45 },
+  });
+
+  /* ── Section light → dark transitions ── */
+  document.querySelectorAll('.section-light').forEach(section => {
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 55%',
+      onEnter: () => section.classList.add('is-dark'),
+      onLeaveBack: () => section.classList.remove('is-dark'),
+    });
   });
 
   /* ── Scroll reveal — stagger via ScrollTrigger.batch ── */
@@ -1059,14 +1443,17 @@
   /* ── Smooth scroll ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
+      const href = a.getAttribute('href');
+      if (href === '#') return;
+      const t = document.querySelector(href);
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
 
-  /* ── Count up ── */
+  /* ── Count up stats ── */
   function countUp(el) {
-    const target = +el.dataset.target; const suffix = el.dataset.suffix || '';
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
     if (!target) return;
     let start; const dur = 1800;
     const step = (ts) => {
@@ -1080,21 +1467,68 @@
   }
   const statsObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { document.querySelectorAll('.stat-number[data-target]').forEach(countUp); statsObs.disconnect(); }
+      if (e.isIntersecting) {
+        document.querySelectorAll('.stat-number[data-target]').forEach(countUp);
+        statsObs.disconnect();
+      }
     });
   }, { threshold: 0.5 });
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObs.observe(statsBar);
 
-  /* ── Service card tilt ── */
-  document.querySelectorAll('.service-card').forEach(card => {
+  /* ── Service photo card hover expand + tilt ── */
+  const servicesGrid = document.querySelector('.services-photo-grid');
+  const serviceCards = document.querySelectorAll('.service-photo-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      serviceCards.forEach(c => c.classList.remove('is-hovered'));
+      card.classList.add('is-hovered');
+      servicesGrid.classList.add('has-hover');
+    });
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transform = `translateY(-7px) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
+      card.style.transform = `rotateX(${-y * 2.5}deg) rotateY(${x * 2.5}deg)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('is-hovered');
+      servicesGrid.classList.remove('has-hover');
+      card.style.transform = '';
+    });
+  });
+
+  /* ── Process tabs ── */
+  const tabs = document.querySelectorAll('.process-tab');
+  const panels = document.querySelectorAll('.process-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('is-active'));
+      panels.forEach(p => p.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      document.querySelector(`.process-panel[data-panel="${idx}"]`).classList.add('is-active');
+    });
+  });
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('is-open');
+      // close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('is-open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        i.querySelector('.faq-icon').textContent = '+';
+      });
+      // open clicked (if it was closed)
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        item.querySelector('.faq-icon').textContent = '+';
+      }
+    });
   });
 </script>
 </body>
