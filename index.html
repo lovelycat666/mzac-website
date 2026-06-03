@@ -87,22 +87,6 @@
     @keyframes loaderPulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.06)} }
     @keyframes loaderFill { from{width:0} to{width:100%} }
 
-    /* ── Ambient Glow Cursor ── */
-    .cursor-glow {
-      position: fixed; left: -999px; top: -999px;
-      width: 220px; height: 220px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,195,247,.22) 0%, rgba(79,195,247,.08) 44%, transparent 72%);
-      pointer-events: none; z-index: 0;
-      transform: translate(-50%,-50%);
-      transition: width .5s var(--ease-premium), height .5s var(--ease-premium), background .4s;
-      will-change: left, top;
-    }
-    .cursor-glow.is-hovering {
-      width: 130px; height: 130px;
-      background: radial-gradient(circle, rgba(79,195,247,.38) 0%, rgba(79,195,247,.14) 42%, transparent 72%);
-    }
-    @media (pointer: coarse) { .cursor-glow { display: none; } }
-
     /* ── Navigation ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -1118,8 +1102,6 @@
   </style>
 </head>
 <body>
-<div id="cursor-glow"></div>
-
 <!-- ── Page Loader ── -->
 <div id="page-loader">
   <div class="loader-logo"><img src="images/logo.png" alt="MZAC" /></div>
@@ -1900,25 +1882,6 @@
       }
     });
   });
-
-  /* ── Ambient Glow Cursor ── */
-  (function() {
-    var glowEl = document.getElementById('cursor-glow');
-    if (!glowEl) return;
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2, gx = mx, gy = my;
-    glowEl.style.left = mx + 'px'; glowEl.style.top = my + 'px';
-    document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
-    (function tick() {
-      gx += (mx - gx) * 0.07; gy += (my - gy) * 0.07;
-      glowEl.style.left = gx + 'px'; glowEl.style.top = gy + 'px';
-      requestAnimationFrame(tick);
-    })();
-    var targets = 'a, button, .service-photo-card, .brand-pill, .ba-card, .portfolio-item, .pricing-img-card, .review-card, .faq-item, .process-tab';
-    document.querySelectorAll(targets).forEach(function(el) {
-      el.addEventListener('mouseenter', function() { glowEl.classList.add('is-hovering'); });
-      el.addEventListener('mouseleave', function() { glowEl.classList.remove('is-hovering'); });
-    });
-  })();
 
 /* ── Magnetic Buttons ── */
   document.querySelectorAll('.btn-volt-line, .btn-volt-primary').forEach(btn => {
