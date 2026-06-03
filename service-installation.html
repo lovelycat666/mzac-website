@@ -134,6 +134,23 @@
     .line-float { position:fixed; bottom:32px; right:28px; z-index:200; height:48px; padding:0 22px; border-radius:100px; background:var(--line-green); display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-family:'Outfit',sans-serif; font-size:15px; font-weight:800; letter-spacing:.06em; box-shadow:0 0 0 1px rgba(6,199,85,.4),0 6px 24px rgba(6,199,85,.45); transition:transform .4s var(--ease-premium),box-shadow .4s; }
     .line-float:hover { transform:scale(1.06) translateY(-3px); box-shadow:0 0 0 1px rgba(6,199,85,.5),0 12px 36px rgba(6,199,85,.55); }
     .reveal { opacity:0; transform:translateY(28px); will-change:transform,opacity; }
+
+    /* Mobile Nav */
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 4px; background:none; border:none; position:relative; z-index:101; }
+    .nav-hamburger span { display:block; width:22px; height:2px; background:var(--silver); border-radius:2px; transition:transform .35s var(--ease-premium),opacity .25s; }
+    .nav-hamburger.is-open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .nav-mobile-menu { position:fixed; inset:0; z-index:99; background:rgba(13,15,18,.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); display:flex; flex-direction:column; padding:96px 7vw 48px; opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .3s var(--ease-out),transform .35s var(--ease-premium); }
+    .nav-mobile-menu.is-open { opacity:1; transform:translateY(0); pointer-events:all; }
+    .mobile-nav-links { list-style:none; display:flex; flex-direction:column; }
+    .mobile-nav-links li { border-bottom:1px solid var(--color-border); }
+    .mobile-nav-links a { display:block; padding:18px 0; font-family:'Noto Serif TC',serif; font-size:1.35rem; font-weight:700; color:var(--silver-dim); text-decoration:none; transition:color .2s,padding-left .3s var(--ease-premium); }
+    .mobile-nav-links a:hover { color:var(--silver); padding-left:6px; }
+    .mobile-nav-phone { display:block; margin-top:36px; font-family:'Outfit',sans-serif; font-size:1rem; font-weight:700; color:var(--ice-400); text-decoration:none; letter-spacing:.03em; }
+    .mobile-nav-cta { display:inline-block; margin-top:20px; padding:14px 28px; background:var(--line-green); color:#fff; border-radius:100px; font-size:14px; font-weight:700; text-decoration:none; letter-spacing:.04em; box-shadow:0 0 0 1px rgba(6,199,85,.3),0 6px 24px rgba(6,199,85,.25); transition:opacity .2s,transform .2s; }
+    .mobile-nav-cta:hover { opacity:.9; transform:translateY(-1px); }
+
     @media (max-width:768px) {
       .svc-main { padding:56px 5vw; }
       .svc-pricing { padding:0 5vw 56px; }
@@ -177,9 +194,25 @@
     <div class="nav-right">
       <a href="tel:+886912345678" class="nav-phone">0912-345-678</a>
       <a href="index.html#cta" class="nav-cta">立即估價</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="開啟選單">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html#services">服務項目</a></li>
+    <li><a href="index.html#before-after">清洗對比</a></li>
+    <li><a href="portfolio.html">工程實績</a></li>
+    <li><a href="products.html">商品</a></li>
+    <li><a href="index.html#reviews">客戶好評</a></li>
+    <li><a href="index.html#pricing">收費標準</a></li>
+  </ul>
+  <a href="tel:+886912345678" class="mobile-nav-phone">☎ 0912-345-678</a>
+  <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="mobile-nav-cta">LINE 立即詢問</a>
+</div>
 
 <!-- Hero -->
 <div class="svc-hero">
@@ -418,6 +451,24 @@
     onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power2.out', overwrite: true }),
     start: 'top 90%', once: true,
   });
+
+  /* Mobile nav */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open');
+      document.body.style.overflow = mobileMenu.classList.contains('is-open') ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 </script>
 </body>
 </html>
