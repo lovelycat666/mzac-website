@@ -91,26 +91,17 @@
     .cursor-glow {
       position: fixed; left: -999px; top: -999px;
       width: 220px; height: 220px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,195,247,.26) 0%, rgba(79,195,247,.1) 44%, transparent 72%);
-      pointer-events: none; z-index: 999998;
+      background: radial-gradient(circle, rgba(79,195,247,.22) 0%, rgba(79,195,247,.08) 44%, transparent 72%);
+      pointer-events: none; z-index: 0;
       transform: translate(-50%,-50%);
       transition: width .5s var(--ease-premium), height .5s var(--ease-premium), background .4s;
       will-change: left, top;
     }
     .cursor-glow.is-hovering {
       width: 130px; height: 130px;
-      background: radial-gradient(circle, rgba(79,195,247,.45) 0%, rgba(79,195,247,.18) 42%, transparent 72%);
+      background: radial-gradient(circle, rgba(79,195,247,.38) 0%, rgba(79,195,247,.14) 42%, transparent 72%);
     }
-    .cursor-precise {
-      position: fixed; left: -999px; top: -999px;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: #fff; box-shadow: 0 0 5px rgba(255,255,255,.9);
-      pointer-events: none; z-index: 999999;
-      transform: translate(-50%,-50%);
-      transition: transform .2s var(--ease-premium);
-    }
-    .cursor-precise.is-hovering { transform: translate(-50%,-50%) scale(0); }
-    .hide-cursor, .hide-cursor * { cursor: none !important; }
+    @media (pointer: coarse) { .cursor-glow { display: none; } }
 
     /* ── Navigation ── */
     nav {
@@ -1128,7 +1119,6 @@
 </head>
 <body>
 <div id="cursor-glow"></div>
-<div id="cursor-precise"></div>
 
 <!-- ── Page Loader ── -->
 <div id="page-loader">
@@ -1913,18 +1903,11 @@
 
   /* ── Ambient Glow Cursor ── */
   (function() {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
-    const glowEl = document.getElementById('cursor-glow');
-    const preciseEl = document.getElementById('cursor-precise');
-    if (!glowEl || !preciseEl) return;
-    document.documentElement.classList.add('hide-cursor');
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2, gx = mx, gy = my;
+    var glowEl = document.getElementById('cursor-glow');
+    if (!glowEl) return;
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2, gx = mx, gy = my;
     glowEl.style.left = mx + 'px'; glowEl.style.top = my + 'px';
-    preciseEl.style.left = mx + 'px'; preciseEl.style.top = my + 'px';
-    document.addEventListener('mousemove', function(e) {
-      mx = e.clientX; my = e.clientY;
-      preciseEl.style.left = mx + 'px'; preciseEl.style.top = my + 'px';
-    });
+    document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
     (function tick() {
       gx += (mx - gx) * 0.07; gy += (my - gy) * 0.07;
       glowEl.style.left = gx + 'px'; glowEl.style.top = gy + 'px';
@@ -1932,8 +1915,8 @@
     })();
     var targets = 'a, button, .service-photo-card, .brand-pill, .ba-card, .portfolio-item, .pricing-img-card, .review-card, .faq-item, .process-tab';
     document.querySelectorAll(targets).forEach(function(el) {
-      el.addEventListener('mouseenter', function() { glowEl.classList.add('is-hovering'); preciseEl.classList.add('is-hovering'); });
-      el.addEventListener('mouseleave', function() { glowEl.classList.remove('is-hovering'); preciseEl.classList.remove('is-hovering'); });
+      el.addEventListener('mouseenter', function() { glowEl.classList.add('is-hovering'); });
+      el.addEventListener('mouseleave', function() { glowEl.classList.remove('is-hovering'); });
     });
   })();
 
