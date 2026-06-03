@@ -195,8 +195,24 @@
     }
     .hero-title .brand-name {
       font-family: 'Noto Serif TC', serif; font-weight: 900; letter-spacing: .04em; display: block;
-      background: linear-gradient(135deg, #fff 20%, rgba(255,255,255,.8));
+      background: linear-gradient(
+        105deg,
+        rgba(255,255,255,.76) 0%,
+        rgba(255,255,255,.76) 28%,
+        rgba(200,238,255,1) 46%,
+        #ffffff 50%,
+        rgba(200,238,255,1) 54%,
+        rgba(255,255,255,.76) 72%,
+        rgba(255,255,255,.76) 100%
+      );
+      background-size: 260% 100%;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: brandShimmer 5s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,.12));
+    }
+    @keyframes brandShimmer {
+      0%, 12% { background-position: 160% center; }
+      62%, 100% { background-position: -60% center; }
     }
     .hero-title .tagline {
       display: block; font-family: 'Noto Sans TC', sans-serif;
@@ -242,6 +258,39 @@
       padding: 0 52px; white-space: nowrap; opacity: 0.82;
     }
     @keyframes marqueeLeft { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── Hero scroll indicator ── */
+    .hero-scroll-hint {
+      position: absolute; bottom: 58px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0;
+      animation: scrollHintAppear .8s 2.2s ease-out forwards;
+    }
+    @keyframes scrollHintAppear {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .hero-scroll-label {
+      font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.32);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 38px; position: relative; overflow: hidden;
+    }
+    .hero-scroll-line::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 100%;
+      background: linear-gradient(to bottom, rgba(79,195,247,.6), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      15%  { opacity: 1; }
+      85%  { opacity: 0.9; }
+      100% { transform: translateY(100%); opacity: 0; }
+    }
+    @media (max-width: 640px) { .hero-scroll-hint { display: none; } }
 
     /* ── Buttons — VoltFlow bolt style ── */
     .btn-volt-line {
@@ -333,12 +382,21 @@
     }
     .stat-item {
       text-align: center; padding: 0 48px;
-      border-right: 1px solid rgba(0,0,0,.1);
+      position: relative;
       transition: border-color .6s;
     }
-    .stat-item:last-child { border-right: none; }
-    .section-light.is-dark .stat-item { border-right-color: var(--color-border); }
-    .section-light.is-dark .stat-item:last-child { border-right: none; }
+    .stat-item::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,.14), transparent);
+      transition: background .6s;
+    }
+    .stat-item:last-child::after { display: none; }
+    .section-light.is-dark .stat-item::after {
+      background: linear-gradient(to bottom, transparent, rgba(79,195,247,.28), transparent);
+    }
     .stat-number {
       font-family: 'Bebas Neue', 'Outfit', sans-serif;
       font-size: 4rem; font-weight: 400;
@@ -355,18 +413,10 @@
     section { padding: 112px 5vw; position: relative; z-index: 1; }
     .section-inner { max-width: 1200px; margin: 0 auto; }
     .section-tag {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'Outfit', sans-serif;
+      display: inline-block; font-family: 'Outfit', sans-serif;
       font-size: 11px; font-weight: 700; letter-spacing: .22em;
       text-transform: uppercase; margin-bottom: 14px;
       transition: color .6s;
-    }
-    .section-tag::before {
-      content: '';
-      width: 22px; height: 1px;
-      background: currentColor;
-      opacity: 0.75;
-      flex-shrink: 0;
     }
     .section-title {
       font-family: 'Noto Serif TC', serif;
@@ -464,6 +514,22 @@
       transition: max-height .4s var(--ease-premium), opacity .4s;
     }
     .service-photo-card:hover .service-photo-card-desc { max-height: 80px; opacity: 1; }
+
+    /* Decorative background numbers */
+    .services-photo-grid .service-photo-card::before {
+      content: '';
+      position: absolute; top: -8px; right: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 136px; font-weight: 400; line-height: 1;
+      color: rgba(255,255,255,.045);
+      letter-spacing: .02em; pointer-events: none; user-select: none;
+      z-index: 5;
+      transition: color .45s var(--ease-premium);
+    }
+    .services-photo-grid .service-photo-card:hover::before { color: rgba(255,255,255,.1); }
+    .services-photo-grid .service-photo-card:nth-child(1)::before { content: '01'; }
+    .services-photo-grid .service-photo-card:nth-child(2)::before { content: '02'; }
+    .services-photo-grid .service-photo-card:nth-child(3)::before { content: '03'; }
 
     /* Spinning circular text badge */
     .service-badge {
@@ -991,7 +1057,8 @@
       /* Stats */
       .stats-bar { padding: 20px 5vw; }
       .stats-inner { display: grid; grid-template-columns: 1fr 1fr; }
-      .stat-item { padding: 14px 8px; border-right: 1px solid rgba(255,255,255,.07) !important; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .stat-item { padding: 14px 8px; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .stat-item::after { display: none; }
       .stat-number { font-size: 3rem; }
       /* Sections */
       section { padding: 64px 5vw; }
@@ -1110,6 +1177,11 @@
       <div class="trust-pill"><span class="pill-icon">$</span> 透明報價無隱費</div>
       <div class="trust-pill"><span class="pill-icon">★</span> 工程保固一年</div>
     </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="hero-scroll-hint">
+    <span class="hero-scroll-label">探索</span>
+    <div class="hero-scroll-line"></div>
   </div>
   <!-- Marquee strip -->
   <div class="hero-marquee-strip">
