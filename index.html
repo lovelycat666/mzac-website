@@ -1061,7 +1061,7 @@
         <div class="why-photo-wrap">
           <img src="images/install3.jpg" alt="專業技師施工" />
           <div class="why-stat-badge">
-            <div class="badge-num">20<sup style="font-size:.6em">+</sup></div>
+            <div class="badge-num"><span data-target="20">0</span><sup style="font-size:.6em">+</sup></div>
             <div class="badge-label">年業界經驗</div>
           </div>
         </div>
@@ -1562,6 +1562,17 @@
   }, { threshold: 0.5 });
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObs.observe(statsBar);
+
+  /* ── Badge count up (why section) ── */
+  const badgeCount = document.querySelector('.badge-num [data-target]');
+  if (badgeCount) {
+    const badgeObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { countUp(e.target); badgeObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    badgeObs.observe(badgeCount);
+  }
 
   /* ── Service photo card hover expand + tilt ── */
   const servicesGrid = document.querySelector('.services-photo-grid');
