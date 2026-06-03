@@ -90,15 +90,16 @@
       height: 68px;
       display: flex; align-items: center;
       padding: 0 5vw;
-      background: transparent;
-      transition: background .5s var(--ease-out), backdrop-filter .5s, box-shadow .5s;
+      background: rgba(15,18,24,.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: background .45s var(--ease-out), box-shadow .45s;
     }
     nav.nav-scrolled {
-      background: rgba(13,15,18,.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 2px 24px rgba(0,0,0,.35);
+      background: rgba(13,15,18,.97);
+      box-shadow: 0 2px 24px rgba(0,0,0,.4);
+      border-bottom-color: rgba(255,255,255,.06);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -137,7 +138,7 @@
       position: relative; min-height: 100dvh;
       display: flex; align-items: center;
       overflow: hidden; padding: 96px 5vw 0;
-      background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.32) 35%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.62) 100%), url('images/tech1.jpg');
+      background-image: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.58) 100%), url('images/tech1.jpg');
       background-size: cover; background-position: center; background-repeat: no-repeat;
     }
     .hero-inner {
