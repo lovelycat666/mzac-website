@@ -90,22 +90,22 @@
     /* ── Ambient Glow Cursor ── */
     .cursor-glow {
       display: none; position: fixed; top: 0; left: 0;
-      width: 240px; height: 240px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,195,247,.14) 0%, rgba(79,195,247,.06) 42%, transparent 72%);
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,195,247,.26) 0%, rgba(79,195,247,.1) 44%, transparent 72%);
       pointer-events: none; z-index: 999998;
       transform: translate(-50%,-50%);
-      transition: width .55s var(--ease-premium), height .55s var(--ease-premium),
-                  background .4s var(--ease-premium), opacity .3s;
+      transition: width .5s var(--ease-premium), height .5s var(--ease-premium), background .4s, opacity .3s;
       will-change: left, top;
     }
     .cursor-glow.is-hovering {
-      width: 140px; height: 140px;
-      background: radial-gradient(circle, rgba(79,195,247,.28) 0%, rgba(79,195,247,.1) 40%, transparent 72%);
+      width: 130px; height: 130px;
+      background: radial-gradient(circle, rgba(79,195,247,.45) 0%, rgba(79,195,247,.18) 42%, transparent 72%);
     }
     .cursor-precise {
       display: none; position: fixed; top: 0; left: 0;
-      width: 4px; height: 4px; border-radius: 50%;
-      background: rgba(255,255,255,.85);
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(255,255,255,.9);
       pointer-events: none; z-index: 999999;
       transform: translate(-50%,-50%);
       transition: transform .2s var(--ease-premium), opacity .15s;
@@ -1921,7 +1921,10 @@
     const glowEl = document.getElementById('cursor-glow');
     const preciseEl = document.getElementById('cursor-precise');
     if (glowEl && preciseEl) {
-      let mx = 0, my = 0, gx = 0, gy = 0;
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      let gx = mx, gy = my;
+      glowEl.style.left = gx + 'px'; glowEl.style.top = gy + 'px';
+      preciseEl.style.left = mx + 'px'; preciseEl.style.top = my + 'px';
       document.addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
         preciseEl.style.left = mx + 'px'; preciseEl.style.top = my + 'px';
