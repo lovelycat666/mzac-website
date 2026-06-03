@@ -331,6 +331,9 @@
     /* ── Reveal ── */
     .reveal { opacity: 0; transform: translateY(28px); will-change: transform, opacity; }
 
+    /* ── Permanently dark sections ── */
+    #services, #before-after, #portfolio, #process, #pricing { background: var(--color-bg); }
+
     /* ── Services — tall photo cards ── */
     .services-header {
       display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
@@ -1576,8 +1579,8 @@
     if (!section) return;
     ScrollTrigger.create({
       trigger: section,
-      start: 'top 60%',
-      end: 'bottom 40%',
+      start: 'top 85%',
+      end: 'bottom 15%',
       onEnter:      () => section.classList.remove('is-dark'),
       onLeaveBack:  () => section.classList.add('is-dark'),
       onLeave:      () => section.classList.add('is-dark'),
