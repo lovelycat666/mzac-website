@@ -1706,6 +1706,7 @@
   window.addEventListener('scroll', () => { navbar.classList.toggle('nav-scrolled', window.scrollY > 60); }, { passive: true });
 
   /* ── Section dark → light transitions (spotlight: light while in view, dark when scrolled past) ── */
+  document.fonts.ready.then(() => ScrollTrigger.refresh());
   ['why', 'portfolio', 'brands', 'faq'].forEach(id => {
     const section = document.getElementById(id);
     if (!section) return;
