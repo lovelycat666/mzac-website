@@ -125,7 +125,27 @@
     .line-float { position:fixed; bottom:32px; right:28px; z-index:200; height:48px; padding:0 22px; border-radius:100px; background:var(--line-green); display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; font-family:'Outfit',sans-serif; font-size:15px; font-weight:800; letter-spacing:.06em; box-shadow:0 0 0 1px rgba(6,199,85,.4),0 6px 24px rgba(6,199,85,.45); transition:transform .4s var(--ease-premium),box-shadow .4s; }
     .line-float:hover { transform:scale(1.06) translateY(-3px); box-shadow:0 0 0 1px rgba(6,199,85,.5),0 12px 36px rgba(6,199,85,.55); }
     .reveal { opacity:0; transform:translateY(28px); will-change:transform,opacity; }
-    @media (max-width:640px) { .nav-center { display:none; } .nav-phone { display:none; } }
+    @media (max-width:768px) {
+      .svc-main { padding:56px 5vw; }
+      .svc-pricing { padding:0 5vw 56px; }
+      .svc-sidebar { position:static !important; }
+      .svc-cta-card { margin-bottom:24px; }
+      .svc-grid, .svc-pricing-grid { gap:40px; }
+    }
+    @media (max-width:640px) {
+      .nav-center { display:none; }
+      .nav-phone { display:none; }
+      .svc-hero { height:55vh; min-height:340px; }
+      .svc-hero-title { font-size:2.3rem; }
+      .svc-cta-bottom { padding:72px 5vw; }
+      .svc-section-title { font-size:1.7rem; }
+    }
+    @media (max-width:480px) {
+      .svc-hero { height:50vh; min-height:300px; }
+      .svc-price-item { flex-direction:column; align-items:flex-start; gap:4px; }
+      .svc-cta-btns { flex-direction:column; align-items:center; }
+      .svc-cta-btns .btn-volt-line, .svc-cta-btns .btn-secondary { width:100%; justify-content:center; }
+    }
   </style>
 </head>
 <body>

@@ -354,7 +354,7 @@
       box-shadow: 0 8px 40px rgba(0,0,0,.18);
       transition: flex .55s var(--ease-premium), box-shadow .45s, transform .3s var(--ease-premium);
     }
-    @media (max-width: 768px) { .service-photo-card { aspect-ratio: 16/9; flex: none; } }
+    @media (max-width: 768px) { .service-photo-card { min-height: 260px; flex: none; } }
     .services-photo-grid.has-hover .service-photo-card { flex: 0.52; }
     .service-photo-card.is-hovered { flex: 2.4; box-shadow: 0 24px 64px rgba(0,0,0,.38); }
 
@@ -800,14 +800,38 @@
     .line-float:hover { transform: scale(1.06) translateY(-3px); box-shadow: 0 0 0 1px rgba(6,199,85,.5), 0 12px 36px rgba(6,199,85,.55); }
 
     /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-right { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 10px; }
+      .trust-pill { font-size: 13px; padding: 10px 16px; }
+    }
     @media (max-width: 640px) {
       .nav-center { display: none; }
       .nav-phone { display: none; }
-      .stat-item { border-right: none !important; padding: 16px 24px; }
-      .services-photo-grid { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr; }
-      .process-tab { padding: 10px 16px; font-size: 13px; }
-      #cta { background-attachment: scroll; }
+      /* Hero */
+      #hero { padding: 78px 5vw 0; }
+      .hero-title { font-size: 2.3rem; }
+      .hero-right { display: none; }
+      .hero-buttons { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .hero-subtitle { font-size: .9rem; }
+      /* Stats */
+      .stats-bar { padding: 20px 5vw; }
+      .stats-inner { display: grid; grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 14px 8px; border-right: 1px solid rgba(255,255,255,.07) !important; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .stat-number { font-size: 2.2rem; }
+      /* Sections */
+      section { padding: 64px 5vw; }
+      /* Services */
+      .services-photo-grid { flex-direction: column; height: auto; }
+      .service-photo-card { min-height: 260px; flex: none; }
+      .services-photo-grid.has-hover .service-photo-card,
+      .service-photo-card.is-hovered { flex: none; }
+      /* Why */
+      .urgent-strip { flex-direction: column; gap: 12px; }
+      /* Process */
+      .process-tab { padding: 10px 14px; font-size: 12.5px; }
+      /* CTA */
+      #cta { background-attachment: scroll; padding: 80px 5vw; }
+      .cta-buttons { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
