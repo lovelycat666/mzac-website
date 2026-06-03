@@ -986,11 +986,11 @@
     </div>
     <div class="services-photo-grid has-hover">
       <!-- Card 1 -->
-      <a href="service-installation.html" class="service-photo-card reveal">
-        <img src="images/work2.jpg" alt="冷氣安裝工程" />
+      <a href="service-cleaning.html" class="service-photo-card is-hovered reveal">
+        <img src="images/ba5.jpg" alt="清洗保養服務" />
         <div class="service-photo-card-overlay"></div>
         <div class="service-photo-card-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="9" rx="2"/><path d="M12 16v3M8 19h8M6 11h.01M10 11h.01M14 11h.01"/></svg>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
         </div>
         <div class="service-badge">
           <svg viewBox="0 0 112 112" width="112" height="112">
@@ -1002,16 +1002,16 @@
           <div class="service-badge-center">↗</div>
         </div>
         <div class="service-photo-card-body">
-          <div class="service-photo-card-title">冷氣安裝工程</div>
-          <div class="service-photo-card-desc">住宅、商辦、廠房各類冷氣系統規劃安裝，管線走向整齊美觀，一年施工保固。</div>
+          <div class="service-photo-card-title">清洗保養服務</div>
+          <div class="service-photo-card-desc">深層清洗蒸發器與冷凝器，全程防水套包覆，洗完乾淨超涼，完工後整理現場。</div>
         </div>
       </a>
       <!-- Card 2 -->
-      <a href="service-cleaning.html" class="service-photo-card is-hovered reveal reveal-delay-1">
-        <img src="images/ba5.jpg" alt="清洗保養服務" />
+      <a href="service-installation.html" class="service-photo-card reveal reveal-delay-1">
+        <img src="images/work2.jpg" alt="冷氣安裝工程" />
         <div class="service-photo-card-overlay"></div>
         <div class="service-photo-card-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="9" rx="2"/><path d="M12 16v3M8 19h8M6 11h.01M10 11h.01M14 11h.01"/></svg>
         </div>
         <div class="service-badge">
           <svg viewBox="0 0 112 112" width="112" height="112">
@@ -1023,8 +1023,8 @@
           <div class="service-badge-center">↗</div>
         </div>
         <div class="service-photo-card-body">
-          <div class="service-photo-card-title">清洗保養服務</div>
-          <div class="service-photo-card-desc">深層清洗蒸發器與冷凝器，全程防水套包覆，洗完乾淨超涼，完工後整理現場。</div>
+          <div class="service-photo-card-title">冷氣安裝工程</div>
+          <div class="service-photo-card-desc">住宅、商辦、廠房各類冷氣系統規劃安裝，管線走向整齊美觀，一年施工保固。</div>
         </div>
       </a>
       <!-- Card 3 -->
@@ -1566,7 +1566,7 @@
   /* ── Service photo card hover expand + tilt ── */
   const servicesGrid = document.querySelector('.services-photo-grid');
   const serviceCards = document.querySelectorAll('.service-photo-card');
-  const defaultCard = serviceCards[1];
+  const defaultCard = serviceCards[0];
 
   serviceCards.forEach(card => {
     card.addEventListener('mouseenter', () => {
