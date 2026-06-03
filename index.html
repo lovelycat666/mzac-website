@@ -984,7 +984,7 @@
       <h2 class="services-header-title reveal">全方位空調<br>工程服務</h2>
       <p class="services-header-body reveal reveal-delay-1">無論是家用分離式、商用中央空調或工業冷凍空調，我們都有完整解決方案。專業技師團隊，從規劃到完工一手包辦，安心省事。</p>
     </div>
-    <div class="services-photo-grid">
+    <div class="services-photo-grid has-hover">
       <!-- Card 1 -->
       <a href="service-installation.html" class="service-photo-card reveal">
         <img src="images/work2.jpg" alt="冷氣安裝工程" />
@@ -1007,7 +1007,7 @@
         </div>
       </a>
       <!-- Card 2 -->
-      <a href="service-cleaning.html" class="service-photo-card reveal reveal-delay-1">
+      <a href="service-cleaning.html" class="service-photo-card is-hovered reveal reveal-delay-1">
         <img src="images/ba5.jpg" alt="清洗保養服務" />
         <div class="service-photo-card-overlay"></div>
         <div class="service-photo-card-icon">
@@ -1566,11 +1566,12 @@
   /* ── Service photo card hover expand + tilt ── */
   const servicesGrid = document.querySelector('.services-photo-grid');
   const serviceCards = document.querySelectorAll('.service-photo-card');
+  const defaultCard = serviceCards[1];
+
   serviceCards.forEach(card => {
     card.addEventListener('mouseenter', () => {
       serviceCards.forEach(c => c.classList.remove('is-hovered'));
       card.classList.add('is-hovered');
-      servicesGrid.classList.add('has-hover');
     });
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
@@ -1579,10 +1580,13 @@
       card.style.transform = `rotateX(${-y * 2.5}deg) rotateY(${x * 2.5}deg)`;
     });
     card.addEventListener('mouseleave', () => {
-      card.classList.remove('is-hovered');
-      servicesGrid.classList.remove('has-hover');
       card.style.transform = '';
     });
+  });
+
+  servicesGrid.addEventListener('mouseleave', () => {
+    serviceCards.forEach(c => c.classList.remove('is-hovered'));
+    defaultCard.classList.add('is-hovered');
   });
 
   /* ── Process tabs ── */
