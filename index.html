@@ -1008,7 +1008,7 @@
 </section>
 
 <!-- ── Stats Bar ── -->
-<div class="stats-bar section-light" id="stats-bar">
+<div class="stats-bar section-light is-dark" id="stats-bar">
   <div class="stats-inner">
     <div class="stat-item reveal"><div class="stat-number" data-target="20" data-suffix="+">20+</div><div class="stat-label">年業界經驗</div></div>
     <div class="stat-item reveal reveal-delay-1"><div class="stat-number" data-target="3000" data-suffix="+">3,000+</div><div class="stat-label">完工工程案</div></div>
@@ -1018,7 +1018,7 @@
 </div>
 
 <!-- ── Services ── -->
-<section id="services" class="section-light">
+<section id="services" class="section-light is-dark">
   <div class="section-inner">
     <div class="services-header">
       <h2 class="services-header-title reveal">全方位空調工程服務</h2>
@@ -1093,7 +1093,7 @@
 </section>
 
 <!-- ── Why Us ── -->
-<section id="why" class="section-light">
+<section id="why" class="section-light is-dark">
   <div class="section-inner">
     <div class="why-grid">
       <!-- Left: photo -->
@@ -1166,7 +1166,7 @@
 </section>
 
 <!-- ── Before & After ── -->
-<section id="before-after" class="section-light">
+<section id="before-after" class="section-light is-dark">
   <div class="section-inner">
     <div class="ba-header">
       <span class="section-tag reveal">清洗實績</span>
@@ -1185,7 +1185,7 @@
 </section>
 
 <!-- ── Portfolio ── -->
-<section id="portfolio" class="section-light">
+<section id="portfolio" class="section-light is-dark">
   <div class="section-inner">
     <div class="portfolio-header">
       <span class="section-tag reveal">施工實績</span>
@@ -1209,7 +1209,7 @@
 </section>
 
 <!-- ── Process — Tab switching ── -->
-<section id="process" class="section-light">
+<section id="process" class="section-light is-dark">
   <div class="section-inner">
     <div class="process-header">
       <span class="section-tag reveal">服務流程</span>
@@ -1330,7 +1330,7 @@
 </section>
 
 <!-- ── Brands ── -->
-<section id="brands" class="section-light">
+<section id="brands" class="section-light is-dark">
   <div class="section-inner">
     <div class="brands-header">
       <span class="section-tag reveal">合作品牌</span>
@@ -1351,7 +1351,7 @@
 </section>
 
 <!-- ── Pricing ── -->
-<section id="pricing" class="section-light">
+<section id="pricing" class="section-light is-dark">
   <div class="section-inner">
     <div class="pricing-header">
       <span class="section-tag reveal">收費標準</span>
@@ -1377,7 +1377,7 @@
 </section>
 
 <!-- ── FAQ ── -->
-<section id="faq" class="section-light">
+<section id="faq" class="section-light is-dark">
   <div class="section-inner">
     <div class="faq-header">
       <span class="section-tag reveal">常見問題</span>
@@ -1568,13 +1568,15 @@
     scrollTrigger: { start: 'top -10', end: 'top -160', scrub: 0.45 },
   });
 
-  /* ── Section light → dark transitions ── */
-  document.querySelectorAll('.section-light').forEach(section => {
+  /* ── Section dark → light transitions (alternating: stats-bar, why, portfolio, brands, faq) ── */
+  ['stats-bar', 'why', 'portfolio', 'brands', 'faq'].forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
     ScrollTrigger.create({
       trigger: section,
       start: 'top 55%',
-      onEnter: () => section.classList.add('is-dark'),
-      onLeaveBack: () => section.classList.remove('is-dark'),
+      onEnter:     () => section.classList.remove('is-dark'),
+      onLeaveBack: () => section.classList.add('is-dark'),
     });
   });
 
