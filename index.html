@@ -215,8 +215,8 @@
       62%, 100% { background-position: -60% center; }
     }
     .hero-title .tagline {
-      display: block; font-family: 'Noto Sans TC', sans-serif;
-      font-size: .52em; font-weight: 700; letter-spacing: .06em; margin-top: 8px;
+      display: block; font-family: 'Noto Serif TC', serif;
+      font-size: .42em; font-weight: 400; letter-spacing: .14em; margin-top: 12px;
       color: var(--ice-400); -webkit-text-fill-color: var(--ice-400);
       background: none;
     }
@@ -1640,7 +1640,7 @@
 <section id="cta">
   <div class="cta-inner">
     <div class="cta-eyebrow reveal">免費到府估價</div>
-    <h2 class="cta-title reveal reveal-delay-1">現在聯絡，享有<br>免費到府估價</h2>
+    <h2 class="cta-title reveal reveal-delay-1">現在聯絡<br>免費到府估價</h2>
     <p class="cta-subtitle reveal reveal-delay-2">LINE 加好友、或直接來電，我們一個工作日內回覆。</p>
     <div class="cta-buttons reveal reveal-delay-3">
       <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="btn-volt-line">
@@ -2013,8 +2013,7 @@
   var ctaTitle = document.querySelector('.cta-title');
   if (ctaTitle) {
     ctaTitle.innerHTML =
-      '<span class="cta-w">現在聯絡，</span>' +
-      '<span class="cta-w">享有</span><br>' +
+      '<span class="cta-w">現在聯絡</span><br>' +
       '<span class="cta-w">免費到府估價</span>';
     document.querySelectorAll('.cta-w').forEach(function (el) {
       el.style.display = 'inline-block';
