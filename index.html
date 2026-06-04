@@ -2032,6 +2032,39 @@
     }, { threshold: 0.4 }).observe(ctaTitle);
   }
 
+  /* ── 5. Process tabs stagger 入場 + 初始面板淡入 ── */
+  var processTabs = document.querySelector('.process-tabs');
+  if (processTabs) {
+    document.querySelectorAll('.process-tab').forEach(function (el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+    });
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      anime({
+        targets: '.process-tab',
+        opacity: [0, 1], translateY: [18, 0],
+        duration: 480, delay: anime.stagger(90), easing: 'easeOutExpo',
+        complete: function () {
+          document.querySelectorAll('.process-tab').forEach(function (el) {
+            el.style.opacity = ''; el.style.transform = '';
+          });
+          var firstPanel = document.querySelector('.process-panel.is-active');
+          if (firstPanel) {
+            firstPanel.style.opacity = '0';
+            firstPanel.style.transform = 'translateY(14px)';
+            anime({
+              targets: firstPanel, opacity: [0, 1], translateY: [14, 0],
+              duration: 420, easing: 'easeOutExpo',
+              complete: function () { firstPanel.style.opacity = ''; firstPanel.style.transform = ''; },
+            });
+          }
+        },
+      });
+    }, { threshold: 0.25 }).observe(processTabs);
+  }
+
   /* ── 4. Footer 頂線 draw 動畫 ── */
   var footerLine = document.querySelector('.footer-border-line');
   if (footerLine) {
