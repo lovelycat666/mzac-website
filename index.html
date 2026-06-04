@@ -2024,12 +2024,13 @@
     new IntersectionObserver(function (entries, obs) {
       if (!entries[0].isIntersecting) return;
       obs.disconnect();
+      anime({ targets: ctaTitle, opacity: [0, 1], translateY: [28, 0], duration: 600, easing: 'easeOutExpo' });
       anime({
         targets: '.cta-w',
         opacity: [0, 1], translateY: [18, 0],
-        duration: 700, delay: anime.stagger(160, { start: 400 }), easing: 'easeOutExpo',
+        duration: 700, delay: anime.stagger(160, { start: 300 }), easing: 'easeOutExpo',
       });
-    }, { threshold: 0.6 }).observe(ctaTitle);
+    }, { threshold: 0.4 }).observe(ctaTitle);
   }
 
   /* ── 4. Footer 頂線 draw 動畫 ── */
