@@ -918,10 +918,11 @@
       border-top: 1px solid transparent;
       padding: 56px 5vw 40px;
     }
-    footer::before {
-      content: '';
+    footer::before { content: none; }
+    .footer-border-line {
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(79,195,247,.3) 30%, rgba(79,195,247,.55) 50%, rgba(79,195,247,.3) 70%, transparent 100%);
+      transform-origin: center;
     }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 48px; margin-bottom: 48px; }
@@ -1654,6 +1655,7 @@
 
 <!-- ── Footer ── -->
 <footer>
+  <div class="footer-border-line"></div>
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
@@ -1701,6 +1703,7 @@
 <!-- ── Floating LINE pill ── -->
 <a href="https://line.me/R/ti/p/@559tescn" target="_blank" class="line-float" title="LINE 加好友諮詢">LINE</a>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
@@ -1710,7 +1713,7 @@
   const loader = document.getElementById('page-loader');
 
   /* ── Hero — set invisible before first paint ── */
-  gsap.set(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-buttons'], { opacity: 0, y: 36, filter: 'blur(6px)' });
+  gsap.set(['.hero-badge', '.hero-subtitle', '.hero-buttons'], { opacity: 0, y: 36, filter: 'blur(6px)' });
   gsap.set('.hero-right', { opacity: 0, x: 28, filter: 'blur(6px)' });
   gsap.set('.hero-marquee-strip', { opacity: 0, y: 16 });
 
@@ -1718,7 +1721,7 @@
     setTimeout(() => {
       loader.classList.add('hidden');
 
-      gsap.to(['.hero-badge', '.hero-title', '.hero-subtitle', '.hero-buttons'], {
+      gsap.to(['.hero-badge', '.hero-subtitle', '.hero-buttons'], {
         opacity: 1, y: 0, filter: 'blur(0px)',
         duration: 1.05, stagger: 0.1, ease: 'power3.out',
         clearProps: 'filter', delay: 0.1,
@@ -1749,6 +1752,7 @@
       }, { rootMargin: '0px 0px -50px 0px', threshold: 0 });
 
       document.querySelectorAll('.reveal').forEach(el => {
+        if (el.classList.contains('cta-title')) return;
         if (el.getBoundingClientRect().bottom < 0) {
           gsap.set(el, { opacity: 1, y: 0 });
         } else {
@@ -1787,20 +1791,23 @@
     });
   });
 
-  /* ── Count up stats ── */
+  /* ── Count up stats (anime.js) ── */
   function countUp(el) {
     const target = +el.dataset.target;
     const suffix = el.dataset.suffix || '';
     if (!target) return;
-    let start; const dur = 1800;
-    const step = (ts) => {
-      if (!start) start = ts;
-      const prog = Math.min((ts - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - prog, 3);
-      el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
-      if (prog < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    const obj = { val: 0 };
+    anime({
+      targets: obj,
+      val: target,
+      duration: 1800,
+      easing: 'easeOutCubic',
+      update: () => { el.textContent = Math.floor(obj.val).toLocaleString() + suffix; },
+      complete: () => {
+        el.textContent = target.toLocaleString() + suffix;
+        anime({ targets: el, scale: [1, 1.07, 1], duration: 400, easing: 'easeOutElastic(1, .5)' });
+      },
+    });
   }
   const statsObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1850,16 +1857,38 @@
     defaultCard.classList.add('is-hovered');
   });
 
-  /* ── Process tabs ── */
+  /* ── Process tabs — anime.js crossfade ── */
   const tabs = document.querySelectorAll('.process-tab');
   const panels = document.querySelectorAll('.process-panel');
+  const rmTabs = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const idx = tab.dataset.tab;
+      const cur = document.querySelector('.process-panel.is-active');
+      const nxt = document.querySelector(`.process-panel[data-panel="${idx}"]`);
+      if (!nxt || nxt === cur) return;
       tabs.forEach(t => t.classList.remove('is-active'));
-      panels.forEach(p => p.classList.remove('is-active'));
       tab.classList.add('is-active');
-      document.querySelector(`.process-panel[data-panel="${idx}"]`).classList.add('is-active');
+      if (rmTabs || !cur) {
+        panels.forEach(p => p.classList.remove('is-active'));
+        nxt.classList.add('is-active');
+        return;
+      }
+      anime({
+        targets: cur, opacity: [1, 0], translateY: [0, -10],
+        duration: 160, easing: 'easeInQuad',
+        complete: () => {
+          panels.forEach(p => { p.classList.remove('is-active'); p.style.opacity = ''; p.style.transform = ''; });
+          nxt.classList.add('is-active');
+          nxt.style.opacity = '0';
+          nxt.style.transform = 'translateY(10px)';
+          anime({
+            targets: nxt, opacity: [0, 1], translateY: [10, 0],
+            duration: 340, easing: 'easeOutExpo',
+            complete: () => { nxt.style.opacity = ''; nxt.style.transform = ''; },
+          });
+        },
+      });
     });
   });
 
@@ -1927,6 +1956,93 @@
       });
     });
   }
+</script>
+
+<script>
+(function () {
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Hero title: hide children before first paint ── */
+  var brandName = document.querySelector('.hero-title .brand-name');
+  var taglineEl  = document.querySelector('.hero-title .tagline');
+  if (brandName) brandName.style.opacity = '0';
+  if (taglineEl)  taglineEl.style.opacity  = '0';
+
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      if (rm) {
+        if (brandName) brandName.style.opacity = '';
+        if (taglineEl)  taglineEl.style.opacity  = '';
+        return;
+      }
+      /* ── 1. Hero brand-name → tagline 依序展開 ── */
+      anime.timeline({ easing: 'easeOutExpo' })
+        .add({ targets: '.hero-title .brand-name', opacity: [0, 1], translateY: [28, 0], duration: 900, delay: 200 })
+        .add({ targets: '.hero-title .tagline',    opacity: [0, 1], translateY: [14, 0], duration: 650 }, '-=360');
+    }, 800);
+  });
+
+  if (rm) return;
+
+  /* ── 2. Why-features stagger 左滑入 ── */
+  document.querySelectorAll('.why-feature').forEach(function (el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-22px)';
+    el.style.transition = 'border-color .3s, background .3s';
+  });
+  var whyList = document.querySelector('.why-feature-list');
+  if (whyList) {
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      anime({
+        targets: '.why-feature',
+        opacity: [0, 1], translateX: [-22, 0],
+        duration: 580, delay: anime.stagger(110), easing: 'easeOutExpo',
+        complete: function () {
+          document.querySelectorAll('.why-feature').forEach(function (el) {
+            el.style.transform = '';
+            el.style.transition = '';
+          });
+        },
+      });
+    }, { threshold: 0.2 }).observe(whyList);
+  }
+
+  /* ── 3. CTA 標題 word-by-word 展開 ── */
+  var ctaTitle = document.querySelector('.cta-title');
+  if (ctaTitle) {
+    ctaTitle.innerHTML =
+      '<span class="cta-w">現在聯絡，</span>' +
+      '<span class="cta-w">享有</span><br>' +
+      '<span class="cta-w">免費到府估價</span>';
+    document.querySelectorAll('.cta-w').forEach(function (el) {
+      el.style.display = 'inline-block';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+    });
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      anime({
+        targets: '.cta-w',
+        opacity: [0, 1], translateY: [18, 0],
+        duration: 700, delay: anime.stagger(160, { start: 400 }), easing: 'easeOutExpo',
+      });
+    }, { threshold: 0.6 }).observe(ctaTitle);
+  }
+
+  /* ── 4. Footer 頂線 draw 動畫 ── */
+  var footerLine = document.querySelector('.footer-border-line');
+  if (footerLine) {
+    footerLine.style.transform = 'scaleX(0)';
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      anime({ targets: footerLine, scaleX: [0, 1], duration: 900, easing: 'easeOutExpo' });
+    }, { threshold: 0.1 }).observe(footerLine);
+  }
+})();
 </script>
 </body>
 </html>
